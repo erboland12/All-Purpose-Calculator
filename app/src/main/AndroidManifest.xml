@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TrigActivity"></activity>
+        <activity
+            android:name=".PhysicsActivity"
+            android:label="@string/title_activity_physics"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".TrigActivity" />
         <activity android:name=".OperationsActivity" />
         <activity android:name=".MiscellaneousActivity" />
         <activity android:name=".CalculatorActivity" />

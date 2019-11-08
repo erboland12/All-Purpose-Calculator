@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
     Button calculatorBtn;
     Button miscBtn;
     Button trigBtn;
+    Button physBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 m.moveActivity(MainActivity.this, TrigActivity.class);
+            }
+        });
+
+        physBtn = findViewById(R.id.physBtn);
+        physBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                m.moveActivity(MainActivity.this, PhysicsActivity.class);
             }
         });
 

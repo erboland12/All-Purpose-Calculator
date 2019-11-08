@@ -3,6 +3,7 @@ package com.example.calculator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -24,11 +25,36 @@ public class OperationsActivity extends AppCompatActivity {
     private Button enterBtn;
     private Spinner rads;
 
+    //Physics operations front-end
+    private TextView mPhysTitle1;
+    private TextView mPhysTitle2;
+    private TextView mPhysTitle3;
+    private EditText mPhsySub1;
+    private EditText mPhysSub2;
+    private EditText mPhysSub3;
+    private Spinner mPhysUnits1;
+    private Spinner mPhysUnits2;
+    private Spinner mPhysUnits3;
+
+    //Unicode declerations
+    public static final String DELTA = "\u0394";
+    public static final String OMEGA = "\u03c9";
+
     private static double radToDegrees = 57.295779513;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(opTitle == "Modulo"){
+
+        String centA = "Centripetal Acceleration (v2/r)";
+        centA = superscript(centA);
+        String centA2 = "Centripetal Acceleration (" + OMEGA + "2/r)";
+        centA2 = superscript(centA2);
+
+        if(opTitle == "Force (F = ma)" || opTitle == "Weight (W = mg)" || opTitle == "Velocity (" + DELTA + "v/" + DELTA + "t)" ||
+            opTitle == "Momentum (p = mv)" || opTitle == centA || opTitle == centA2 || opTitle == "Impulse (" + DELTA + "p = F" + DELTA + "t)"){
+            setContentView(R.layout.physics_layout);
+        }
+        else if(opTitle == "Modulo"){
             setContentView(R.layout.mod_layout);
         }
         else if(opTitle == "Arccos" || opTitle == "Arcsin" || opTitle == "Arctan"){
@@ -43,6 +69,17 @@ public class OperationsActivity extends AppCompatActivity {
         mSubmit = findViewById(R.id.ops_page_submit);
         mSubmit2 = findViewById(R.id.ops_page_submit2);
         rads = findViewById(R.id.rads_or_degrees);
+
+        mPhysTitle1 = findViewById(R.id.ops_page_sub_title_1);
+        mPhysTitle2 = findViewById(R.id.ops_page_sub_title_2);
+        mPhysTitle3 = findViewById(R.id.ops_page_sub_title_3);
+        mPhsySub1 = findViewById(R.id.ops_page_sub1);
+        mPhysSub2 = findViewById(R.id.ops_page_sub2);
+        mPhysSub3 = findViewById(R.id.ops_page_sub3);
+        mPhysUnits1 = findViewById(R.id.ops_page_units);
+        mPhysUnits2 = findViewById(R.id.ops_page_units2);
+        mPhysUnits3 = findViewById(R.id.ops_page_units3);
+
         mTitle.setText(opTitle);
 
         //Link resources to front end view
@@ -186,19 +223,32 @@ public class OperationsActivity extends AppCompatActivity {
         });
     }
 
-    private void setTrigOps(){
-        enterBtn = findViewById(R.id.ops_page_enter_btn);
-        enterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    private void setPhysicsOps(){
+        if(mTitle.getText().toString() == "Force (F = ma)"){
+            mPhysTitle1.setText("Mass");
 
-            }
-        });
+        }
     }
+
+
     private void checkForTrigOps(){
         if(mTitle.getText().toString() == "Cosine" || mTitle.getText().toString() == "Sine" || mTitle.getText().toString() == "Tangent"
         || mTitle.getText().toString() == "Arccos" || mTitle.getText().toString() == "Arcsin" || mTitle.getText().toString() == "Arctan"){
             rads.setVisibility(View.VISIBLE);
         }
+    }
+
+    public static String superscript(String str) {
+        str = str.replaceAll("0", "⁰");
+        str = str.replaceAll("1", "¹");
+        str = str.replaceAll("2", "²");
+        str = str.replaceAll("3", "³");
+        str = str.replaceAll("4", "⁴");
+        str = str.replaceAll("5", "⁵");
+        str = str.replaceAll("6", "⁶");
+        str = str.replaceAll("7", "⁷");
+        str = str.replaceAll("8", "⁸");
+        str = str.replaceAll("9", "⁹");
+        return str;
     }
 }
