@@ -23,12 +23,18 @@ public class OperationsActivity extends AppCompatActivity {
     private EditText mSubmit2;
     private Button enterBtn;
     private Spinner rads;
+
+    private static double radToDegrees = 57.295779513;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(opTitle == "Modulo"){
             setContentView(R.layout.mod_layout);
-        } else{
+        }
+        else if(opTitle == "Arccos" || opTitle == "Arcsin" || opTitle == "Arctan"){
+            setContentView(R.layout.arc_layout);
+        }
+        else{
             setContentView(R.layout.activity_operations);
         }
         mTitle = findViewById(R.id.ops_page_title);
@@ -126,6 +132,56 @@ public class OperationsActivity extends AppCompatActivity {
                         mResult.setText(calc.tan(finalResult));
                     }
                 }
+
+                if (opTitle == "Arccos") {
+                    String type = rads.getSelectedItem().toString();
+                    if (type == "Radians") {
+                        Calculator calc = new Calculator();
+                        double result = Double.parseDouble(mSubmit.getText().toString());
+                        double result2 = Double.parseDouble(mSubmit2.getText().toString());
+                        mResult.setText(calc.arccos(result, result2));
+                    }else{
+                        double result = Double.parseDouble(mSubmit.getText().toString());
+                        double result2 = Double.parseDouble(mSubmit2.getText().toString());
+                        result = Math.toRadians(result);
+                        result2 = Math.toRadians(result2);
+                        double res = (result/result2);
+                        mResult.setText(Double.toString(Math.acos(res) * radToDegrees));
+                    }
+                }
+                if (opTitle == "Arcsin") {
+                    String type = rads.getSelectedItem().toString();
+                    if (type == "Radians") {
+                        Calculator calc = new Calculator();
+                        double result = Double.parseDouble(mSubmit.getText().toString());
+                        double result2 = Double.parseDouble(mSubmit2.getText().toString());
+                        mResult.setText(calc.arcsin(result, result2));
+                    }else{
+                        double result = Double.parseDouble(mSubmit.getText().toString());
+                        double result2 = Double.parseDouble(mSubmit2.getText().toString());
+                        result = Math.toRadians(result);
+                        result2 = Math.toRadians(result2);
+                        double res = (result/result2);
+                        mResult.setText(Double.toString(Math.asin(res) * radToDegrees));
+                    }
+                }
+                if (opTitle == "Arctan") {
+                    String type = rads.getSelectedItem().toString();
+                    if (type == "Radians") {
+                        Calculator calc = new Calculator();
+                        double result = Double.parseDouble(mSubmit.getText().toString());
+                        double result2 = Double.parseDouble(mSubmit2.getText().toString());
+                        mResult.setText(calc.arctan(result, result2));
+                    }else{
+                        double result = Double.parseDouble(mSubmit.getText().toString());
+                        double result2 = Double.parseDouble(mSubmit2.getText().toString());
+                        result = Math.toRadians(result);
+                        result2 = Math.toRadians(result2);
+                        double res = (result/result2);
+                        mResult.setText(Double.toString(Math.atan(res) * radToDegrees));
+                    }
+                }
+
             }
         });
     }

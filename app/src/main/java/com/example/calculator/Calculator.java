@@ -94,6 +94,10 @@ public class Calculator {
         return Double.toString(Math.atan(x1/x2));
     }
 
+    public String arctanDegrees(double x){
+        return Double.toString(Math.atan(x));
+    }
+
     public String returnFloat(float x){
         return df.format(x);
     }
