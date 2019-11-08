@@ -20,21 +20,22 @@ public class OperationsActivity extends AppCompatActivity {
     private TextView mError;
     private EditText mResult;
     private EditText mSubmit;
+    private EditText mSubmit2;
     private Button enterBtn;
     private Spinner rads;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         if(opTitle == "Modulo"){
-            super.onCreate(savedInstanceState);
             setContentView(R.layout.mod_layout);
         } else{
-            super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_operations);
         }
         mTitle = findViewById(R.id.ops_page_title);
         mError = findViewById(R.id.ops_page_error);
         mResult = findViewById(R.id.ops_page_result);
         mSubmit = findViewById(R.id.ops_page_submit);
+        mSubmit2 = findViewById(R.id.ops_page_submit2);
         rads = findViewById(R.id.rads_or_degrees);
         mTitle.setText(opTitle);
 
@@ -46,11 +47,11 @@ public class OperationsActivity extends AppCompatActivity {
         rads.setAdapter(adapter);
 
         //Shows degree or radians spinner if trig operation
+
         checkForTrigOps();
 
         //Determines operation based on title
         setOperation();
-        setTrigOps();
     }
 
     private void setOperation(){
@@ -73,22 +74,16 @@ public class OperationsActivity extends AppCompatActivity {
                     if(opTitle == "Modulo"){
                         Calculator calc = new Calculator();
                         int result = Integer.parseInt(mSubmit.getText().toString());
-                        mResult.setText(calc.mod(result, 0));
+                        int result2 = Integer.parseInt(mSubmit2.getText().toString());
+                        mResult.setText(calc.mod(result, result2));
                     }
 
                     mError.setVisibility(View.INVISIBLE);
-                } else{
+                } else if (!(mTitle.getText().toString() == "Cosine" || mTitle.getText().toString() == "Sine" || mTitle.getText().toString() == "Tangent"
+                        || mTitle.getText().toString() == "Arccos" || mTitle.getText().toString() == "Arcsin" || mTitle.getText().toString() == "Arctan")){
                     mError.setVisibility(View.VISIBLE);
                 }
-            }
-        });
-    }
 
-    private void setTrigOps(){
-        enterBtn = findViewById(R.id.ops_page_enter_btn);
-        enterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
                 if (opTitle == "Cosine") {
                     String type = rads.getSelectedItem().toString();
                     if (type == "Radians") {
@@ -131,6 +126,16 @@ public class OperationsActivity extends AppCompatActivity {
                         mResult.setText(calc.tan(finalResult));
                     }
                 }
+            }
+        });
+    }
+
+    private void setTrigOps(){
+        enterBtn = findViewById(R.id.ops_page_enter_btn);
+        enterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
     }

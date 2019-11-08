@@ -61,7 +61,6 @@ public class Calculator {
     }
 
     public String mod(int mod1, int mod2){
-        mod2 = 5;
         return Integer.toString(mod1 % mod2);
     }
 
@@ -81,6 +80,18 @@ public class Calculator {
         double newTheta = (float) Math.tan(theta);
         String result = Double.toString(newTheta);
         return result;
+    }
+
+    public String arccos(double x1, double x2){
+        return Double.toString(Math.acos(x1/x2));
+    }
+
+    public String arcsin(double x1, double x2){
+        return Double.toString(Math.asin(x1/x2));
+    }
+
+    public String arctan(double x1, double x2){
+        return Double.toString(Math.atan(x1/x2));
     }
 
     public String returnFloat(float x){
