@@ -54,6 +54,35 @@ public class Calculator {
         }
     }
 
+    public String squareRoot(float x){
+        double newX = (float) Math.sqrt(x);
+        String result = Double.toString(newX);
+        return result;
+    }
+
+    public String mod(int mod1, int mod2){
+        mod2 = 5;
+        return Integer.toString(mod1 % mod2);
+    }
+
+    public String cosine(float theta){
+        double newTheta = (float) Math.cos(theta);
+        String result = Double.toString(newTheta);
+        return result;
+    }
+
+    public String sine(float theta){
+        double newTheta = (float) Math.sin(theta);
+        String result = Double.toString(newTheta);
+        return result;
+    }
+
+    public String tan(float theta){
+        double newTheta = (float) Math.tan(theta);
+        String result = Double.toString(newTheta);
+        return result;
+    }
+
     public String returnFloat(float x){
         return df.format(x);
     }

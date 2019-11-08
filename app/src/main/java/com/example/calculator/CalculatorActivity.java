@@ -3,6 +3,8 @@ package com.example.calculator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,6 +40,7 @@ public class CalculatorActivity extends AppCompatActivity {
     Button parensBtn;
     Button expBtn;
     Button equalsBtn;
+    Button backBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +55,32 @@ public class CalculatorActivity extends AppCompatActivity {
         //Inputs characters into result string
         linkButtonsForAppend();
 
+        resultShow.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(resultShow.getText().toString().contains("+") ||
+                        resultShow.getText().toString().contains("-") ||
+                        resultShow.getText().toString().contains("*") ||
+                        resultShow.getText().toString().contains("/") ||
+                        resultShow.getText().toString().contains("^")){
+                    plusBtn.setEnabled(false);
+                    minusBtn.setEnabled(false);
+                    divBtn.setEnabled(false);
+                    timesBtn.setEnabled(false);
+                    expBtn.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     private void linkButtonsForAppend(){
@@ -196,7 +225,7 @@ public class CalculatorActivity extends AppCompatActivity {
         parensBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                resultShow.append("()");
+                resultShow.append("√¯¯");
             }
         });
 
@@ -208,6 +237,20 @@ public class CalculatorActivity extends AppCompatActivity {
             }
         });
 
+        backBtn = findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if(resultShow.getText().toString().length() <= 0){
+                    resultShow.setText("");
+                } else{
+                    String edit = resultShow.getText().toString();
+                    String finalEdit = edit.substring(0, edit.length() - 1);
+                    resultShow.setText(finalEdit);
+                }
+
+            }
+        });
         equalsBtn = findViewById(R.id.calcEquals);
         equalsBtn.setOnClickListener(new View.OnClickListener() {
             Calculator calc = new Calculator();
@@ -248,9 +291,19 @@ public class CalculatorActivity extends AppCompatActivity {
                     y = Float.parseFloat(scanner.next());
                     resultShow.setText(calc.exponent(x, y));
                 }
+                if(resultShow.getText().toString().contains("√¯¯")){
+                    Scanner scanner = new Scanner(resultShow.getText().toString());
+                    scanner.useDelimiter("\\√¯¯");
+                    x = Float.parseFloat(scanner.next());
+                    resultShow.setText(calc.squareRoot(x));
+                }
+                plusBtn.setEnabled(true);
+                minusBtn.setEnabled(true);
+                divBtn.setEnabled(true);
+                timesBtn.setEnabled(true);
+                expBtn.setEnabled(true);
             }
+
         });
-
-
     }
 }
