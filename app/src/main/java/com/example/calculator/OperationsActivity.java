@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,15 @@ public class OperationsActivity extends AppCompatActivity {
     private Spinner mPhysUnits1;
     private Spinner mPhysUnits2;
     private Spinner mPhysUnits3;
+
+    private LinearLayout linearLayout3;
+
+    //Spinner arrays
+    ArrayAdapter<String> adapter;
+    private String[] massItems = {"mg", "g", "Kg"};
+    private String[] lengthItems = {"mm", "cm", "m", "km"};
+    private String[] velocityItems = {"ms", "s", "mins", "hrs"};
+    private String[] accelerationItems = {"m/s^2", "km/s^2"};
 
     //Unicode declerations
     public static final String DELTA = "\u0394";
@@ -79,6 +89,7 @@ public class OperationsActivity extends AppCompatActivity {
         mPhysUnits1 = findViewById(R.id.ops_page_units);
         mPhysUnits2 = findViewById(R.id.ops_page_units2);
         mPhysUnits3 = findViewById(R.id.ops_page_units3);
+        linearLayout3 = findViewById(R.id.linearLayout3);
 
         mTitle.setText(opTitle);
 
@@ -86,7 +97,7 @@ public class OperationsActivity extends AppCompatActivity {
 
         String[] items = new String[]{"Degrees", "Radians"};
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         rads.setAdapter(adapter);
 
         //Shows degree or radians spinner if trig operation
@@ -94,7 +105,55 @@ public class OperationsActivity extends AppCompatActivity {
         checkForTrigOps();
 
         //Determines operation based on title
+        setPhysicsOps();
         setOperation();
+        checkPhys();
+
+    }
+
+    private void setPhysicsOps(){
+        if(mTitle.getText().toString() == "Force (F = ma)"){
+            mPhysTitle1.setText("Mass");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            mPhysUnits1.setAdapter(adapter);
+            mPhysUnits1.setSelection(2);
+
+            mPhysTitle2.setText("Acceleration");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, accelerationItems);
+            mPhysUnits2.setAdapter(adapter);
+
+            linearLayout3.setVisibility(View.GONE);
+
+        }
+    }
+
+    private void checkPhys(){
+        enterBtn = findViewById(R.id.ops_page_enter_btn);
+        enterBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if(opTitle == "Force (F = ma)"){
+                    float result1 = Float.parseFloat(mPhsySub1.getText().toString());
+                    float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                    //Conversion based on units
+                    float finalResult = result1 * result2;
+                    if(mPhysUnits1.getSelectedItem().toString() == "mg") {
+                        finalResult /= 1000;
+                    }
+
+                    if(mPhysUnits1.getSelectedItem().toString() == "Kg"){
+                        finalResult *= 1000;
+                    }
+
+                    if(mPhysUnits2.getSelectedItem().toString() == "m/s^2"){
+                        finalResult /= 1000;
+                    }
+
+                    mResult.setText(finalResult + "N");
+                }
+            }
+        });
+
     }
 
     private void setOperation(){
@@ -218,18 +277,9 @@ public class OperationsActivity extends AppCompatActivity {
                         mResult.setText(Double.toString(Math.atan(res) * radToDegrees));
                     }
                 }
-
             }
         });
     }
-
-    private void setPhysicsOps(){
-        if(mTitle.getText().toString() == "Force (F = ma)"){
-            mPhysTitle1.setText("Mass");
-
-        }
-    }
-
 
     private void checkForTrigOps(){
         if(mTitle.getText().toString() == "Cosine" || mTitle.getText().toString() == "Sine" || mTitle.getText().toString() == "Tangent"
