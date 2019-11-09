@@ -43,12 +43,18 @@ public class OperationsActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     private String[] massItems = {"mg", "g", "Kg"};
     private String[] lengthItems = {"mm", "cm", "m", "km"};
-    private String[] velocityItems = {"ms", "s", "mins", "hrs"};
+    private String[] timeItems = {"ms", "s", "mins", "hrs"};
+    private String[] velocityItems = {"mm/s", "m/s", "km/s"};
     private String[] accelerationItems = {"m/s^2", "km/s^2"};
+    private String[] gravity = {"m/s^2"};
+    private String[] forceItems = {"N"};
 
     //Unicode declerations
     public static final String DELTA = "\u0394";
     public static final String OMEGA = "\u03c9";
+
+    private boolean isOp = false;
+    private boolean isPhys = false;
 
     private static double radToDegrees = 57.295779513;
     @Override
@@ -60,18 +66,22 @@ public class OperationsActivity extends AppCompatActivity {
         String centA2 = "Centripetal Acceleration (" + OMEGA + "2/r)";
         centA2 = superscript(centA2);
 
-        if(opTitle == "Force (F = ma)" || opTitle == "Weight (W = mg)" || opTitle == "Velocity (" + DELTA + "v/" + DELTA + "t)" ||
+        if(opTitle == "Force (F = ma)" || opTitle == "Weight (W = mg)" || opTitle == "Acceleration (" + DELTA + "v/" + DELTA + "t)" ||
             opTitle == "Momentum (p = mv)" || opTitle == centA || opTitle == centA2 || opTitle == "Impulse (" + DELTA + "p = F" + DELTA + "t)"){
             setContentView(R.layout.physics_layout);
+            isPhys = true;
         }
         else if(opTitle == "Modulo"){
             setContentView(R.layout.mod_layout);
+            isOp = true;
         }
         else if(opTitle == "Arccos" || opTitle == "Arcsin" || opTitle == "Arctan"){
             setContentView(R.layout.arc_layout);
+            isOp = true;
         }
         else{
             setContentView(R.layout.activity_operations);
+            isOp = true;
         }
         mTitle = findViewById(R.id.ops_page_title);
         mError = findViewById(R.id.ops_page_error);
@@ -105,10 +115,13 @@ public class OperationsActivity extends AppCompatActivity {
         checkForTrigOps();
 
         //Determines operation based on title
-        setPhysicsOps();
-        setOperation();
-        checkPhys();
-
+        if (isPhys) {
+            checkPhys();
+            setPhysicsOps();
+        }
+        if (isOp){
+            setOperation();
+        }
     }
 
     private void setPhysicsOps(){
@@ -123,7 +136,59 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysUnits2.setAdapter(adapter);
 
             linearLayout3.setVisibility(View.GONE);
+        }
+        if(mTitle.getText().toString() == "Weight (W = mg)"){
+            mPhysTitle1.setText("Mass");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            mPhysUnits1.setAdapter(adapter);
+            mPhysUnits1.setSelection(2);
 
+            mPhysSub2.setText("9.81");
+            mPhysTitle2.setText("Gravity");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, gravity);
+            mPhysUnits2.setAdapter(adapter);
+
+            linearLayout3.setVisibility(View.GONE);
+        }
+        if(mTitle.getText().toString() == "Acceleration (" + DELTA + "v/" + DELTA + "t)"){
+            mPhysTitle1.setText(DELTA +"v");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, velocityItems);
+            mPhysUnits1.setAdapter(adapter);
+            mPhysUnits1.setSelection(1);
+
+            mPhysTitle2.setText(DELTA + "t");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
+            mPhysUnits2.setAdapter(adapter);
+            mPhysUnits2.setSelection(1);
+
+            linearLayout3.setVisibility(View.GONE);
+        }
+
+        if(mTitle.getText().toString() == "Momentum (p = mv)"){
+            mPhysTitle1.setText("Mass");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            mPhysUnits1.setAdapter(adapter);
+            mPhysUnits1.setSelection(2);
+
+            mPhysTitle2.setText("Velocity");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, velocityItems);
+            mPhysUnits2.setAdapter(adapter);
+            mPhysUnits2.setSelection(1);
+
+            linearLayout3.setVisibility(View.GONE);
+        }
+
+        if(mTitle.getText().toString() == "Impulse (" + DELTA + "p = F" + DELTA + "t)"){
+            mPhysTitle1.setText("Force");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, forceItems);
+            mPhysUnits1.setAdapter(adapter);
+
+            mPhysTitle2.setText(DELTA + "t");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
+            mPhysUnits2.setAdapter(adapter);
+            mPhysUnits2.setSelection(1);
+
+            linearLayout3.setVisibility(View.GONE);
         }
     }
 
@@ -133,23 +198,173 @@ public class OperationsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(opTitle == "Force (F = ma)"){
-                    float result1 = Float.parseFloat(mPhsySub1.getText().toString());
-                    float result2 = Float.parseFloat(mPhysSub2.getText().toString());
-                    //Conversion based on units
-                    float finalResult = result1 * result2;
-                    if(mPhysUnits1.getSelectedItem().toString() == "mg") {
-                        finalResult /= 1000;
+                    if(mPhsySub1.getText().toString().isEmpty() && mPhysSub2.getText().toString().isEmpty()){
+                        mError.setText("**Fields are Empty.  Please Enter in Values**");
+                        mError.setVisibility(View.VISIBLE);
+                    }
+                    else if(mPhsySub1.getText().toString().isEmpty()){
+                        mError.setText("**Please Enter a Value for Mass**");
+                        mError.setVisibility(View.VISIBLE);
+
+                    } else if(mPhysSub2.getText().toString().isEmpty()){
+                        mError.setText("**Please Enter a Value for Acceleration**");
+                        mError.setVisibility(View.VISIBLE);
+                    } else{
+                        float result1 = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        //Conversion based on units
+                        float finalResult = result1 * result2;
+                        if(mPhysUnits1.getSelectedItem().toString() == "mg") {
+                            finalResult /= 1000;
+                        }
+
+                        if(mPhysUnits1.getSelectedItem().toString() == "Kg"){
+                            finalResult *= 1000;
+                        }
+
+                        if(mPhysUnits2.getSelectedItem().toString() == "m/s^2"){
+                            finalResult /= 1000;
+                        }
+                        mError.setVisibility(View.INVISIBLE);
+                        mResult.setText(finalResult + "N");
                     }
 
-                    if(mPhysUnits1.getSelectedItem().toString() == "Kg"){
-                        finalResult *= 1000;
+                }
+
+                if(opTitle == "Weight (W = mg)"){
+                    if(mPhsySub1.getText().toString().isEmpty() && mPhysSub2.getText().toString().isEmpty()){
+                        mError.setText("**Fields are Empty.  Please Enter in Values**");
+                        mError.setVisibility(View.VISIBLE);
+                    }
+                    else if(mPhsySub1.getText().toString().isEmpty()){
+                        mError.setText("**Please Enter a Value for Mass**");
+                        mError.setVisibility(View.VISIBLE);
+
+                    }else{
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        if(mPhysUnits1.getSelectedItem().toString() == "mg") {
+                            result /= 1000000;
+                        }
+
+                        if(mPhysUnits1.getSelectedItem().toString() == "g"){
+                            result /= 1000;
+                        }
+                        float finalResult = result * result2;
+                        mError.setVisibility(View.INVISIBLE);
+                        mResult.setText(finalResult + "m/s^2");
                     }
 
-                    if(mPhysUnits2.getSelectedItem().toString() == "m/s^2"){
-                        finalResult /= 1000;
+                }
+                if(opTitle == "Acceleration (" + DELTA + "v/" + DELTA + "t)"){
+                    if(mPhsySub1.getText().toString().isEmpty() && mPhysSub2.getText().toString().isEmpty()){
+                        mError.setText("**Fields are Empty.  Please Enter in Values**");
+                        mError.setVisibility(View.VISIBLE);
+                    }
+                    else if(mPhsySub1.getText().toString().isEmpty()){
+                        mError.setText("**Please Enter a Value for " + DELTA + "v**");
+                        mError.setVisibility(View.VISIBLE);
+
+                    } else if(mPhysSub2.getText().toString().isEmpty()){
+                        mError.setText("**Please Enter a Value for " + DELTA + "t**");
+                        mError.setVisibility(View.VISIBLE);
+                    } else{
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        if(mPhysUnits1.getSelectedItem().toString() == "mm/s") {
+                            result /= 1000;
+                        }
+                        if(mPhysUnits1.getSelectedItem().toString() == "km/s"){
+                            result *= 1000;
+                        }
+
+                        if(mPhysUnits2.getSelectedItem().toString() == "ms") {
+                            result2 /= 1000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "mins"){
+                            result2 *= 60;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "hours"){
+                            result2 *= 3600;
+                        }
+
+                        float finalResult = result / result2;
+                        String exp = "m/s2";
+                        exp = superscript(exp);
+                        mError.setVisibility(View.INVISIBLE);
+                        mResult.setText(finalResult + exp);
                     }
 
-                    mResult.setText(finalResult + "N");
+                }
+
+                if(opTitle == "Momentum (p = mv)"){
+                    if(mPhsySub1.getText().toString().isEmpty() && mPhysSub2.getText().toString().isEmpty()){
+                        mError.setText("**Fields are Empty.  Please Enter in Values**");
+                        mError.setVisibility(View.VISIBLE);
+                    }
+                    else if(mPhsySub1.getText().toString().isEmpty()){
+                        mError.setText("**Please Enter a Value for Mass**");
+                        mError.setVisibility(View.VISIBLE);
+
+                    } else if(mPhysSub2.getText().toString().isEmpty()){
+                        mError.setText("**Please Enter a Value for Velocity**");
+                        mError.setVisibility(View.VISIBLE);
+                    } else{
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        if(mPhysUnits1.getSelectedItem().toString() == "mg") {
+                            result /= 1000000;
+                        }
+                        if(mPhysUnits1.getSelectedItem().toString() == "g"){
+                            result /= 1000;
+                        }
+
+                        if(mPhysUnits2.getSelectedItem().toString() == "mm/s") {
+                            result2 /= 1000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "km/s"){
+                            result2 *= 1000;
+                        }
+
+                        float finalResult = result * result2;
+                        mError.setVisibility(View.INVISIBLE);
+                        mResult.setText(finalResult + "kg * m/s");
+                    }
+
+                }
+                if(opTitle == "Impulse (" + DELTA + "p = F" + DELTA + "t)"){
+                    if(mPhsySub1.getText().toString().isEmpty() && mPhysSub2.getText().toString().isEmpty()){
+                        mError.setText("**Fields are Empty.  Please Enter in Values**");
+                        mError.setVisibility(View.VISIBLE);
+                    }
+                    else if(mPhsySub1.getText().toString().isEmpty()){
+                        mError.setText("**Please Enter a Value for Force**");
+                        mError.setVisibility(View.VISIBLE);
+
+                    } else if(mPhysSub2.getText().toString().isEmpty()){
+                        mError.setText("**Please Enter a Value for " + DELTA + "t**");
+                        mError.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits2.getSelectedItem().toString() == "ms") {
+                            result2 /= 1000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "mins"){
+                            result2 *= 60;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "hrs"){
+                            result2 *= 3600;
+                        }
+
+                        float finalResult = result * result2;
+
+                        mError.setVisibility(View.INVISIBLE);
+                        mResult.setText(finalResult + "kg * m/s");
+                    }
+
                 }
             }
         });

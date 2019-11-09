@@ -47,7 +47,7 @@ public class PhysicsActivity extends AppCompatActivity {
         centA2 = superscript(centA2);
         ops.add(new Operations("Force (F = ma)"));
         ops.add(new Operations("Weight (W = mg)"));
-        ops.add(new Operations("Velocity (" + DELTA + "v/" + DELTA + "t)"));
+        ops.add(new Operations("Acceleration (" + DELTA + "v/" + DELTA + "t)"));
         ops.add(new Operations("Momentum (p = mv)"));
         ops.add(new Operations(centA));
         ops.add(new Operations(centA2));
