@@ -63,8 +63,8 @@ public class OperationsActivity extends AppCompatActivity {
     public static final String DELTA = "\u0394";
     public static final String OMEGA = "\u03c9";
     public static final String MINUS = "\u2212";
-    public static String PI = "\u03a0";
-    public static String SQRT = "\u221a";
+    public static final String PI = "\u03c0";
+    public static final String SQRT = "\u221a";
 
     private boolean isOp = false;
     private boolean isPhys = false;
@@ -92,11 +92,11 @@ public class OperationsActivity extends AppCompatActivity {
         }
         else if(opTitle == "Square (a2)" || opTitle == "Triangle ((1/2)bh)" || opTitle == "Rectangle (bh)" || opTitle == "Cube (lwh)" ||
                 opTitle == "Trapezoid (h/2 * (b1 + b2))" || opTitle == "Circle (" + PI + "r2)" || opTitle == "Ellipse (" + PI + "r1r2)" ||
-                opTitle == "Cube (6a2)" || opTitle == "Rectangular Prism (2lw + 2lh + 2wh" || opTitle == "Sphere (4" + PI + "r2)" ||
-                opTitle == "Cylinder (2" + PI + "r2 + 2" + PI + "rh" || opTitle == "Cone (" + PI + "r2 + " + PI + "r(" + SQRT + "(h2 + r2)))" ||
+                opTitle == "Cube (6a2)" || opTitle == "Rectangular Prism (2lw + 2lh + 2wh)" || opTitle == "Sphere (4" + PI + "r2)" ||
+                opTitle == "Cylinder (2" + PI + "r2 + 2" + PI + "rh)" || opTitle == "Cone (" + PI + "r2 + " + PI + "r(" + SQRT + "(h2 + r2)))" ||
                 opTitle == "Pyramid (s2 + 2sl)" || opTitle == "Cube (a3)" || opTitle == "Rectangular Prism (lwh)" || opTitle == "Cylinder (" + PI + "r2h)" ||
-                opTitle == "Pyramid ((1/3)bh)" || opTitle == "Cone ((1/3)" + PI + "r2h" || opTitle == "Sphere ((4/3)" + PI + "r3" ||
-                opTitle == "Ellipsoid ((4/3)" + PI + "r1r2r3"){
+                opTitle == "Pyramid ((1/3)bh)" || opTitle == "Cone ((1/3)" + PI + "r2h)" || opTitle == "Sphere ((4/3)" + PI + "r3)" ||
+                opTitle == "Ellipsoid ((4/3)" + PI + "r1r2r3)"){
             setContentView(R.layout.geo_layout);
             isGeo = true;
         }
@@ -179,6 +179,115 @@ public class OperationsActivity extends AppCompatActivity {
 
             linearLayout3.setVisibility(View.INVISIBLE);
         }
+        if(opTitle == "Rectangle (bh)"){
+            mPhysTitle1.setText("Base");
+            mPhysTitle2.setText("Height");
+
+            linearLayout3.setVisibility(View.INVISIBLE);
+        }
+        if(opTitle == "Trapezoid (h/2 * (b1 + b2))"){
+            mPhysTitle1.setText("Height");
+            mPhysTitle2.setText("Upper Base");
+            mPhysTitle3.setText("Lower Base");
+        }
+        if(opTitle == "Circle (" + PI + "r2)"){
+            mTitle.setText("Circle (" + PI + superscript("r2)"));
+            mPhysTitle1.setText("Radius");
+
+            linearLayout2.setVisibility(View.INVISIBLE);
+            linearLayout3.setVisibility(View.INVISIBLE);
+        }
+        if(opTitle == "Ellipse (" + PI + "r1r2)"){
+            mPhysTitle1.setText("Radius 1");
+            mPhysTitle2.setText("Radius 2");
+
+            linearLayout3.setVisibility(View.INVISIBLE);
+        }
+        if(opTitle == "Cube (6a2)"){
+            mTitle.setText("Cube (6" + superscript("a2)"));
+            mPhysTitle1.setText("Side (a)");
+
+            linearLayout2.setVisibility(View.INVISIBLE);
+            linearLayout3.setVisibility(View.INVISIBLE);
+        }
+        if(opTitle == "Rectangular Prism (2lw + 2lh + 2wh)"){
+            mPhysTitle1.setText("Length");
+            mPhysTitle2.setText("Width");
+            mPhysTitle3.setText("Height");
+        }
+        if(opTitle == "Sphere (4" + PI + "r2)"){
+            mTitle.setText("Sphere (4" + PI + superscript("r2)"));
+            mPhysTitle1.setText("Radius");
+
+            linearLayout2.setVisibility(View.INVISIBLE);
+            linearLayout3.setVisibility(View.INVISIBLE);
+        }
+        if(opTitle == "Cylinder (2" + PI + "r2 + 2" + PI + "rh)"){
+            mTitle.setText("Cylinder (2" + PI + superscript("r2") + " + 2" + PI + "rh)");
+            mPhysTitle1.setText("Radius");
+            mPhysTitle2.setText("Height");
+
+            linearLayout3.setVisibility(View.INVISIBLE);
+        }
+        if(opTitle == "Cone (" + PI + "r2 + " + PI + "r(" + SQRT + "(h2 + r2)))"){
+            mTitle.setText("Cone (" + PI + superscript("r2 + ") +  PI + "r(" + SQRT + superscript("h2 + r2)))"));
+            mPhysTitle1.setText("Radius");
+            mPhysTitle2.setText("Height");
+
+            linearLayout3.setVisibility(View.INVISIBLE);
+        }
+        if(opTitle == "Pyramid (s2 + 2sl)"){
+            mTitle.setText("Pyramid (" + superscript("s2") + " + 2sl)");
+            mPhysTitle1.setText("Side");
+            mPhysTitle2.setText("Length");
+
+            linearLayout3.setVisibility(View.INVISIBLE);
+        }
+        if(opTitle == "Cube (a3)"){
+            mTitle.setText(superscript("Cube (a3)"));
+            mPhysTitle1.setText("Side (a)");
+
+            linearLayout2.setVisibility(View.INVISIBLE);
+            linearLayout3.setVisibility(View.INVISIBLE);
+        }
+        if(opTitle == "Rectangular Prism (lwh)"){
+            mPhysTitle1.setText("Length");
+            mPhysTitle2.setText("Width");
+            mPhysTitle3.setText("Height");
+        }
+        if(opTitle == "Cylinder (" + PI + "r2h)"){
+            mTitle.setText("Cylinder (" + PI + superscript("r2h)"));
+            mPhysTitle1.setText("Radius");
+            mPhysTitle2.setText("Height");
+
+            linearLayout3.setVisibility(View.INVISIBLE);
+        }
+        if (opTitle == "Pyramid ((1/3)bh)"){
+            mPhysTitle1.setText("Base");
+            mPhysTitle2.setText("Height");
+
+            linearLayout3.setVisibility(View.INVISIBLE);
+        }
+        if(opTitle == "Cone ((1/3)" + PI + "r2h)"){
+            mTitle.setText("Cone ((1/3)" + PI + superscript("r2h)"));
+            mPhysTitle1.setText("Radius");
+            mPhysTitle2.setText("Height");
+
+            linearLayout3.setVisibility(View.INVISIBLE);
+        }
+        if(opTitle == "Sphere ((4/3)" + PI + "r3)"){
+            mTitle.setText("Sphere ((4/3)" + PI + superscript("r3)"));
+            mPhysTitle1.setText("Radius");
+
+            linearLayout2.setVisibility(View.INVISIBLE);
+            linearLayout3.setVisibility(View.INVISIBLE);
+        }
+        if(opTitle == "Ellipsoid ((4/3)" + PI + "r1r2r3)"){
+            mPhysTitle1.setText("Radius 1");
+            mPhysTitle2.setText("Radius 2");
+            mPhysTitle3.setText("Radius 3");
+        }
+
     }
 
     private void checkGeo(){
@@ -211,6 +320,209 @@ public class OperationsActivity extends AppCompatActivity {
                     }
 
                 }
+                if(opTitle == "Rectangle (bh)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        mResult.setText(geoCalc.RectangleArea(result, result2));
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+                if(opTitle == "Trapezoid (h/2 * (b1 + b2))"){
+                    int counter = 3;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        float result3 = Float.parseFloat(mPhysSub3.getText().toString());
+                        mResult.setText(geoCalc.TrapezoidArea(result, result2, result3));
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+                if(opTitle == "Circle (" + PI + "r2)"){
+                    int counter = 1;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        mResult.setText(geoCalc.CircleArea(result));
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+                if(opTitle == "Ellipse (" + PI + "r1r2)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        mResult.setText(geoCalc.EllipseArea(result, result2));
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+                if(opTitle == "Cube (6a2)"){
+                    int counter = 1;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        mResult.setText(geoCalc.CubeSA(result));
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+                if(opTitle == "Rectangular Prism (2lw + 2lh + 2wh)"){
+                    int counter = 3;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        float result3 = Float.parseFloat(mPhysSub3.getText().toString());
+                        mResult.setText(geoCalc.RectPrismSA(result, result2, result3));
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+                if(opTitle == "Sphere (4" + PI + "r2)"){
+                    int counter = 1;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        mResult.setText(geoCalc.SphereSA(result));
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+                if(opTitle == "Cylinder (2" + PI + "r2 + 2" + PI + "rh)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        mResult.setText(geoCalc.CylinderSA(result, result2));
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+                if(opTitle == "Cone (" + PI + "r2 + " + PI + "r(" + SQRT + "(h2 + r2)))"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        mResult.setText(geoCalc.ConeSA(result, result2));
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+                if(opTitle == "Pyramid (s2 + 2sl)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        mResult.setText(geoCalc.PyramidSA(result, result2));
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+                if(opTitle == "Cube (a3)"){
+                    int counter = 1;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        mResult.setText(geoCalc.CubeVolume(result));
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+                if(opTitle == "Rectangular Prism (lwh)"){
+                    int counter = 3;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        float result3 = Float.parseFloat(mPhysSub3.getText().toString());
+                        mResult.setText(geoCalc.RectPrismVolume(result, result2, result3));
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+                if(opTitle == "Cylinder (" + PI + "r2h)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        mResult.setText(geoCalc.CylinderVolume(result, result2));
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+                if(opTitle == "Pyramid ((1/3)bh)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        mResult.setText(geoCalc.PyramidVolume(result, result2));
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+                if(opTitle == "Cone ((1/3)" + PI + "r2h)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        mResult.setText(geoCalc.ConeVolume(result, result2));
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+                if(opTitle == "Sphere ((4/3)" + PI + "r3)"){
+                    int counter = 1;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        mResult.setText(geoCalc.SphereVolume(result));
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+                if(opTitle == "Ellipsoid ((4/3)" + PI + "r1r2r3)"){
+                    int counter = 3;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        float result3 = Float.parseFloat(mPhysSub3.getText().toString());
+                        mResult.setText(geoCalc.EllipsoidVolume(result, result2, result3));
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
             }
         });
     }
@@ -225,8 +537,6 @@ public class OperationsActivity extends AppCompatActivity {
             }
             else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
                     mPhysSub2.getText().toString().matches("[a-zA-Z]+")){
-//                (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
-//                        mPhysSub2.getText().toString().matches("[a-zA-Z]+"))){
                 mError.setText("**Invalid Input**");
                 mError.setVisibility(View.VISIBLE);
                 mResult.setText("");
@@ -242,8 +552,28 @@ public class OperationsActivity extends AppCompatActivity {
             }
             else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
                     mPhysSub2.getText().toString().matches("[a-zA-Z]+") ||
-                (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
-                        mPhysSub2.getText().toString().matches("[a-zA-Z]+"))){
+                   (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
+                    mPhysSub2.getText().toString().matches("[a-zA-Z]+"))){
+                mError.setText("**Invalid Input**");
+                mError.setVisibility(View.VISIBLE);
+                mResult.setText("");
+                return false;
+            }
+        }
+        else if (counter == 3){
+            if(mPhsySub1.getText().toString().isEmpty() || mPhysSub2.getText().toString().isEmpty() ||
+               mPhysSub3.getText().toString().isEmpty()){
+                mError.setText("**Please Fill in all Fields**");
+                mError.setVisibility(View.VISIBLE);
+                mResult.setText("");
+                return false;
+            }
+            else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
+                    mPhysSub2.getText().toString().matches("[a-zA-Z]+") ||
+                    mPhysSub3.getText().toString().matches("[a-zA-Z]+") ||
+                    (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
+                     mPhysSub2.getText().toString().matches("[a-zA-Z]+") &&
+                     mPhysSub3.getText().toString().matches("[a-zA-Z]+"))){
                 mError.setText("**Invalid Input**");
                 mError.setVisibility(View.VISIBLE);
                 mResult.setText("");
@@ -721,25 +1051,6 @@ public class OperationsActivity extends AppCompatActivity {
         if(mTitle.getText().toString() == "Cosine" || mTitle.getText().toString() == "Sine" || mTitle.getText().toString() == "Tangent"
         || mTitle.getText().toString() == "Arccos" || mTitle.getText().toString() == "Arcsin" || mTitle.getText().toString() == "Arctan"){
             rads.setVisibility(View.VISIBLE);
-        }
-    }
-
-    private void constructPhysOperation(String result, String result2, String unitType1, String unitType2){
-        if(mPhsySub1.getText().toString().isEmpty() && mPhysSub2.getText().toString().isEmpty()){
-            mError.setText("**Fields are Empty.  Please Enter in Values**");
-            mError.setVisibility(View.VISIBLE);
-        }
-        else if(mPhsySub1.getText().toString().isEmpty()){
-            checkForUnits(unitType1);
-
-        } else if(mPhysSub2.getText().toString().isEmpty()){
-            checkForUnits(unitType2);
-        } else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
-                mPhysSub2.getText().toString().matches("[a-zA-Z]+") ||
-                (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
-                        mPhysSub2.getText().toString().matches("[a-zA-Z]+"))){
-            mError.setText("**Invalid Input**");
-            mError.setVisibility(View.VISIBLE);
         }
     }
 

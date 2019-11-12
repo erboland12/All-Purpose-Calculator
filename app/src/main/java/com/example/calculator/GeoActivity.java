@@ -23,8 +23,8 @@ public class GeoActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager2;
     private RecyclerView.LayoutManager layoutManager3;
 
-    public static String PI = "\u03a0";
-    public static String SQRT = "\u221a";
+    public static final String PI = "\u03c0";
+    public static final String SQRT = "\u221a";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +69,9 @@ public class GeoActivity extends AppCompatActivity {
 
     private void populateOperations2(){
         ops2.add(new Operations("Cube (6a2)"));
-        ops2.add(new Operations("Rectangular Prism (2lw + 2lh + 2wh"));
+        ops2.add(new Operations("Rectangular Prism (2lw + 2lh + 2wh)"));
         ops2.add(new Operations("Sphere (4" + PI + "r2)"));
-        ops2.add(new Operations("Cylinder (2" + PI + "r2 + 2" + PI + "rh"));
+        ops2.add(new Operations("Cylinder (2" + PI + "r2 + 2" + PI + "rh)"));
         ops2.add(new Operations("Cone (" + PI + "r2 + " + PI + "r(" + SQRT + "(h2 + r2)))"));
         ops2.add(new Operations("Pyramid (s2 + 2sl)"));
     }
@@ -81,8 +81,8 @@ public class GeoActivity extends AppCompatActivity {
         ops3.add(new Operations("Rectangular Prism (lwh)"));
         ops3.add(new Operations("Cylinder (" + PI + "r2h)"));
         ops3.add(new Operations("Pyramid ((1/3)bh)"));
-        ops3.add(new Operations("Cone ((1/3)" + PI + "r2h"));
-        ops3.add(new Operations("Sphere ((4/3)" + PI + "r3"));
-        ops3.add(new Operations("Ellipsoid ((4/3)" + PI + "r1r2r3"));
+        ops3.add(new Operations("Cone ((1/3)" + PI + "r2h)"));
+        ops3.add(new Operations("Sphere ((4/3)" + PI + "r3)"));
+        ops3.add(new Operations("Ellipsoid ((4/3)" + PI + "r1r2r3)"));
     }
 }
