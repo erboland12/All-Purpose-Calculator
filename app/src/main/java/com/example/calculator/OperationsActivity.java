@@ -13,6 +13,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class OperationsActivity extends AppCompatActivity {
@@ -20,7 +25,7 @@ public class OperationsActivity extends AppCompatActivity {
     public static String opTitle;
     public TextView mTitle;
     private TextView mError;
-    private EditText mResult;
+    public static EditText mResult;
     private EditText mSubmit;
     private EditText mSubmit2;
     private Button enterBtn;
@@ -37,6 +42,7 @@ public class OperationsActivity extends AppCompatActivity {
     private Spinner mPhysUnits2;
     private Spinner mPhysUnits3;
 
+    private LinearLayout linearLayout2;
     private LinearLayout linearLayout3;
 
     //Spinner arrays
@@ -49,12 +55,21 @@ public class OperationsActivity extends AppCompatActivity {
     private String[] gravity = {"m/s^2"};
     private String[] forceItems = {"N"};
 
+    DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.US);
+    // Define the maximum number of decimals (number of symbols #)
+    DecimalFormat df = new DecimalFormat("#.#####", otherSymbols);
+
     //Unicode declerations
     public static final String DELTA = "\u0394";
     public static final String OMEGA = "\u03c9";
+    public static final String MINUS = "\u2212";
+    public static String PI = "\u03a0";
+    public static String SQRT = "\u221a";
 
     private boolean isOp = false;
     private boolean isPhys = false;
+    private boolean isCalc = false;
+    private boolean isGeo = false;
 
     private static double radToDegrees = 57.295779513;
     @Override
@@ -64,12 +79,26 @@ public class OperationsActivity extends AppCompatActivity {
         String centA = "Centripetal Acceleration (v2/r)";
         centA = superscript(centA);
         String centA2 = "Centripetal Acceleration (" + OMEGA + "2/r)";
-        centA2 = superscript(centA2);
+        String ke = "mv2)";
+        String ke2 = "Kinetic Energy (p2";
+
 
         if(opTitle == "Force (F = ma)" || opTitle == "Weight (W = mg)" || opTitle == "Acceleration (" + DELTA + "v/" + DELTA + "t)" ||
-            opTitle == "Momentum (p = mv)" || opTitle == centA || opTitle == centA2 || opTitle == "Impulse (" + DELTA + "p = F" + DELTA + "t)"){
+            opTitle == "Momentum (p = mv)" || opTitle == "Centripetal Acceleration (v2/r)" || opTitle == centA2 || opTitle == "Impulse (" + DELTA + "p = F" + DELTA + "t)" ||
+            opTitle == "Kinetic Energy (1/2 * mv2)" || opTitle == "Kinetic Energy (p2/2m)" || opTitle == "Gravitation P.E (" + DELTA + "Ug = mg" + DELTA +"h)" ||
+            opTitle == "Power (" + DELTA + "W/" + DELTA + "t)" || opTitle == "Hooke's Law (F = -k" + DELTA + "x)"){
             setContentView(R.layout.physics_layout);
             isPhys = true;
+        }
+        else if(opTitle == "Square (a2)" || opTitle == "Triangle ((1/2)bh)" || opTitle == "Rectangle (bh)" || opTitle == "Cube (lwh)" ||
+                opTitle == "Trapezoid (h/2 * (b1 + b2))" || opTitle == "Circle (" + PI + "r2)" || opTitle == "Ellipse (" + PI + "r1r2)" ||
+                opTitle == "Cube (6a2)" || opTitle == "Rectangular Prism (2lw + 2lh + 2wh" || opTitle == "Sphere (4" + PI + "r2)" ||
+                opTitle == "Cylinder (2" + PI + "r2 + 2" + PI + "rh" || opTitle == "Cone (" + PI + "r2 + " + PI + "r(" + SQRT + "(h2 + r2)))" ||
+                opTitle == "Pyramid (s2 + 2sl)" || opTitle == "Cube (a3)" || opTitle == "Rectangular Prism (lwh)" || opTitle == "Cylinder (" + PI + "r2h)" ||
+                opTitle == "Pyramid ((1/3)bh)" || opTitle == "Cone ((1/3)" + PI + "r2h" || opTitle == "Sphere ((4/3)" + PI + "r3" ||
+                opTitle == "Ellipsoid ((4/3)" + PI + "r1r2r3"){
+            setContentView(R.layout.geo_layout);
+            isGeo = true;
         }
         else if(opTitle == "Modulo"){
             setContentView(R.layout.mod_layout);
@@ -78,6 +107,10 @@ public class OperationsActivity extends AppCompatActivity {
         else if(opTitle == "Arccos" || opTitle == "Arcsin" || opTitle == "Arctan"){
             setContentView(R.layout.arc_layout);
             isOp = true;
+        }
+        else if(opTitle == "Derivative"){
+            setContentView(R.layout.derivative_layout);
+            isCalc = true;
         }
         else{
             setContentView(R.layout.activity_operations);
@@ -99,6 +132,7 @@ public class OperationsActivity extends AppCompatActivity {
         mPhysUnits1 = findViewById(R.id.ops_page_units);
         mPhysUnits2 = findViewById(R.id.ops_page_units2);
         mPhysUnits3 = findViewById(R.id.ops_page_units3);
+        linearLayout2 = findViewById(R.id.linearLayout2);
         linearLayout3 = findViewById(R.id.linearLayout3);
 
         mTitle.setText(opTitle);
@@ -115,13 +149,166 @@ public class OperationsActivity extends AppCompatActivity {
         checkForTrigOps();
 
         //Determines operation based on title
-        if (isPhys) {
+        if(isPhys) {
             checkPhys();
             setPhysicsOps();
         }
-        if (isOp){
+        if(isOp){
             setOperation();
         }
+        if(isCalc){
+            setCalcOps();
+        }
+        if(isGeo){
+            setGeoOps();
+            checkGeo();
+        }
+    }
+
+    private void setGeoOps(){
+        if(opTitle == "Square (a2)"){
+            mTitle.setText(superscript("Square (a2)"));
+            mPhysTitle1.setText("Side (a)");
+
+            linearLayout2.setVisibility(View.INVISIBLE);
+            linearLayout3.setVisibility(View.INVISIBLE);
+        }
+        if(opTitle == "Triangle ((1/2)bh)"){
+            mPhysTitle1.setText("Base");
+            mPhysTitle2.setText("Height");
+
+            linearLayout3.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void checkGeo(){
+        enterBtn = findViewById(R.id.ops_page_enter_btn);
+        enterBtn.setOnClickListener(new View.OnClickListener() {
+            GeoCalculator geoCalc = new GeoCalculator();
+            @Override
+            public void onClick(View view) {
+                if(opTitle == "Square (a2)"){
+                    int counter = 1;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        mResult.setText(geoCalc.SquareArea(result));
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+                if(opTitle == "Triangle ((1/2)bh)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        mResult.setText(geoCalc.TriangleArea(result, result2));
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+
+                }
+            }
+        });
+    }
+
+    private boolean checkInput(int counter){
+        if(counter == 1){
+            if(mPhsySub1.getText().toString().isEmpty()){
+                mError.setText("**Please Fill in all Fields**");
+                mError.setVisibility(View.VISIBLE);
+                mResult.setText("");
+                return false;
+            }
+            else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
+                    mPhysSub2.getText().toString().matches("[a-zA-Z]+")){
+//                (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
+//                        mPhysSub2.getText().toString().matches("[a-zA-Z]+"))){
+                mError.setText("**Invalid Input**");
+                mError.setVisibility(View.VISIBLE);
+                mResult.setText("");
+                return false;
+            }
+        }
+        else if (counter == 2){
+            if(mPhsySub1.getText().toString().isEmpty() || mPhysSub2.getText().toString().isEmpty()){
+                mError.setText("**Please Fill in all Fields**");
+                mError.setVisibility(View.VISIBLE);
+                mResult.setText("");
+                return false;
+            }
+            else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
+                    mPhysSub2.getText().toString().matches("[a-zA-Z]+") ||
+                (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
+                        mPhysSub2.getText().toString().matches("[a-zA-Z]+"))){
+                mError.setText("**Invalid Input**");
+                mError.setVisibility(View.VISIBLE);
+                mResult.setText("");
+                return false;
+            }
+        }
+
+        return true;
+
+
+
+    }
+
+    private void setCalcOps(){
+        enterBtn = findViewById(R.id.ops_page_enter_btn);
+        enterBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                int counter = 0;
+                String[] list = new String[5];
+                Derivative d = new Derivative();
+                String submit = mSubmit.getText().toString();
+                if(!submit.contains("+") && !submit.contains("(-)")){
+                    String result = d.derivative(mSubmit.getText().toString());
+                    mResult.setText("f(x') = " + result);
+                }
+                else{
+                    for(int i = 0; i < submit.length(); i++){
+                        if(submit.charAt(i) == '+' || (submit.charAt(i) == '-')){
+                            list[counter] = Character.toString(submit.charAt(i));
+                            counter += 1;
+                        }
+                    }
+                    if(counter == 1){
+                        Scanner scanner = new Scanner(mSubmit.getText().toString());
+                        if(list[0] == "+"){
+                            scanner.useDelimiter("\\+");
+                        } else {
+                            scanner.useDelimiter("\\s*-\\s*");
+                        }
+                        String x = scanner.next();
+                        String y = scanner.next();
+                        x = d.derivative(x);
+                        y = d.derivative(y);
+                        String result = x + list[0] + y;
+                        mResult.setText("f(x') = " + result);
+                    }
+//                    else if(counter == 2){
+//                        Scanner scanner = new Scanner(mSubmit.getText().toString());
+//                        scanner.useDelimiter("\\+");
+//                        String x = scanner.next();
+//                        String y = scanner.next();
+//                        String z = scanner.next();
+//                        x = d.derivative(x);
+//                        y = d.derivative(y);
+//                        z = d.derivative(z);
+//                        String result = x + "+" + y + "+" + z;
+//                        mResult.setText("f(x') = " + result);
+//                    }
+
+                }
+
+
+            }
+        });
     }
 
     private void setPhysicsOps(){
@@ -205,11 +392,19 @@ public class OperationsActivity extends AppCompatActivity {
                     else if(mPhsySub1.getText().toString().isEmpty()){
                         mError.setText("**Please Enter a Value for Mass**");
                         mError.setVisibility(View.VISIBLE);
-
-                    } else if(mPhysSub2.getText().toString().isEmpty()){
+                    }
+                    else if(mPhysSub2.getText().toString().isEmpty()) {
                         mError.setText("**Please Enter a Value for Acceleration**");
                         mError.setVisibility(View.VISIBLE);
-                    } else{
+                    }
+                    else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
+                            mPhysSub2.getText().toString().matches("[a-zA-Z]+") ||
+                            (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
+                                    mPhysSub2.getText().toString().matches("[a-zA-Z]+"))){
+                        mError.setText("**Invalid Input**");
+                        mError.setVisibility(View.VISIBLE);
+                    }
+                     else{
                         float result1 = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
                         //Conversion based on units
@@ -240,6 +435,12 @@ public class OperationsActivity extends AppCompatActivity {
                         mError.setText("**Please Enter a Value for Mass**");
                         mError.setVisibility(View.VISIBLE);
 
+                    }else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
+                            mPhysSub2.getText().toString().matches("[a-zA-Z]+") ||
+                            (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
+                                    mPhysSub2.getText().toString().matches("[a-zA-Z]+"))){
+                        mError.setText("**Invalid Input**");
+                        mError.setVisibility(View.VISIBLE);
                     }else{
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
@@ -267,6 +468,12 @@ public class OperationsActivity extends AppCompatActivity {
 
                     } else if(mPhysSub2.getText().toString().isEmpty()){
                         mError.setText("**Please Enter a Value for " + DELTA + "t**");
+                        mError.setVisibility(View.VISIBLE);
+                    }else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
+                            mPhysSub2.getText().toString().matches("[a-zA-Z]+") ||
+                            (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
+                                    mPhysSub2.getText().toString().matches("[a-zA-Z]+"))){
+                        mError.setText("**Invalid Input**");
                         mError.setVisibility(View.VISIBLE);
                     } else{
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
@@ -309,6 +516,12 @@ public class OperationsActivity extends AppCompatActivity {
                     } else if(mPhysSub2.getText().toString().isEmpty()){
                         mError.setText("**Please Enter a Value for Velocity**");
                         mError.setVisibility(View.VISIBLE);
+                    } else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
+                            mPhysSub2.getText().toString().matches("[a-zA-Z]+") ||
+                            (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
+                                    mPhysSub2.getText().toString().matches("[a-zA-Z]+"))){
+                        mError.setText("**Invalid Input**");
+                        mError.setVisibility(View.VISIBLE);
                     } else{
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
@@ -341,8 +554,16 @@ public class OperationsActivity extends AppCompatActivity {
                         mError.setText("**Please Enter a Value for Force**");
                         mError.setVisibility(View.VISIBLE);
 
-                    } else if(mPhysSub2.getText().toString().isEmpty()){
+                    }
+                    else if(mPhysSub2.getText().toString().isEmpty()){
                         mError.setText("**Please Enter a Value for " + DELTA + "t**");
+                        mError.setVisibility(View.VISIBLE);
+                    }
+                    else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
+                            mPhysSub2.getText().toString().matches("[a-zA-Z]+") ||
+                            (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
+                                    mPhysSub2.getText().toString().matches("[a-zA-Z]+"))){
+                        mError.setText("**Invalid Input**");
                         mError.setVisibility(View.VISIBLE);
                     }
                     else{
@@ -503,6 +724,52 @@ public class OperationsActivity extends AppCompatActivity {
         }
     }
 
+    private void constructPhysOperation(String result, String result2, String unitType1, String unitType2){
+        if(mPhsySub1.getText().toString().isEmpty() && mPhysSub2.getText().toString().isEmpty()){
+            mError.setText("**Fields are Empty.  Please Enter in Values**");
+            mError.setVisibility(View.VISIBLE);
+        }
+        else if(mPhsySub1.getText().toString().isEmpty()){
+            checkForUnits(unitType1);
+
+        } else if(mPhysSub2.getText().toString().isEmpty()){
+            checkForUnits(unitType2);
+        } else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
+                mPhysSub2.getText().toString().matches("[a-zA-Z]+") ||
+                (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
+                        mPhysSub2.getText().toString().matches("[a-zA-Z]+"))){
+            mError.setText("**Invalid Input**");
+            mError.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void checkForUnits(String unitType1){
+        if(unitType1 == "Mass"){
+            mError.setText("**Please Enter a Value for Mass**");
+            mError.setVisibility(View.VISIBLE);
+        }
+        if(unitType1 == "Acceleration"){
+            mError.setText("**Please Enter a Value for Acceleration**");
+            mError.setVisibility(View.VISIBLE);
+        }
+        if(unitType1 == "Force"){
+            mError.setText("**Please Enter a Value for Force**");
+            mError.setVisibility(View.VISIBLE);
+        }
+        if(unitType1 == DELTA + "t"){
+            mError.setText("**Please Enter a Value for " + DELTA + "t**");
+            mError.setVisibility(View.VISIBLE);
+        }
+        if(unitType1 == DELTA + "v"){
+            mError.setText("**Please Enter a Value for " + DELTA + "v**");
+            mError.setVisibility(View.VISIBLE);
+        }
+        if(unitType1 == "Velocity"){
+            mError.setText("**Please Enter a Value for Velocity**");
+            mError.setVisibility(View.VISIBLE);
+        }
+    }
+
     public static String superscript(String str) {
         str = str.replaceAll("0", "⁰");
         str = str.replaceAll("1", "¹");
@@ -514,6 +781,20 @@ public class OperationsActivity extends AppCompatActivity {
         str = str.replaceAll("7", "⁷");
         str = str.replaceAll("8", "⁸");
         str = str.replaceAll("9", "⁹");
+        return str;
+    }
+
+    public static String revert(String str){
+        str = str.replaceAll("⁰", "0");
+        str = str.replaceAll("¹", "1");
+        str = str.replaceAll("²", "2");
+        str = str.replaceAll("³", "3");
+        str = str.replaceAll("⁴", "4");
+        str = str.replaceAll("⁵", "5");
+        str = str.replaceAll("⁶", "6");
+        str = str.replaceAll("⁷", "7");
+        str = str.replaceAll("⁸", "8");
+        str = str.replaceAll("⁹", "9");
         return str;
     }
 }

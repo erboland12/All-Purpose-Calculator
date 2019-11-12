@@ -9,15 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".PhysicsActivity"
-            android:label="@string/title_activity_physics"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".ChemActivity"></activity>
+        <activity android:name=".GeoActivity" />
+        <activity android:name=".PhysicsActivity" />
         <activity android:name=".TrigActivity" />
         <activity android:name=".OperationsActivity" />
         <activity android:name=".MiscellaneousActivity" />
         <activity android:name=".CalculatorActivity" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

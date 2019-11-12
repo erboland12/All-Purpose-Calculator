@@ -23,6 +23,9 @@ public class PhysicsActivity extends AppCompatActivity {
     //Unicode declerations
     public static final String DELTA = "\u0394";
     public static final String OMEGA = "\u03c9";
+    public static final String ALPHA = "\u03b1";
+
+
 
 
     @Override
@@ -41,17 +44,19 @@ public class PhysicsActivity extends AppCompatActivity {
     }
 
     private void populateOperations(){
-        String centA = "Centripetal Acceleration (v2/r)";
-        centA = superscript(centA);
-        String centA2 = "Centripetal Acceleration (" + OMEGA + "2/r)";
-        centA2 = superscript(centA2);
         ops.add(new Operations("Force (F = ma)"));
         ops.add(new Operations("Weight (W = mg)"));
         ops.add(new Operations("Acceleration (" + DELTA + "v/" + DELTA + "t)"));
         ops.add(new Operations("Momentum (p = mv)"));
-        ops.add(new Operations(centA));
-        ops.add(new Operations(centA2));
+        ops.add(new Operations("Centripetal Acceleration (v2/r)"));
+        ops.add(new Operations("Centripetal Acceleration (" + OMEGA + "2/r)"));
         ops.add(new Operations("Impulse (" + DELTA + "p = F" + DELTA + "t)"));
+        ops.add(new Operations("Kinetic Energy (1/2 * mv2)"));
+        ops.add(new Operations("Kinetic Energy (p2/2m)"));
+        ops.add(new Operations("Gravitation P.E (" + DELTA + "Ug = mg" + DELTA +"h)"));
+        ops.add(new Operations("Power (" + DELTA + "W/" + DELTA + "t)"));
+        ops.add(new Operations("Hooke's Law (F = -k" + DELTA + "x)"));
+
     }
 
     public static String superscript(String str) {

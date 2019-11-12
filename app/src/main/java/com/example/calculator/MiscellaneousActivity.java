@@ -34,6 +34,6 @@ public class MiscellaneousActivity extends AppCompatActivity {
         ops.add(new Operations("Fibonacci"));
         ops.add(new Operations("Factorial"));
         ops.add(new Operations("Modulo"));
-        ops.add(new Operations("Trigonometry"));
+        ops.add(new Operations("Derivative"));
     }
 }

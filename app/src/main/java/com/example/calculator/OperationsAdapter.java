@@ -16,8 +16,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.calculator.OperationsActivity.OMEGA;
+import static com.example.calculator.OperationsActivity.superscript;
+
 public class OperationsAdapter extends
     RecyclerView.Adapter<OperationsAdapter.ViewHolder>{
+
+    public static String PI = "\u03a0";
+    public static String SQRT = "\u221a";
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView titleTextView;
@@ -56,7 +62,51 @@ public class OperationsAdapter extends
 
         // Set item views based on your views and data model
         final TextView textView = viewHolder.titleTextView;
-        textView.setText(ops.getTitle());
+        if(ops.getTitle() == "Centripetal Acceleration (v2/r)" ||  ops.getTitle() == "Centripetal Acceleration (" + OMEGA + "2/r)"){
+            textView.setText(superscript(ops.getTitle()));
+        }
+        else if(ops.getTitle() == "Kinetic Energy (1/2 * mv2)"){
+            textView.setText("Kinetic Energy (1/2 * " + superscript("mv2)"));
+        }
+        else if (ops.getTitle() == "Kinetic Energy (p2/2m)"){
+            textView.setText("Kinetic Energy (" + superscript("p2") + "/2m)");
+        }
+        else if (ops.getTitle() == "Square (a2)"){
+            textView.setText(superscript("Square (a2)"));
+        }
+        else if (ops.getTitle() == "Circle (" + PI + "r2)"){
+            textView.setText("Circle (" + PI + superscript("r2"));
+        }
+        else if (ops.getTitle() == "Cube (6a2)"){
+            textView.setText(superscript("Cube (6a2"));
+        }
+        else if (ops.getTitle() == "Sphere (4" + PI + "r2"){
+            textView.setText("Sphere (4" + PI + superscript("r2"));
+        }
+        else if (ops.getTitle() == "Cylinder (2" + PI + "r2 + 2" + PI + "rh"){
+            textView.setText("Cylinder(2" + PI + superscript("r2") + " + 2" + PI + "rh" );
+        }
+        else if (ops.getTitle() == "Cone (" + PI + "r2 + " + PI + "r(" + SQRT + "(h2 + r2)))"){
+            textView.setText("Cone (" + PI + superscript("r2" + " + " + PI + "r(" + SQRT + superscript("(h2 + r2)))")));
+        }
+        else if (ops.getTitle() == "Pyramid (s2 + 2sl)"){
+            textView.setText("Pyramid (" + superscript("s2") + " + 2sl");
+        }
+        else if (ops.getTitle() == "Cube (a3)"){
+            textView.setText(superscript("Cube (a3)"));
+        }
+        else if (ops.getTitle() == "Cylinder (" + PI + "r2h"){
+            textView.setText("Cylinder (" + PI + superscript("r2h"));
+        }
+        else if (ops.getTitle() == "Cone ((1/3)" + PI + "r2h"){
+            textView.setText("Cone ((1/3)" + PI + superscript("r2h"));
+        }
+        else if (ops.getTitle() == "Sphere ((4/3)" + PI + "r3"){
+            textView.setText("Sphere ((4/3)" + PI + superscript("r3"));
+        }
+        else{
+            textView.setText(ops.getTitle());
+        }
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

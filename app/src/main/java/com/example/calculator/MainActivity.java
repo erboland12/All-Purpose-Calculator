@@ -13,6 +13,8 @@ public class MainActivity extends AppCompatActivity {
     Button miscBtn;
     Button trigBtn;
     Button physBtn;
+    Button chemBtn;
+    Button geoBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 m.moveActivity(MainActivity.this, PhysicsActivity.class);
+            }
+        });
+
+        chemBtn = findViewById(R.id.chemBtn);
+        chemBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        geoBtn = findViewById(R.id.geoBtn);
+        geoBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                m.moveActivity(MainActivity.this, GeoActivity.class);
             }
         });
 
