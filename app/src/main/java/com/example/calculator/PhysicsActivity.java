@@ -16,18 +16,34 @@ import android.view.View;
 import java.util.ArrayList;
 
 public class PhysicsActivity extends AppCompatActivity {
-    private ArrayList<Operations> ops;
-    private ArrayList<Operations> ops2;
-    private ArrayList<Operations> ops3;
+    public static ArrayList<Operations> ops;
+    public static ArrayList<Operations> ops2;
+    public static ArrayList<Operations> ops3;
+    public static ArrayList<Operations> ops4;
+    public static ArrayList<Operations> ops5;
+    public static ArrayList<Operations> ops6;
+    public static ArrayList<Operations> ops7;
     private OperationsAdapter adapter;
     private OperationsAdapter adapter2;
     private OperationsAdapter adapter3;
+    private OperationsAdapter adapter4;
+    private OperationsAdapter adapter5;
+    private OperationsAdapter adapter6;
+    private OperationsAdapter adapter7;
     private RecyclerView rv;
     private RecyclerView rv2;
     private RecyclerView rv3;
+    private RecyclerView rv4;
+    private RecyclerView rv5;
+    private RecyclerView rv6;
+    private RecyclerView rv7;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.LayoutManager layoutManager2;
     private RecyclerView.LayoutManager layoutManager3;
+    private RecyclerView.LayoutManager layoutManager4;
+    private RecyclerView.LayoutManager layoutManager5;
+    private RecyclerView.LayoutManager layoutManager6;
+    private RecyclerView.LayoutManager layoutManager7;
 
     //Unicode declerations
     public static final String DELTA = "\u0394";
@@ -35,6 +51,9 @@ public class PhysicsActivity extends AppCompatActivity {
     public static final String ALPHA = "\u03b1";
     public static final String THETA = "\u03b8";
     public static final String TAU = "\u03c4";
+    public static final String RHO = "\u03c1";
+    public static final String ETA = "\u037b";
+    public static final String PI = "\u03c0";
 
 
 
@@ -51,6 +70,14 @@ public class PhysicsActivity extends AppCompatActivity {
         populateOperations2();
         ops3 = new ArrayList<>();
         populateOperations3();
+        ops4 = new ArrayList<>();
+        populateOperations4();
+        ops5 = new ArrayList<>();
+        populateOperations5();
+        ops6 = new ArrayList<>();
+        populateOperations6();
+        ops7 = new ArrayList<>();
+        populateOperations7();
 
         //Populate RVs
         rv = findViewById(R.id.rvOperations);
@@ -70,7 +97,34 @@ public class PhysicsActivity extends AppCompatActivity {
         layoutManager3 = new LinearLayoutManager(this);
         rv3.setLayoutManager(layoutManager3);
         rv3.setAdapter(adapter3);
+
+        rv4 = findViewById(R.id.rvOperations4);
+        adapter4 = new OperationsAdapter(ops4);
+        layoutManager4 = new LinearLayoutManager(this);
+        rv4.setLayoutManager(layoutManager4);
+        rv4.setAdapter(adapter4);
+
+        rv5 = findViewById(R.id.rvOperations5);
+        adapter5 = new OperationsAdapter(ops5);
+        layoutManager5 = new LinearLayoutManager(this);
+        rv5.setLayoutManager(layoutManager5);
+        rv5.setAdapter(adapter5);
+
+        rv6 = findViewById(R.id.rvOperations6);
+        adapter6 = new OperationsAdapter(ops6);
+        layoutManager6 = new LinearLayoutManager(this);
+        rv6.setLayoutManager(layoutManager6);
+        rv6.setAdapter(adapter6);
+
+        rv7 = findViewById(R.id.rvOperations7);
+        adapter7 = new OperationsAdapter(ops7);
+        layoutManager7 = new LinearLayoutManager(this);
+        rv7.setLayoutManager(layoutManager7);
+        rv7.setAdapter(adapter7);
+
+
     }
+
 
     private void populateOperations(){
         ops.add(new Operations("Force (F = ma)"));
@@ -100,11 +154,50 @@ public class PhysicsActivity extends AppCompatActivity {
 
     private void populateOperations3(){
         ops3.add(new Operations("Angular Velocity (" + OMEGA + "0 + " + ALPHA + "t)"));
-        ops3.add(new Operations("Average Angular Velocity (1/2(" + OMEGA + OMEGA + "0)"));
+        ops3.add(new Operations("Average Angular Velocity (1/2(" + OMEGA + "+" + OMEGA + "0))"));
         ops3.add(new Operations("Rotational Work (" + TAU + DELTA + THETA + ")"));
         ops3.add(new Operations("Rotational Power (" + TAU + OMEGA + ")"));
         ops3.add(new Operations("Rotational Power (" + TAU + OMEGA + "cos(" + THETA + "))"));
         ops3.add(new Operations("Rotational K.E (K = 1/2 * I" + OMEGA + "2)"));
+    }
+
+    private void populateOperations4(){
+        ops4.add(new Operations("Density (p = m/v)"));
+        ops4.add(new Operations("Pressure (P = F/A)"));
+        ops4.add(new Operations("Change of Pressure (" + DELTA + "P = pgh)"));
+        ops4.add(new Operations("Dynamic Pressure (q = 1/2" + RHO + "v2)"));
+        ops4.add(new Operations("Kinematic Viscosity (v = " + ETA + "/" + RHO + ")"));
+        ops4.add(new Operations("Bernoulli's Equation (Constant = P + 1/2" + RHO + "v2 + " + RHO + "pgh)"));
+
+    }
+
+    private void populateOperations5(){
+        ops5.add(new Operations("Solid Sphere (I = 2/5 * MR2)"));
+        ops5.add(new Operations("Hollow Sphere (I = 2/3 * MR2)"));
+        ops5.add(new Operations("Solid Cylinder (I = 1/2 * MR2)"));
+        ops5.add(new Operations("Hollow Cylinder (I = 1/2 *  M(Ra2 + Rb2))"));
+        ops5.add(new Operations("Rect. Plate, Center Axis (I = 1/12 * M(a2 + b2))"));
+        ops5.add(new Operations("Rect. Plate, Edge Axis (I = 1/3 * Ma2)"));
+        ops5.add(new Operations("Slender Rod, Center Axis (I = 1/12 * ML2)"));
+        ops5.add(new Operations("Slender Rod, Edge Axis (I = 1/3 * ML2)"));
+    }
+
+    private void populateOperations6(){
+        ops6.add(new Operations("Position (x = A*cos(" + OMEGA + ")t)"));
+        ops6.add(new Operations("Velocity (v = -A" + OMEGA + "*sin(" + OMEGA + ")t)"));
+        ops6.add(new Operations("Acceleration (a = -A" + OMEGA + "2 * cos(" + OMEGA + ")t)"));
+        ops6.add(new Operations("Force (F = -kx)"));
+        ops6.add(new Operations("Period (2" + PI + "/" + OMEGA + ")"));
+    }
+
+
+    private void populateOperations7() {
+        ops7.add(new Operations("Celsius (C = 5/9(F - 32))"));
+        ops7.add(new Operations("Fahrenheit (F = 9/5*C + 32)"));
+        ops7.add(new Operations("Kelvin (K = C + 273.15)"));
+        ops7.add(new Operations("Heat Lost in Water (" + DELTA + "Q = cm" + DELTA + "T)"));
+        ops7.add(new Operations("Pressure of Ideal Gas (p = 1/3 * " + RHO + "v2)"));
+        ops7.add(new Operations("K.E of Ideal Gas (3/2 * kT)"));
     }
 
 

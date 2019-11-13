@@ -18,6 +18,7 @@ import java.util.List;
 
 import static com.example.calculator.OperationsActivity.OMEGA;
 import static com.example.calculator.OperationsActivity.superscript;
+import static com.example.calculator.PhysicsActivity.RHO;
 
 public class OperationsAdapter extends
     RecyclerView.Adapter<OperationsAdapter.ViewHolder>{
@@ -103,6 +104,51 @@ public class OperationsAdapter extends
         }
         else if (ops.getTitle() == "Sphere ((4/3)" + PI + "r3)"){
             textView.setText("Sphere ((4/3)" + PI + superscript("r3)"));
+        }
+        else if (ops.getTitle() == "Centripetal Force (mv2/r)"){
+            textView.setText(superscript("Centripetal Force (mv2/r)"));
+        }
+        else if (ops.getTitle() == "Rotational K.E (K = 1/2 * I" + OMEGA + "2)"){
+            textView.setText("Rotational K.E (K = 1/2 * I" + OMEGA + superscript("2)"));
+        }
+        else if (ops.getTitle() == "Dynamic Pressure (q = 1/2" + RHO + "v2"){
+            textView.setText("Dynamic Pressure (q = 1/2" + RHO + superscript("v2"));
+        }
+        else if (ops.getTitle() == "Bernoulli's Equation (Constant = P + 1/2" + RHO + "v2 + " + RHO + "pgh)"){
+            textView.setText("Bernoulli's Equation (Constant = P + 1/2" + RHO + superscript("v2") + RHO + "pgh)");
+        }
+        else if (ops.getTitle() == "Solid Sphere (I = 2/5 * MR2)"){
+            textView.setText("Solid Sphere (I = 2/5 * " + superscript("MR2)"));
+        }
+        else if (ops.getTitle() == "Hollow Sphere (I = 2/3 * MR2)"){
+            textView.setText("Hollow Sphere (I = 2/3 * " + superscript("MR2)"));
+        }
+        else if (ops.getTitle() == "Solid Cylinder (I = 1/2 * MR2)"){
+            textView.setText("Solid Cylinder (I = 1/2 * " + superscript("MR2)"));
+        }
+        else if (ops.getTitle() == "Hollow Cylinder (I = 1/2 *  M(Ra2 + Rb2))"){
+            textView.setText("Hollow Cylinder (I = 1/2 *  " + superscript("M(Ra2 + Rb2))"));
+        }
+        else if (ops.getTitle() == "Rect. Plate, Center Axis (I = 1/12 * M(a2 + b2))"){
+            textView.setText("Rect. Plate, Center Axis (I = 1/12 * " + superscript("M(a2 + b2))"));
+        }
+        else if (ops.getTitle() == "Rect. Plate, Center Axis (I = 1/12 * M(a2 + b2))"){
+            textView.setText("Rect. Plate, Center Axis (I = 1/12 * " + superscript("M(a2 + b2))"));
+        }
+        else if (ops.getTitle() == "Rect. Plate, Edge Axis (I = 1/3 * Ma2)"){
+            textView.setText("Rect. Plate, Edge Axis (I = 1/3 * " + superscript("Ma2)"));
+        }
+        else if (ops.getTitle() == "Slender Rod, Center Axis (I = 1/12 * ML2)"){
+            textView.setText("Slender Rod, Center Axis (I = 1/12 * " + superscript("ML2)"));
+        }
+        else if (ops.getTitle() == "Slender Rod, Edge Axis (I = 1/3 * ML2)"){
+            textView.setText("Slender Rod, Edge Axis (I = 1/3 * " + superscript("ML2)"));
+        }
+        else if (ops.getTitle() == "Acceleration (a = -A" + OMEGA + "2 * cos(" + OMEGA + ")t)"){
+            textView.setText("Acceleration (a = -A" + OMEGA + superscript("2") + " * cos(" + OMEGA + ")t)");
+        }
+        else if (ops.getTitle() == "Pressure of Ideal Gas (p = 1/3 * " + RHO + "v2"){
+            textView.setText("Pressure of Ideal Gas (p = 1/3 * " + RHO + superscript("v2"));
         }
         else{
             textView.setText(ops.getTitle());
