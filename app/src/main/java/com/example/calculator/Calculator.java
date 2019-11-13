@@ -7,7 +7,7 @@ import java.util.Locale;
 public class Calculator {
     DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.US);
     // Define the maximum number of decimals (number of symbols #)
-    DecimalFormat df = new DecimalFormat("#.#####", otherSymbols);
+    DecimalFormat df = new DecimalFormat("#.##", otherSymbols);
 
     public String add(float n1, float n2){
         return df.format(n1+n2);

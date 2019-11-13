@@ -75,14 +75,7 @@ public class OperationsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        String centA = "Centripetal Acceleration (v2/r)";
-        centA = superscript(centA);
         String centA2 = "Centripetal Acceleration (" + OMEGA + "2/r)";
-        String ke = "mv2)";
-        String ke2 = "Kinetic Energy (p2";
-
-
         if(opTitle == "Force (F = ma)" || opTitle == "Weight (W = mg)" || opTitle == "Acceleration (" + DELTA + "v/" + DELTA + "t)" ||
             opTitle == "Momentum (p = mv)" || opTitle == "Centripetal Acceleration (v2/r)" || opTitle == centA2 || opTitle == "Impulse (" + DELTA + "p = F" + DELTA + "t)" ||
             opTitle == "Kinetic Energy (1/2 * mv2)" || opTitle == "Kinetic Energy (p2/2m)" || opTitle == "Gravitation P.E (" + DELTA + "Ug = mg" + DELTA +"h)" ||
@@ -527,66 +520,6 @@ public class OperationsActivity extends AppCompatActivity {
         });
     }
 
-    private boolean checkInput(int counter){
-        if(counter == 1){
-            if(mPhsySub1.getText().toString().isEmpty()){
-                mError.setText("**Please Fill in all Fields**");
-                mError.setVisibility(View.VISIBLE);
-                mResult.setText("");
-                return false;
-            }
-            else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
-                    mPhysSub2.getText().toString().matches("[a-zA-Z]+")){
-                mError.setText("**Invalid Input**");
-                mError.setVisibility(View.VISIBLE);
-                mResult.setText("");
-                return false;
-            }
-        }
-        else if (counter == 2){
-            if(mPhsySub1.getText().toString().isEmpty() || mPhysSub2.getText().toString().isEmpty()){
-                mError.setText("**Please Fill in all Fields**");
-                mError.setVisibility(View.VISIBLE);
-                mResult.setText("");
-                return false;
-            }
-            else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
-                    mPhysSub2.getText().toString().matches("[a-zA-Z]+") ||
-                   (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
-                    mPhysSub2.getText().toString().matches("[a-zA-Z]+"))){
-                mError.setText("**Invalid Input**");
-                mError.setVisibility(View.VISIBLE);
-                mResult.setText("");
-                return false;
-            }
-        }
-        else if (counter == 3){
-            if(mPhsySub1.getText().toString().isEmpty() || mPhysSub2.getText().toString().isEmpty() ||
-               mPhysSub3.getText().toString().isEmpty()){
-                mError.setText("**Please Fill in all Fields**");
-                mError.setVisibility(View.VISIBLE);
-                mResult.setText("");
-                return false;
-            }
-            else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
-                    mPhysSub2.getText().toString().matches("[a-zA-Z]+") ||
-                    mPhysSub3.getText().toString().matches("[a-zA-Z]+") ||
-                    (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
-                     mPhysSub2.getText().toString().matches("[a-zA-Z]+") &&
-                     mPhysSub3.getText().toString().matches("[a-zA-Z]+"))){
-                mError.setText("**Invalid Input**");
-                mError.setVisibility(View.VISIBLE);
-                mResult.setText("");
-                return false;
-            }
-        }
-
-        return true;
-
-
-
-    }
-
     private void setCalcOps(){
         enterBtn = findViewById(R.id.ops_page_enter_btn);
         enterBtn.setOnClickListener(new View.OnClickListener(){
@@ -715,26 +648,8 @@ public class OperationsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(opTitle == "Force (F = ma)"){
-                    if(mPhsySub1.getText().toString().isEmpty() && mPhysSub2.getText().toString().isEmpty()){
-                        mError.setText("**Fields are Empty.  Please Enter in Values**");
-                        mError.setVisibility(View.VISIBLE);
-                    }
-                    else if(mPhsySub1.getText().toString().isEmpty()){
-                        mError.setText("**Please Enter a Value for Mass**");
-                        mError.setVisibility(View.VISIBLE);
-                    }
-                    else if(mPhysSub2.getText().toString().isEmpty()) {
-                        mError.setText("**Please Enter a Value for Acceleration**");
-                        mError.setVisibility(View.VISIBLE);
-                    }
-                    else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
-                            mPhysSub2.getText().toString().matches("[a-zA-Z]+") ||
-                            (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
-                                    mPhysSub2.getText().toString().matches("[a-zA-Z]+"))){
-                        mError.setText("**Invalid Input**");
-                        mError.setVisibility(View.VISIBLE);
-                    }
-                     else{
+                    int counter = 2;
+                    if(checkInput(counter)){
                         float result1 = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
                         //Conversion based on units
@@ -753,25 +668,15 @@ public class OperationsActivity extends AppCompatActivity {
                         mError.setVisibility(View.INVISIBLE);
                         mResult.setText(finalResult + "N");
                     }
+                     else{
+                        return;
+                    }
 
                 }
 
                 if(opTitle == "Weight (W = mg)"){
-                    if(mPhsySub1.getText().toString().isEmpty() && mPhysSub2.getText().toString().isEmpty()){
-                        mError.setText("**Fields are Empty.  Please Enter in Values**");
-                        mError.setVisibility(View.VISIBLE);
-                    }
-                    else if(mPhsySub1.getText().toString().isEmpty()){
-                        mError.setText("**Please Enter a Value for Mass**");
-                        mError.setVisibility(View.VISIBLE);
-
-                    }else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
-                            mPhysSub2.getText().toString().matches("[a-zA-Z]+") ||
-                            (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
-                                    mPhysSub2.getText().toString().matches("[a-zA-Z]+"))){
-                        mError.setText("**Invalid Input**");
-                        mError.setVisibility(View.VISIBLE);
-                    }else{
+                    int counter = 2;
+                    if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
                         if(mPhysUnits1.getSelectedItem().toString() == "mg") {
@@ -783,29 +688,15 @@ public class OperationsActivity extends AppCompatActivity {
                         }
                         float finalResult = result * result2;
                         mError.setVisibility(View.INVISIBLE);
-                        mResult.setText(finalResult + "m/s^2");
+                        mResult.setText(finalResult + superscript("kg*m/s2"));
+                    } else{
+                        return;
                     }
 
                 }
                 if(opTitle == "Acceleration (" + DELTA + "v/" + DELTA + "t)"){
-                    if(mPhsySub1.getText().toString().isEmpty() && mPhysSub2.getText().toString().isEmpty()){
-                        mError.setText("**Fields are Empty.  Please Enter in Values**");
-                        mError.setVisibility(View.VISIBLE);
-                    }
-                    else if(mPhsySub1.getText().toString().isEmpty()){
-                        mError.setText("**Please Enter a Value for " + DELTA + "v**");
-                        mError.setVisibility(View.VISIBLE);
-
-                    } else if(mPhysSub2.getText().toString().isEmpty()){
-                        mError.setText("**Please Enter a Value for " + DELTA + "t**");
-                        mError.setVisibility(View.VISIBLE);
-                    }else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
-                            mPhysSub2.getText().toString().matches("[a-zA-Z]+") ||
-                            (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
-                                    mPhysSub2.getText().toString().matches("[a-zA-Z]+"))){
-                        mError.setText("**Invalid Input**");
-                        mError.setVisibility(View.VISIBLE);
-                    } else{
+                    int counter = 2;
+                    if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
                         if(mPhysUnits1.getSelectedItem().toString() == "mm/s") {
@@ -821,7 +712,7 @@ public class OperationsActivity extends AppCompatActivity {
                         if(mPhysUnits2.getSelectedItem().toString() == "mins"){
                             result2 *= 60;
                         }
-                        if(mPhysUnits2.getSelectedItem().toString() == "hours"){
+                        if(mPhysUnits2.getSelectedItem().toString() == "hrs"){
                             result2 *= 3600;
                         }
 
@@ -830,29 +721,15 @@ public class OperationsActivity extends AppCompatActivity {
                         exp = superscript(exp);
                         mError.setVisibility(View.INVISIBLE);
                         mResult.setText(finalResult + exp);
+                    } else{
+                        return;
                     }
 
                 }
 
                 if(opTitle == "Momentum (p = mv)"){
-                    if(mPhsySub1.getText().toString().isEmpty() && mPhysSub2.getText().toString().isEmpty()){
-                        mError.setText("**Fields are Empty.  Please Enter in Values**");
-                        mError.setVisibility(View.VISIBLE);
-                    }
-                    else if(mPhsySub1.getText().toString().isEmpty()){
-                        mError.setText("**Please Enter a Value for Mass**");
-                        mError.setVisibility(View.VISIBLE);
-
-                    } else if(mPhysSub2.getText().toString().isEmpty()){
-                        mError.setText("**Please Enter a Value for Velocity**");
-                        mError.setVisibility(View.VISIBLE);
-                    } else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
-                            mPhysSub2.getText().toString().matches("[a-zA-Z]+") ||
-                            (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
-                                    mPhysSub2.getText().toString().matches("[a-zA-Z]+"))){
-                        mError.setText("**Invalid Input**");
-                        mError.setVisibility(View.VISIBLE);
-                    } else{
+                    int counter = 2;
+                    if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
                         if(mPhysUnits1.getSelectedItem().toString() == "mg") {
@@ -871,32 +748,15 @@ public class OperationsActivity extends AppCompatActivity {
 
                         float finalResult = result * result2;
                         mError.setVisibility(View.INVISIBLE);
-                        mResult.setText(finalResult + "kg * m/s");
+                        mResult.setText(finalResult + superscript("kg * m/s"));
+                    } else{
+                        return;
                     }
 
                 }
                 if(opTitle == "Impulse (" + DELTA + "p = F" + DELTA + "t)"){
-                    if(mPhsySub1.getText().toString().isEmpty() && mPhysSub2.getText().toString().isEmpty()){
-                        mError.setText("**Fields are Empty.  Please Enter in Values**");
-                        mError.setVisibility(View.VISIBLE);
-                    }
-                    else if(mPhsySub1.getText().toString().isEmpty()){
-                        mError.setText("**Please Enter a Value for Force**");
-                        mError.setVisibility(View.VISIBLE);
-
-                    }
-                    else if(mPhysSub2.getText().toString().isEmpty()){
-                        mError.setText("**Please Enter a Value for " + DELTA + "t**");
-                        mError.setVisibility(View.VISIBLE);
-                    }
-                    else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
-                            mPhysSub2.getText().toString().matches("[a-zA-Z]+") ||
-                            (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
-                                    mPhysSub2.getText().toString().matches("[a-zA-Z]+"))){
-                        mError.setText("**Invalid Input**");
-                        mError.setVisibility(View.VISIBLE);
-                    }
-                    else{
+                    int counter = 2;
+                    if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
 
@@ -914,6 +774,9 @@ public class OperationsActivity extends AppCompatActivity {
 
                         mError.setVisibility(View.INVISIBLE);
                         mResult.setText(finalResult + "kg * m/s");
+                    }
+                    else{
+                        return;
                     }
 
                 }
@@ -1054,31 +917,64 @@ public class OperationsActivity extends AppCompatActivity {
         }
     }
 
-    private void checkForUnits(String unitType1){
-        if(unitType1 == "Mass"){
-            mError.setText("**Please Enter a Value for Mass**");
-            mError.setVisibility(View.VISIBLE);
+    private boolean checkInput(int counter){
+        if(counter == 1){
+            if(mPhsySub1.getText().toString().isEmpty()){
+                mError.setText("**Please Fill in all Fields**");
+                mError.setVisibility(View.VISIBLE);
+                mResult.setText("");
+                return false;
+            }
+            else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
+                    mPhysSub2.getText().toString().matches("[a-zA-Z]+")){
+                mError.setText("**Invalid Input**");
+                mError.setVisibility(View.VISIBLE);
+                mResult.setText("");
+                return false;
+            }
         }
-        if(unitType1 == "Acceleration"){
-            mError.setText("**Please Enter a Value for Acceleration**");
-            mError.setVisibility(View.VISIBLE);
+        else if (counter == 2){
+            if(mPhsySub1.getText().toString().isEmpty() || mPhysSub2.getText().toString().isEmpty()){
+                mError.setText("**Please Fill in all Fields**");
+                mError.setVisibility(View.VISIBLE);
+                mResult.setText("");
+                return false;
+            }
+            else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
+                    mPhysSub2.getText().toString().matches("[a-zA-Z]+") ||
+                    (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
+                            mPhysSub2.getText().toString().matches("[a-zA-Z]+"))){
+                mError.setText("**Invalid Input**");
+                mError.setVisibility(View.VISIBLE);
+                mResult.setText("");
+                return false;
+            }
         }
-        if(unitType1 == "Force"){
-            mError.setText("**Please Enter a Value for Force**");
-            mError.setVisibility(View.VISIBLE);
+        else if (counter == 3){
+            if(mPhsySub1.getText().toString().isEmpty() || mPhysSub2.getText().toString().isEmpty() ||
+                    mPhysSub3.getText().toString().isEmpty()){
+                mError.setText("**Please Fill in all Fields**");
+                mError.setVisibility(View.VISIBLE);
+                mResult.setText("");
+                return false;
+            }
+            else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
+                    mPhysSub2.getText().toString().matches("[a-zA-Z]+") ||
+                    mPhysSub3.getText().toString().matches("[a-zA-Z]+") ||
+                    (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
+                            mPhysSub2.getText().toString().matches("[a-zA-Z]+") &&
+                            mPhysSub3.getText().toString().matches("[a-zA-Z]+"))){
+                mError.setText("**Invalid Input**");
+                mError.setVisibility(View.VISIBLE);
+                mResult.setText("");
+                return false;
+            }
         }
-        if(unitType1 == DELTA + "t"){
-            mError.setText("**Please Enter a Value for " + DELTA + "t**");
-            mError.setVisibility(View.VISIBLE);
-        }
-        if(unitType1 == DELTA + "v"){
-            mError.setText("**Please Enter a Value for " + DELTA + "v**");
-            mError.setVisibility(View.VISIBLE);
-        }
-        if(unitType1 == "Velocity"){
-            mError.setText("**Please Enter a Value for Velocity**");
-            mError.setVisibility(View.VISIBLE);
-        }
+
+        return true;
+
+
+
     }
 
     public static String superscript(String str) {

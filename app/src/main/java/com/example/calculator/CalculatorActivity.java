@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class CalculatorActivity extends AppCompatActivity {
@@ -18,6 +19,7 @@ public class CalculatorActivity extends AppCompatActivity {
     String resultString;
     float x;
     float y;
+    String test;
 
     //Calc Buttons
     Button oneBtn;
@@ -41,16 +43,23 @@ public class CalculatorActivity extends AppCompatActivity {
     Button expBtn;
     Button equalsBtn;
     Button backBtn;
+
+    //Constants
+    public static final String SQRT = "\u221a";
+    public static final String MINUS = "\u2212";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
+        parensBtn = findViewById(R.id.calcParens);
+        parensBtn.setText(SQRT);
+
+        minusBtn = findViewById(R.id.calcMinus);
+        minusBtn.setText(MINUS);
 
         resultShow = findViewById(R.id.calcResult);
         resultShow.setText(resultString);
-
-        Calculator calc = new Calculator();
-
 
         //Inputs characters into result string
         linkButtonsForAppend();
@@ -73,6 +82,12 @@ public class CalculatorActivity extends AppCompatActivity {
                     divBtn.setEnabled(false);
                     timesBtn.setEnabled(false);
                     expBtn.setEnabled(false);
+                }
+
+                if(resultShow.getText().toString().length() > 1){
+                    if (resultShow.getText().toString().charAt(0) == '0'){
+                        resultShow.setText(resultShow.getText().toString().substring(1));
+                    }
                 }
             }
 
@@ -193,7 +208,7 @@ public class CalculatorActivity extends AppCompatActivity {
         minusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                resultShow.append("-");
+                resultShow.append(MINUS);
             }
         });
 
@@ -218,6 +233,7 @@ public class CalculatorActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 resultShow.setText("");
+                enableBtns();
             }
         });
 
@@ -225,7 +241,7 @@ public class CalculatorActivity extends AppCompatActivity {
         parensBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                resultShow.append("√¯¯");
+                resultShow.append(SQRT);
             }
         });
 
@@ -243,7 +259,11 @@ public class CalculatorActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(resultShow.getText().toString().length() <= 0){
                     resultShow.setText("");
-                } else{
+                }
+                else if(resultShow.getText().toString().length() <= 1){
+                    enableBtns();
+                }
+                else{
                     String edit = resultShow.getText().toString();
                     String finalEdit = edit.substring(0, edit.length() - 1);
                     resultShow.setText(finalEdit);
@@ -256,54 +276,131 @@ public class CalculatorActivity extends AppCompatActivity {
             Calculator calc = new Calculator();
             @Override
             public void onClick(View view) {
+                test = "0";
                 if(resultShow.getText().toString().contains("+")){
-                    Scanner scanner = new Scanner(resultShow.getText().toString());
-                    scanner.useDelimiter("\\+");
-                    x = Float.parseFloat(scanner.next());
-                    y = Float.parseFloat(scanner.next());
-                    resultShow.setText(calc.add(x, y));
+                    try{
+                        Scanner scanner = new Scanner(resultShow.getText().toString());
+                        scanner.useDelimiter("\\+");
+
+                        x = Float.parseFloat(scanner.next());
+                        test = scanner.next();
+                    } catch(NoSuchElementException err){
+                        resultShow.setText("");
+                    }
+
+                    if(test.contains(SQRT)){
+                        y = Float.parseFloat(test.replace(SQRT, ""));
+                        float newY = (float) Math.sqrt(y);
+                        resultShow.setText(calc.add(x, newY));
+                    } else{
+                        y = Float.parseFloat(test);
+                        resultShow.setText(calc.add(x, y));
+                    }
+
                 }
-                if(resultShow.getText().toString().contains("-")){
-                    Scanner scanner = new Scanner(resultShow.getText().toString());
-                    scanner.useDelimiter("\\-");
-                    x = Float.parseFloat(scanner.next());
-                    y = Float.parseFloat(scanner.next());
-                    resultShow.setText(calc.subtract(x, y));
+                if(resultShow.getText().toString().contains(MINUS)){
+                    try{
+                        Scanner scanner = new Scanner(resultShow.getText().toString());
+                        scanner.useDelimiter("\\u2212");
+
+                        x = Float.parseFloat(scanner.next());
+                        test = scanner.next();
+                    } catch(NoSuchElementException err){
+                        resultShow.setText("");
+                    }
+                    if(test.contains(SQRT)){
+                        y = Float.parseFloat(test.replace(SQRT, ""));
+                        float newY = (float) Math.sqrt(y);
+                        resultShow.setText(calc.subtract(x, newY));
+                    } else{
+                        y = Float.parseFloat(test);
+                        resultShow.setText(calc.subtract(x, y));
+                    }
                 }
                 if(resultShow.getText().toString().contains("*")){
-                    Scanner scanner = new Scanner(resultShow.getText().toString());
-                    scanner.useDelimiter("\\*");
-                    x = Float.parseFloat(scanner.next());
-                    y = Float.parseFloat(scanner.next());
-                    resultShow.setText(calc.multiply(x, y));
+                    try{
+                        Scanner scanner = new Scanner(resultShow.getText().toString());
+                        scanner.useDelimiter("\\*");
+
+                        x = Float.parseFloat(scanner.next());
+                        test = scanner.next();
+                    } catch(NoSuchElementException err){
+                        resultShow.setText("");
+                    }
+                    if(test.contains(SQRT)){
+                        y = Float.parseFloat(test.replace(SQRT, ""));
+                        float newY = (float) Math.sqrt(y);
+                        resultShow.setText(calc.multiply(x, newY));
+                    } else{
+                        y = Float.parseFloat(test);
+                        resultShow.setText(calc.multiply(x, y));
+                    }
                 }
                 if(resultShow.getText().toString().contains("/")){
-                    Scanner scanner = new Scanner(resultShow.getText().toString());
-                    scanner.useDelimiter("\\/");
-                    x = Float.parseFloat(scanner.next());
-                    y = Float.parseFloat(scanner.next());
-                    resultShow.setText(calc.divide(x, y));
+                    try{
+                        Scanner scanner = new Scanner(resultShow.getText().toString());
+                        scanner.useDelimiter("\\/");
+
+                        x = Float.parseFloat(scanner.next());
+                        test = scanner.next();
+                    } catch(NoSuchElementException err){
+                        resultShow.setText("");
+                    }
+                    if(test.contains(SQRT)){
+                        y = Float.parseFloat(test.replace(SQRT, ""));
+                        float newY = (float) Math.sqrt(y);
+                        resultShow.setText(calc.divide(x, newY));
+                    } else{
+                        y = Float.parseFloat(test);
+                        resultShow.setText(calc.divide(x, y));
+                    }
                 }
                 if(resultShow.getText().toString().contains("^")){
-                    Scanner scanner = new Scanner(resultShow.getText().toString());
-                    scanner.useDelimiter("\\^");
-                    x = Float.parseFloat(scanner.next());
-                    y = Float.parseFloat(scanner.next());
-                    resultShow.setText(calc.exponent(x, y));
+                    try{
+                        Scanner scanner = new Scanner(resultShow.getText().toString());
+                        scanner.useDelimiter("\\^");
+
+                        x = Float.parseFloat(scanner.next());
+                        test = scanner.next();
+                    } catch(NoSuchElementException err){
+                        resultShow.setText("");
+                    }
+                    if(test.contains(SQRT)){
+                        y = Float.parseFloat(test.replace(SQRT, ""));
+                        float newY = (float) Math.sqrt(y);
+                        resultShow.setText(calc.exponent(x, newY));
+                    } else{
+                        y = Float.parseFloat(test);
+                        resultShow.setText(calc.exponent(x, y));
+                    }
                 }
-                if(resultShow.getText().toString().contains("√¯¯")){
-                    Scanner scanner = new Scanner(resultShow.getText().toString());
-                    scanner.useDelimiter("\\√¯¯");
-                    x = Float.parseFloat(scanner.next());
-                    resultShow.setText(calc.squareRoot(x));
+                if(resultShow.getText().toString().contains(SQRT)){
+                    try {
+                        Scanner scanner = new Scanner(resultShow.getText().toString());
+                        scanner.useDelimiter("\\u221a");
+                        test = scanner.next();
+                    } catch(NoSuchElementException err){
+                        resultShow.setText("");
+                    }
+                    if(test.charAt(0) == '-'){
+                        resultShow.setText("");
+                    }
+                    else{
+                        x = Float.parseFloat(test);
+                        resultShow.setText(calc.squareRoot(x));
+                    }
                 }
-                plusBtn.setEnabled(true);
-                minusBtn.setEnabled(true);
-                divBtn.setEnabled(true);
-                timesBtn.setEnabled(true);
-                expBtn.setEnabled(true);
+                enableBtns();
             }
 
         });
+    }
+
+    private void enableBtns(){
+        plusBtn.setEnabled(true);
+        minusBtn.setEnabled(true);
+        divBtn.setEnabled(true);
+        timesBtn.setEnabled(true);
+        expBtn.setEnabled(true);
     }
 }
