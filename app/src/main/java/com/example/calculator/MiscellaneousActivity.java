@@ -35,5 +35,8 @@ public class MiscellaneousActivity extends AppCompatActivity {
         ops.add(new Operations("Factorial"));
         ops.add(new Operations("Modulo"));
         ops.add(new Operations("Derivative"));
+        ops.add(new Operations("Fahrenheit to Celsius"));
+        ops.add(new Operations("Celsius to Fahrenheit"));
+        ops.add(new Operations("Celsius to Kelvin"));
     }
 }

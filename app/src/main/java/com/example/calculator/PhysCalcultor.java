@@ -7,7 +7,7 @@ import java.util.Locale;
 public class PhysCalcultor {
     DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.US);
     // Define the maximum number of decimals (number of symbols #)
-    DecimalFormat df = new DecimalFormat("#.#####", otherSymbols);
+    DecimalFormat df = new DecimalFormat("#.#########", otherSymbols);
 
     public String KineticEnergy(float m, float v){
         float result = (1/2) * m * (v * v);
@@ -92,10 +92,10 @@ public class PhysCalcultor {
         return df.format(result);
     }
     public String SolidSphere(float m, float r){
-        float result = (2/5) * (m * (r * r));
+        float result = (float) ((0.4) * (m * (r * r)));
         return df.format(result);
     }
-    public String HollowCylinder(float m, float r){
+    public String HollowSphere(float m, float r){
         float result = (2/3) * (m * (r * r));
         return df.format(result);
     }

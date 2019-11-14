@@ -22,28 +22,24 @@ public class PhysicsActivity extends AppCompatActivity {
     public static ArrayList<Operations> ops4;
     public static ArrayList<Operations> ops5;
     public static ArrayList<Operations> ops6;
-    public static ArrayList<Operations> ops7;
     private OperationsAdapter adapter;
     private OperationsAdapter adapter2;
     private OperationsAdapter adapter3;
     private OperationsAdapter adapter4;
     private OperationsAdapter adapter5;
     private OperationsAdapter adapter6;
-    private OperationsAdapter adapter7;
     private RecyclerView rv;
     private RecyclerView rv2;
     private RecyclerView rv3;
     private RecyclerView rv4;
     private RecyclerView rv5;
     private RecyclerView rv6;
-    private RecyclerView rv7;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.LayoutManager layoutManager2;
     private RecyclerView.LayoutManager layoutManager3;
     private RecyclerView.LayoutManager layoutManager4;
     private RecyclerView.LayoutManager layoutManager5;
     private RecyclerView.LayoutManager layoutManager6;
-    private RecyclerView.LayoutManager layoutManager7;
 
     //Unicode declerations
     public static final String DELTA = "\u0394";
@@ -52,7 +48,6 @@ public class PhysicsActivity extends AppCompatActivity {
     public static final String THETA = "\u03b8";
     public static final String TAU = "\u03c4";
     public static final String RHO = "\u03c1";
-    public static final String ETA = "\u037b";
     public static final String PI = "\u03c0";
 
 
@@ -76,8 +71,6 @@ public class PhysicsActivity extends AppCompatActivity {
         populateOperations5();
         ops6 = new ArrayList<>();
         populateOperations6();
-        ops7 = new ArrayList<>();
-        populateOperations7();
 
         //Populate RVs
         rv = findViewById(R.id.rvOperations);
@@ -115,13 +108,6 @@ public class PhysicsActivity extends AppCompatActivity {
         layoutManager6 = new LinearLayoutManager(this);
         rv6.setLayoutManager(layoutManager6);
         rv6.setAdapter(adapter6);
-
-        rv7 = findViewById(R.id.rvOperations7);
-        adapter7 = new OperationsAdapter(ops7);
-        layoutManager7 = new LinearLayoutManager(this);
-        rv7.setLayoutManager(layoutManager7);
-        rv7.setAdapter(adapter7);
-
 
     }
 
@@ -166,8 +152,6 @@ public class PhysicsActivity extends AppCompatActivity {
         ops4.add(new Operations("Pressure (P = F/A)"));
         ops4.add(new Operations("Change of Pressure (" + DELTA + "P = pgh)"));
         ops4.add(new Operations("Dynamic Pressure (q = 1/2" + RHO + "v2)"));
-        ops4.add(new Operations("Kinematic Viscosity (v = " + ETA + "/" + RHO + ")"));
-        ops4.add(new Operations("Bernoulli's Equation (Constant = P + 1/2" + RHO + "v2 + " + RHO + "pgh)"));
 
     }
 
@@ -191,14 +175,6 @@ public class PhysicsActivity extends AppCompatActivity {
     }
 
 
-    private void populateOperations7() {
-        ops7.add(new Operations("Celsius (C = 5/9(F - 32))"));
-        ops7.add(new Operations("Fahrenheit (F = 9/5*C + 32)"));
-        ops7.add(new Operations("Kelvin (K = C + 273.15)"));
-        ops7.add(new Operations("Heat Lost in Water (" + DELTA + "Q = cm" + DELTA + "T)"));
-        ops7.add(new Operations("Pressure of Ideal Gas (p = 1/3 * " + RHO + "v2)"));
-        ops7.add(new Operations("K.E of Ideal Gas (3/2 * kT)"));
-    }
 
 
 }

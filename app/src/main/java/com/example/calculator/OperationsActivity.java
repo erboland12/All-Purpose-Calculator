@@ -49,21 +49,24 @@ public class OperationsActivity extends AppCompatActivity {
 
     //Spinner arrays
     ArrayAdapter<String> adapter;
-    private String[] massItems = {"mg", "g", "Kg"};
+    private String[] massItems = {"mg", "g", "kg"};
+    private String[] areaItems = {superscript("cm2"), superscript("m2"), superscript("in2"), superscript("mi2")};
+    private String[] volumeItems = {superscript("cm3"), superscript("m3"), "L"};
     private String[] lengthItems = {"mm", "cm", "m", "km"};
     private String[] timeItems = {"ms", "s", "mins", "hrs"};
     private String[] velocityItems = {"mm/s", "m/s", "km/s"};
     private String[] angularVelocityItems = {"rad/s"};
-    private String[] accelerationItems = {"m/s^2", "km/s^2"};
+    private String[] accelerationItems = {superscript("m/s2"), superscript("km/s2")};
     private String[] thetaItems = {"Radians", "Degrees"};
-    private String[] gravity = {"m/s^2"};
+    private String[] gravity = {superscript("m/s2")};
     private String[] forceItems = {"N"};
     private String[] work = {"J"};
     private String[] torque = {"N*m"};
+    private String[] momentum = {"kg * m/s"};
     private String[] angularFrequency = {"Hz"};
     private String[] amplitude = {"m"};
-    private String[] springConstant = {"kg * m/s^2"};
-    private String[] densityItems = {"g/cm^3, kg/cm^3"};
+    private String[] springConstant = {superscript("kg * m/s2")};
+    private String[] densityItems = {superscript("g/cm3"), superscript("kg/cm3")};
 
     DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.US);
     // Define the maximum number of decimals (number of symbols #)
@@ -88,6 +91,7 @@ public class OperationsActivity extends AppCompatActivity {
     private boolean isGeo = false;
 
     private static double radToDegrees = 57.295779513;
+    private static double meterToMile = 0.0000003861021585424;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -1199,6 +1203,7 @@ public class OperationsActivity extends AppCompatActivity {
         enterBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                PhysCalcultor calc = new PhysCalcultor();
                 if(opTitle == "Force (F = ma)"){
                     int counter = 2;
                     if(checkInput(counter)){
@@ -1210,11 +1215,11 @@ public class OperationsActivity extends AppCompatActivity {
                             finalResult /= 1000;
                         }
 
-                        if(mPhysUnits1.getSelectedItem().toString() == "Kg"){
+                        if(mPhysUnits1.getSelectedItem().toString() == "kg"){
                             finalResult *= 1000;
                         }
 
-                        if(mPhysUnits2.getSelectedItem().toString() == "m/s^2"){
+                        if(mPhysUnits2.getSelectedItem().toString() == superscript("m/s^2")){
                             finalResult /= 1000;
                         }
                         mError.setVisibility(View.INVISIBLE);
@@ -1332,6 +1337,1036 @@ public class OperationsActivity extends AppCompatActivity {
                     }
 
                 }
+
+                if(opTitle == "Kinetic Energy (1/2 * mv2)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits2.getSelectedItem().toString() == "ms") {
+                            result2 /= 1000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "mins"){
+                            result2 *= 60;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "hrs"){
+                            result2 *= 3600;
+                        }
+
+                        mResult.setText(calc.KineticEnergy(result, result2) + "J");
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+
+                }
+
+                if(opTitle == "Kinetic Energy (p2/2m)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits2.getSelectedItem().toString() == "mg") {
+                            result2 /= 1000000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "g"){
+                            result2 /= 1000;
+                        }
+
+                        mResult.setText(calc.KineticEnergy2(result, result2) + "J");
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+
+                }
+
+                if(opTitle == "Gravitational P.E (" + DELTA + "Ug = mg" + DELTA +"h)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        float result3 = Float.parseFloat(mPhysSub3.getText().toString());
+
+                        if(mPhysUnits1.getSelectedItem().toString() == "mg") {
+                            result2 /= 1000000;
+                        }
+                        if(mPhysUnits1.getSelectedItem().toString() == "g"){
+                            result2 /= 1000;
+                        }
+
+                        if(mPhysUnits3.getSelectedItem().toString() == "mm") {
+                            result3 /= 1000;
+                        }
+                        if(mPhysUnits3.getSelectedItem().toString() == "cm"){
+                            result3 /= 100;
+                        }
+                        if(mPhysUnits3.getSelectedItem().toString() == "km"){
+                            result3 *= 1000;
+                        }
+
+                        mResult.setText(calc.GravPE(result, result2, result3) + "J");
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+
+                }
+
+                if(opTitle == "Power (" + DELTA + "W/" + DELTA + "t)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits2.getSelectedItem().toString() == "ms") {
+                            result2 /= 1000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "mins"){
+                            result2 *= 60;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "hrs"){
+                            result2 *= 3600;
+                        }
+
+                        mResult.setText(calc.Power(result, result2) + " Watts");
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+
+                }
+
+                if(opTitle == "Hooke's Law (F = -k" + DELTA + "x)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits2.getSelectedItem().toString() == "mm") {
+                            result2 /= 1000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "cm"){
+                            result2 /= 100;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "km"){
+                            result2 *= 1000;
+                        }
+
+                        mResult.setText(calc.Hooke(result, result2) + "N");
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+
+                }
+
+                if(opTitle == "Angular Velocity (" + DELTA + THETA + "/" + DELTA + "t)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits1.getSelectedItem().toString() == "Degrees"){
+                            result *= (Math.PI/180);
+                        }
+
+                        if(mPhysUnits2.getSelectedItem().toString() == "ms") {
+                            result2 /= 1000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "mins"){
+                            result2 *= 60;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "hrs"){
+                            result2 *= 3600;
+                        }
+
+                        mResult.setText(calc.AngularVelocity(result, result2) + " rad/s");
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+
+                }
+
+                if(opTitle == "Angular Acceleration (" + DELTA + OMEGA + "/" + DELTA + "t)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits2.getSelectedItem().toString() == "ms") {
+                            result2 /= 1000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "mins"){
+                            result2 *= 60;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "hrs"){
+                            result2 *= 3600;
+                        }
+
+                        String suffix = superscript(" rad/s2");
+                        mResult.setText(calc.AngularAcceleration(result, result2) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+
+                }
+
+                if(opTitle == "Angular Momentum (I" + OMEGA + ")"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits1.getSelectedItem().toString() == "mg") {
+                            result /= 1000000;
+                        }
+                        if(mPhysUnits1.getSelectedItem().toString() == "g"){
+                            result /= 1000;
+                        }
+                        String suffix = superscript(" kg * m2");
+                        mResult.setText(calc.AngularMomentum(result, result2) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+
+                }
+                if(opTitle == "Displacement (r" +  THETA + ")"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits1.getSelectedItem().toString() == "mm") {
+                            result /= 1000;
+                        }
+                        if(mPhysUnits1.getSelectedItem().toString() == "km"){
+                            result *= 1000;
+                        }
+
+                        if(mPhysUnits2.getSelectedItem().toString() == "Degrees"){
+                            result2 *= (Math.PI / 180);
+                        }
+                        String suffix = superscript("m");
+                        mResult.setText(calc.AngularDisplacement(result, result2) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+
+                }
+
+                if(opTitle == "Velocity (r" + OMEGA + ")"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits1.getSelectedItem().toString() == "mm") {
+                            result /= 1000;
+                        }
+                        if(mPhysUnits1.getSelectedItem().toString() == "km"){
+                            result *= 1000;
+                        }
+
+                        String suffix = superscript("m/s");
+                        mResult.setText(calc.VelocityFromAngle(result, result2) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+
+                }
+
+                if(opTitle == "Acceleration (r" + ALPHA + ")"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits1.getSelectedItem().toString() == "mm") {
+                            result /= 1000;
+                        }
+                        if(mPhysUnits1.getSelectedItem().toString() == "km"){
+                            result *= 1000;
+                        }
+
+                        String suffix = superscript("m/s2");
+                        mResult.setText(calc.AccelerationFromAngle(result, result2) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+
+                }
+
+                if(opTitle == "Centripetal Acceleration (v2/r)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits1.getSelectedItem().toString() == "mm/s") {
+                            result /= 1000;
+                        }
+                        if(mPhysUnits1.getSelectedItem().toString() == "km/s"){
+                            result *= 1000;
+                        }
+
+                        if(mPhysUnits2.getSelectedItem().toString() == "mm") {
+                            result2 /= 1000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "km"){
+                            result2 *= 1000;
+                        }
+
+                        String suffix = superscript("m/s2");
+                        mResult.setText(calc.CentripetalAcceleration(result, result2) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+
+                }
+
+                if(opTitle == "Centripetal Acceleration (" + OMEGA + "2/r)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+
+                        if(mPhysUnits2.getSelectedItem().toString() == "mm") {
+                            result2 /= 1000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "km"){
+                            result2 *= 1000;
+                        }
+
+                        String suffix = superscript("rad/s2");
+                        mResult.setText(calc.CentripetalAcceleration(result, result2) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+
+                }
+
+                if(opTitle == "Centripetal Force (mv2/r)"){
+                    int counter = 3;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        float result3 = Float.parseFloat(mPhysSub3.getText().toString());
+
+                        if(mPhysUnits1.getSelectedItem().toString() == "mg") {
+                            result /= 1000000;
+                        }
+                        if(mPhysUnits1.getSelectedItem().toString() == "g"){
+                            result /= 1000;
+                        }
+
+                        if(mPhysUnits2.getSelectedItem().toString() == "mm/s") {
+                            result2 /= 1000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "km/s"){
+                            result2 *= 1000;
+                        }
+
+                        if(mPhysUnits3.getSelectedItem().toString() == "mm") {
+                            result3 /= 1000;
+                        }
+                        if(mPhysUnits3.getSelectedItem().toString() == "km"){
+                            result3 *= 1000;
+                        }
+
+                        String suffix = superscript("N");
+                        mResult.setText(calc.CentripetalForce(result, result2, result3) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+
+                }
+
+                if(opTitle == "Angular Velocity (" + OMEGA + "0 + " + ALPHA + "t)"){
+                    int counter = 3;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        float result3 = Float.parseFloat(mPhysSub3.getText().toString());
+
+                        if(mPhysUnits3.getSelectedItem().toString() == "ms") {
+                            result3 /= 1000;
+                        }
+                        if(mPhysUnits3.getSelectedItem().toString() == "mins"){
+                            result3 *= 60;
+                        }
+                        if(mPhysUnits3.getSelectedItem().toString() == "hrs"){
+                            result3 *= 3600;
+                        }
+
+
+                        String suffix = superscript("rad/s");
+                        mResult.setText(calc.RotationAngularVelocity(result, result2, result3) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+
+                }
+
+                if(opTitle == "Average Angular Velocity (1/2(" + OMEGA + "+" + OMEGA + "0))"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+
+                        String suffix = superscript("rad/s");
+                        mResult.setText(calc.AverageRotationalAngularVelocity(result, result2) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+
+                }
+                if(opTitle == "Rotational Work (" + TAU + DELTA + THETA + ")"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if (mPhysUnits2.getSelectedItem().toString() == "Degrees"){
+                            result2 *= (Math.PI / 180);
+                        }
+
+                        String suffix = superscript("J");
+                        mResult.setText(calc.RotationalWork(result, result2) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+
+                }
+
+                if(opTitle == "Rotational Power (" + TAU + OMEGA + ")"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        String suffix = superscript(" Watts");
+                        mResult.setText(calc.RotationalPower(result, result2) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+
+                }
+
+                if(opTitle == "Rotational Power (" + TAU + OMEGA + "cos(" + THETA + "))"){
+                    int counter = 3;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        float result3 = Float.parseFloat(mPhysSub3.getText().toString());
+
+                        if(mPhysUnits3.getSelectedItem().toString() == "Degrees"){
+                            result3 *= (Math.PI / 180);
+                        }
+
+                        String suffix = superscript(" Watts");
+                        mResult.setText(calc.RotationalPower2(result, result2, result3) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+
+                }
+
+                if(opTitle == "Rotational K.E (K = 1/2 * I" + OMEGA + "2)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits1.getSelectedItem().toString() == "mg"){
+                            result /= 1000000;
+                        }
+                        if(mPhysUnits1.getSelectedItem().toString() == "g"){
+                            result /= 1000;
+                        }
+
+                        String suffix = superscript(" J");
+                        mResult.setText(calc.RotationalKE(result, result2) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+                if(opTitle == "Density (p = m/v)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits1.getSelectedItem().toString() == "mg"){
+                            result /= 1000000;
+                        }
+                        if(mPhysUnits1.getSelectedItem().toString() == "g"){
+                            result /= 1000;
+                        }
+
+                        if(mPhysUnits2.getSelectedItem().toString() == superscript("m^3")){
+                            result2 /= 1000000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "L"){
+                            result2 /= 1000;
+                        }
+
+
+
+                        String suffix = superscript(" g/cm3");
+                        mResult.setText(calc.FluidDensity(result, result2) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Pressure (P = F/A)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+
+                        if(mPhysUnits2.getSelectedItem().toString() == superscript("cm2")){
+                            result2 *= 10000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == superscript("in2")){
+                            result2 *= 1550;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == superscript("mi2")){
+                            result2 *= meterToMile;
+                        }
+
+
+                        String suffix = superscript(" Pascals");
+                        mResult.setText(calc.Pressure(result, result2) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Change of Pressure (" + DELTA + "P = pgh)"){
+                    int counter = 3;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        float result3 = Float.parseFloat(mPhysSub3.getText().toString());
+
+                        if(mPhysUnits1.getSelectedItem().toString() == superscript("kg/m2")){
+                            result *= 1000;
+                        }
+
+                        if(mPhysUnits3.getSelectedItem().toString() == superscript("mm")){
+                            result3 /= 1000;
+                        }
+                        if(mPhysUnits3.getSelectedItem().toString() == superscript("km")){
+                            result3 *= 1000;
+                        }
+
+                        String suffix = superscript(" Pascals");
+                        mResult.setText(calc.DeltaPressure(result, result2, result3) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Dynamic Pressure (q = 1/2" + RHO + "v2)"){
+                    int counter = 3;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits1.getSelectedItem().toString() == superscript("kg/cm3")){
+                            result *= 1000;
+                        }
+
+                        if(mPhysUnits2.getSelectedItem().toString() == superscript("mm")){
+                            result2 /= 1000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == superscript("km")){
+                            result2 *= 1000;
+                        }
+
+                        String suffix = superscript(" Pascals");
+                        mResult.setText(calc.DynamicPressure(result, result2) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+                if(opTitle == "Dynamic Pressure (q = 1/2" + RHO + "v2)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits1.getSelectedItem().toString() == superscript("kg/cm3")){
+                            result *= 1000;
+                        }
+
+                        if(mPhysUnits2.getSelectedItem().toString() == superscript("mm")){
+                            result2 /= 1000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == superscript("km")){
+                            result2 *= 1000;
+                        }
+
+                        String suffix = superscript(" Pascals");
+                        mResult.setText(calc.DynamicPressure(result, result2) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Solid Sphere (I = 2/5 * MR2)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits1.getSelectedItem().toString() == "mg"){
+                            result /= 1000000;
+                        }
+
+                        if(mPhysUnits1.getSelectedItem().toString() == "g"){
+                            result /= 1000;
+                        }
+
+                        if(mPhysUnits2.getSelectedItem().toString() == "mm"){
+                            result2 /= 1000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "km"){
+                            result2 *= 1000;
+                        }
+
+                        String suffix = superscript(" kg * m2");
+                        mResult.setText(calc.SolidSphere(result, result2) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Hollow Sphere (I = 2/3 * MR2)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits1.getSelectedItem().toString() == superscript("mg")){
+                            result /= 1000000;
+                        }
+
+                        if(mPhysUnits1.getSelectedItem().toString() == superscript("g")){
+                            result /= 1000;
+                        }
+
+                        if(mPhysUnits2.getSelectedItem().toString() == superscript("mm")){
+                            result2 /= 1000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == superscript("km")){
+                            result2 *= 1000;
+                        }
+
+                        String suffix = superscript(" kg * m2");
+                        mResult.setText(calc.HollowSphere(result, result2) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Solid Cylinder (I = 1/2 * MR2)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits1.getSelectedItem().toString() == "mg"){
+                            result /= 1000000;
+                        }
+
+                        if(mPhysUnits1.getSelectedItem().toString() == "g"){
+                            result /= 1000;
+                        }
+
+                        if(mPhysUnits2.getSelectedItem().toString() == "mm"){
+                            result2 /= 1000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "km"){
+                            result2 *= 1000;
+                        }
+
+                        String suffix = superscript(" kg * m2");
+                        mResult.setText(calc.SolidCylinder(result, result2) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Hollow Cylinder (I = 1/2 *  M(Ra2 + Rb2))"){
+                    int counter = 3;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        float result3 = Float.parseFloat(mPhysSub3.getText().toString());
+
+                        if(mPhysUnits1.getSelectedItem().toString() == superscript("mg")){
+                            result /= 1000000;
+                        }
+
+                        if(mPhysUnits1.getSelectedItem().toString() == superscript("g")){
+                            result /= 1000;
+                        }
+
+                        if(mPhysUnits2.getSelectedItem().toString() == superscript("mm")){
+                            result2 /= 1000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == superscript("km")){
+                            result2 *= 1000;
+                        }
+
+                        if(mPhysUnits3.getSelectedItem().toString() == superscript("mm")){
+                            result3 /= 1000;
+                        }
+                        if(mPhysUnits3.getSelectedItem().toString() == superscript("km")){
+                            result3 *= 1000;
+                        }
+
+                        String suffix = superscript(" kg * m2");
+                        mResult.setText(calc.HollowCylinder(result, result2, result3) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Rect. Plate, Center Axis (I = 1/12 * M(a2 + b2))"){
+                    int counter = 3;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        float result3 = Float.parseFloat(mPhysSub3.getText().toString());
+
+                        if(mPhysUnits1.getSelectedItem().toString() == superscript("mg")){
+                            result /= 1000000;
+                        }
+
+                        if(mPhysUnits1.getSelectedItem().toString() == superscript("g")){
+                            result /= 1000;
+                        }
+
+                        if(mPhysUnits2.getSelectedItem().toString() == superscript("mm")){
+                            result2 /= 1000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == superscript("km")){
+                            result2 *= 1000;
+                        }
+
+                        if(mPhysUnits3.getSelectedItem().toString() == superscript("mm")){
+                            result3 /= 1000;
+                        }
+                        if(mPhysUnits3.getSelectedItem().toString() == superscript("km")){
+                            result3 *= 1000;
+                        }
+
+                        String suffix = superscript(" kg * m2");
+                        mResult.setText(calc.RectPlateCenter(result, result2, result3) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Rect. Plate, Edge Axis (I = 1/3 * Ma2)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits1.getSelectedItem().toString() == superscript("mg")){
+                            result /= 1000000;
+                        }
+
+                        if(mPhysUnits1.getSelectedItem().toString() == superscript("g")){
+                            result /= 1000;
+                        }
+
+                        if(mPhysUnits2.getSelectedItem().toString() == superscript("mm")){
+                            result2 /= 1000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == superscript("km")){
+                            result2 *= 1000;
+                        }
+
+
+                        String suffix = superscript(" kg * m2");
+                        mResult.setText(calc.RectPlateEdge(result, result2) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Slender Rod, Center Axis (I = 1/12 * ML2)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits1.getSelectedItem().toString() == superscript("mg")){
+                            result /= 1000000;
+                        }
+
+                        if(mPhysUnits1.getSelectedItem().toString() == superscript("g")){
+                            result /= 1000;
+                        }
+
+                        if(mPhysUnits2.getSelectedItem().toString() == superscript("mm")){
+                            result2 /= 1000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == superscript("km")){
+                            result2 *= 1000;
+                        }
+
+
+                        String suffix = superscript(" kg * m2");
+                        mResult.setText(calc.RodCenter(result, result2) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Slender Rod, Edge Axis (I = 1/3 * ML2)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits1.getSelectedItem().toString() == superscript("mg")){
+                            result /= 1000000;
+                        }
+
+                        if(mPhysUnits1.getSelectedItem().toString() == superscript("g")){
+                            result /= 1000;
+                        }
+
+                        if(mPhysUnits2.getSelectedItem().toString() == superscript("mm")){
+                            result2 /= 1000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == superscript("km")){
+                            result2 *= 1000;
+                        }
+
+
+                        String suffix = superscript(" kg * m2");
+                        mResult.setText(calc.RodEdge(result, result2) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Position (x = A*cos(" + OMEGA + ")t)"){
+                    int counter = 3;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        float result3 = Float.parseFloat(mPhysSub3.getText().toString());
+
+                        if(mPhysUnits3.getSelectedItem().toString() == superscript("ms")){
+                            result3 /= 1000;
+                        }
+                        if(mPhysUnits3.getSelectedItem().toString() == superscript("mins")){
+                            result3 *= 60;
+                        }
+
+                        if(mPhysUnits3.getSelectedItem().toString() == superscript("hrs")){
+                            result3 *= 3600;
+                        }
+
+
+                        String suffix = superscript(" m");
+                        mResult.setText(calc.HarmonicPosition(result, result2, result3) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Velocity (v = -A" + OMEGA + "*sin(" + OMEGA + ")t)"){
+                    int counter = 3;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        float result3 = Float.parseFloat(mPhysSub3.getText().toString());
+
+                        if(mPhysUnits3.getSelectedItem().toString() == superscript("ms")){
+                            result3 /= 1000;
+                        }
+                        if(mPhysUnits3.getSelectedItem().toString() == superscript("mins")){
+                            result3 *= 60;
+                        }
+
+                        if(mPhysUnits3.getSelectedItem().toString() == superscript("hrs")){
+                            result3 *= 3600;
+                        }
+
+
+                        String suffix = superscript(" m/s");
+                        mResult.setText(calc.HarmonicVelocity(result, result2, result3) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Acceleration (a = -A" + OMEGA + "2 * cos(" + OMEGA + ")t)"){
+                    int counter = 3;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        float result3 = Float.parseFloat(mPhysSub3.getText().toString());
+
+                        if(mPhysUnits3.getSelectedItem().toString() == superscript("ms")){
+                            result3 /= 1000;
+                        }
+                        if(mPhysUnits3.getSelectedItem().toString() == superscript("mins")){
+                            result3 *= 60;
+                        }
+
+                        if(mPhysUnits3.getSelectedItem().toString() == superscript("hrs")){
+                            result3 *= 3600;
+                        }
+
+
+                        String suffix = superscript(" m/s2");
+                        mResult.setText(calc.HarmonicAcceleration(result, result2, result3) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Force (F = -kx)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits2.getSelectedItem().toString() == "mm"){
+                            result2 /= 1000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "km"){
+                            result2 *= 60;
+                        }
+
+                        String suffix = superscript(" N");
+                        mResult.setText(calc.HarmonicForce(result, result2) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Force (F = -kx)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits2.getSelectedItem().toString() == superscript("mm")){
+                            result2 /= 1000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == superscript("km")){
+                            result2 *= 60;
+                        }
+
+                        String suffix = superscript(" N");
+                        mResult.setText(calc.HarmonicForce(result, result2) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Period (2" + PI + "/" + OMEGA + ")"){
+                    int counter = 1;
+                    if(checkInput(counter)){
+                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+
+                        String suffix = superscript(" N");
+                        mResult.setText(calc.Period(result) + suffix);
+                        mError.setVisibility(View.INVISIBLE);
+                    }
+                    else{
+                        return;
+                    }
+                }
+
             }
         });
 
@@ -1543,17 +2578,4 @@ public class OperationsActivity extends AppCompatActivity {
         return str;
     }
 
-    public static String revert(String str){
-        str = str.replaceAll("⁰", "0");
-        str = str.replaceAll("¹", "1");
-        str = str.replaceAll("²", "2");
-        str = str.replaceAll("³", "3");
-        str = str.replaceAll("⁴", "4");
-        str = str.replaceAll("⁵", "5");
-        str = str.replaceAll("⁶", "6");
-        str = str.replaceAll("⁷", "7");
-        str = str.replaceAll("⁸", "8");
-        str = str.replaceAll("⁹", "9");
-        return str;
-    }
 }
