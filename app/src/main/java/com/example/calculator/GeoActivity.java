@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.RelativeLayout;
+import android.widget.Toolbar;
 
 import java.util.ArrayList;
 
@@ -22,6 +24,8 @@ public class GeoActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.LayoutManager layoutManager2;
     private RecyclerView.LayoutManager layoutManager3;
+
+    private RelativeLayout toolbar;
 
     public static final String PI = "\u03c0";
     public static final String SQRT = "\u221a";
