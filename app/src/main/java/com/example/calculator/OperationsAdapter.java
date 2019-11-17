@@ -150,6 +150,9 @@ public class OperationsAdapter extends
         else if (ops.getTitle() == "Pressure of Ideal Gas (p = 1/3 * " + RHO + "v2"){
             textView.setText("Pressure of Ideal Gas (p = 1/3 * " + RHO + superscript("v2"));
         }
+        else if (ops.getTitle() == "Coulomb's Law (Fe = Ke * (Q1Q2 / r2))"){
+            textView.setText("Coulomb's Law (Fe = Ke * (Q1Q2 / " + superscript("r2))"));
+        }
         else{
             textView.setText(ops.getTitle());
         }

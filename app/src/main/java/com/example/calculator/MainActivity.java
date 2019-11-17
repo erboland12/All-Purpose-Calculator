@@ -39,6 +39,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         final MovePage m = new MovePage();
 
+        //Sets up DrawerLayout and ActionBar
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.Open, R.string.Close);
+
+        mDrawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -78,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         chemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                m.moveActivity(MainActivity.this, ChemActivity.class);
             }
         });
 
@@ -90,12 +97,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        //Sets up DrawerLayout and ActionBar
-        mDrawerLayout = findViewById(R.id.drawer_layout);
-        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.Open, R.string.Close);
-
-        mDrawerLayout.addDrawerListener(mToggle);
-        mToggle.syncState();
 
     }
 
