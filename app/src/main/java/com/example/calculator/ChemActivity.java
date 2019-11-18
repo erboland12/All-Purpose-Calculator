@@ -124,8 +124,6 @@ public class ChemActivity extends AppCompatActivity {
     private void populateOperations3(){
         ops3.add(new Operations("pH (-log(H+))"));
         ops3.add(new Operations("pOH (-log(OH-))"));
-        ops3.add(new Operations("Equilibrium Constant (Kc = (X^x * Y^y) / (A^a * B^b)"));
-        ops3.add(new Operations("Pressure/Concentration (Kp = Kc(RT)^" + DELTA + "n)"));
     }
 
     private void populateOperations4(){

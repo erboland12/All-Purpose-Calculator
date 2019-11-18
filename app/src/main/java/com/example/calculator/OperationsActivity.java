@@ -39,15 +39,19 @@ public class OperationsActivity extends AppCompatActivity {
     private TextView mPhysTitle1;
     private TextView mPhysTitle2;
     private TextView mPhysTitle3;
+    private TextView mPhysTitle4;
     private EditText mPhsySub1;
     private EditText mPhysSub2;
     private EditText mPhysSub3;
+    private EditText mPhysSub4;
     private Spinner mPhysUnits1;
     private Spinner mPhysUnits2;
     private Spinner mPhysUnits3;
+    private Spinner mPhysUnits4;
 
     private LinearLayout linearLayout2;
     private LinearLayout linearLayout3;
+    private LinearLayout linearLayout4;
 
     //Spinner arrays
     ArrayAdapter<String> adapter;
@@ -78,6 +82,10 @@ public class OperationsActivity extends AppCompatActivity {
     private String[] moleItems = {"mol/kg"};
     private String[] specificHeat ={"J/gC"};
     private String[] entropy = {"J/K"};
+    private String[] coulombs = {"C"};
+    private String[] pressure = {"Pa"};
+    private String[] coulombConst = {superscript("N*m^2*C-2")};
+    private String[] gasConst = {superscript("Kg*m2*s-2*K-1*mol-1")};
     private String[] springConstant = {superscript("kg * m/s2")};
     private String[] densityItems = {superscript("g/cm3"), superscript("kg/cm3")};
 
@@ -103,6 +111,7 @@ public class OperationsActivity extends AppCompatActivity {
     private boolean isCalc = false;
     private boolean isGeo = false;
     private boolean isChem = false;
+    private boolean isChem4 = false;
 
     private static double radToDegrees = 57.295779513;
     private static double meterToMile = 0.0000003861021585424;
@@ -146,15 +155,20 @@ public class OperationsActivity extends AppCompatActivity {
                  opTitle == "Molality (M = n/m)" || opTitle == "Percent Error (PE = ((M - A) / A) * 100%)" ||
                  opTitle == "Percent Composition (PC = (Mp / Mw) * 100%)" || opTitle == "Rate of Reaction (Rate = Dq / Dt)" ||
                  opTitle == "de Broglie's Law (" + LAMBDA + " = h/(mv))" || opTitle == "Energy of Wave (E = hv)" || opTitle == "Wave Relation (c = " + LAMBDA + "v)" ||
-                 opTitle == "Quantization of Energy (" + DELTA + "E = n(hu))" || opTitle == "Coulomb's Law (Fe = Ke * (Q1Q2 / r2))" ||
+                 opTitle == "Quantization of Energy (" + DELTA + "E = n(hu))" ||
                  opTitle == "pH (-log(H+))" || opTitle == "pOH (-log(OH-))" || opTitle == "Equilibrium Constant (Kc = (X^x * Y^y) / (A^a * B^b)" ||
-                 opTitle == "Pressure/Concentration (Kp = Kc(RT)^" + DELTA + "n)" || opTitle == "Boiling Point Elevation (" + DELTA + "Ts = Kb * Ms)" ||
-                 opTitle == "Freezing Point Depression (" + DELTA + "Ts = Kf * Ms)" || opTitle == "Ideal Gas Law (P = nRT/V)" ||
-                 opTitle == "Ideal Gas Law (V = nRT/P)" || opTitle == "Heat Released from Burning (Eh = cMw" + DELTA + "T)" ||
+                 opTitle == "Boiling Point Elevation (" + DELTA + "Ts = Kb * Ms)" ||
+                 opTitle == "Freezing Point Depression (" + DELTA + "Ts = Kf * Ms)" ||
+                 opTitle == "Heat Released from Burning (Eh = cMw" + DELTA + "T)" ||
                  opTitle == "Heat Transfer (q = mc" + DELTA + "T)" || opTitle == "Enthalpy (" + DELTA + "H = Hp - Hr)" ||
                  opTitle == "Entropy (" + DELTA + "S = Sp - Sr)" || opTitle == "Free Energy (" + DELTA + "G = " + DELTA + "H - T" + DELTA + "S)"){
             setContentView(R.layout.chem_layout);
             isChem = true;
+        }
+        else if (opTitle == "Coulomb's Law (Fe = Ke * (Q1Q2 / r2))" || opTitle == "Pressure/Concentration (Kp = Kc(RT)^" + DELTA + "n)" ||
+                 opTitle == "Ideal Gas Law (P = nRT/V)" || opTitle == "Ideal Gas Law (V = nRT/P)"){
+            setContentView(R.layout.chem_4_layout);
+            isChem4 = true;
         }
         else if(opTitle == "Modulo"){
             setContentView(R.layout.mod_layout);
@@ -182,14 +196,18 @@ public class OperationsActivity extends AppCompatActivity {
         mPhysTitle1 = findViewById(R.id.ops_page_sub_title_1);
         mPhysTitle2 = findViewById(R.id.ops_page_sub_title_2);
         mPhysTitle3 = findViewById(R.id.ops_page_sub_title_3);
+        mPhysTitle4 = findViewById(R.id.ops_page_sub_title_4);
         mPhsySub1 = findViewById(R.id.ops_page_sub1);
         mPhysSub2 = findViewById(R.id.ops_page_sub2);
         mPhysSub3 = findViewById(R.id.ops_page_sub3);
+        mPhysSub4 = findViewById(R.id.ops_page_sub4);
         mPhysUnits1 = findViewById(R.id.ops_page_units);
         mPhysUnits2 = findViewById(R.id.ops_page_units2);
         mPhysUnits3 = findViewById(R.id.ops_page_units3);
+        mPhysUnits4 = findViewById(R.id.ops_page_units4);
         linearLayout2 = findViewById(R.id.linearLayout2);
         linearLayout3 = findViewById(R.id.linearLayout3);
+        linearLayout4 = findViewById(R.id.linearLayout4);
 
         Scanner scanner = new Scanner(opTitle);
         scanner.useDelimiter("\\(");
@@ -223,6 +241,9 @@ public class OperationsActivity extends AppCompatActivity {
             checkGeo();
         }
         if(isChem){
+            setChemOps();
+        }
+        if(isChem4){
             setChemOps();
         }
     }
@@ -2503,6 +2524,24 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysUnits2.setAdapter(adapter);
 
         }
+        if(opTitle == "Coulomb's Law (Fe = Ke * (Q1Q2 / r2))"){
+            mPhysTitle1.setText("Coulomb Constant");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, coulombConst);
+            mPhysUnits1.setAdapter(adapter);
+
+            mPhysTitle2.setText("Charge 1");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, coulombs);
+            mPhysUnits2.setAdapter(adapter);
+
+            mPhysTitle3.setText("Charge 2");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, coulombs);
+            mPhysUnits3.setAdapter(adapter);
+
+            mPhysTitle4.setText("Distance Between Charges");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            mPhysUnits4.setAdapter(adapter);
+            mPhysUnits4.setSelection(2);
+        }
 
         if(opTitle == "pH (-log(H+))"){
             mPhysTitle1.setText("H+ Concentration");
@@ -2515,15 +2554,6 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "pOH (-log(OH-))"){
             mPhysTitle1.setText("OH- Concentration");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massConcentration);
-            mPhysUnits1.setAdapter(adapter);
-
-            linearLayout2.setVisibility(View.INVISIBLE);
-            linearLayout3.setVisibility(View.INVISIBLE);
-        }
-
-        if(opTitle == "Pressure/Concentration (Kp = Kc(RT)^" + DELTA + "n)"){
-            mPhysTitle1.setText("Equilibrium Constant");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massConcentration);
             mPhysUnits1.setAdapter(adapter);
 
@@ -2556,27 +2586,38 @@ public class OperationsActivity extends AppCompatActivity {
         }
 
         if(opTitle == "Ideal Gas Law (P = nRT/V)"){
-            mPhysTitle1.setText("Freezing Point Constant");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, bpConstant);
-            mPhysUnits1.setAdapter(adapter);
+            mPhysTitle1.setText("Number of Moles");
 
-            mPhysTitle2.setText("Molality of Solute");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, moleItems);
+            mPhysTitle2.setText("Gas Constant");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, gasConst);
             mPhysUnits2.setAdapter(adapter);
 
-            linearLayout3.setVisibility(View.INVISIBLE);
+            mPhysTitle3.setText("Temperature");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, tempItems);
+            mPhysUnits3.setAdapter(adapter);
+            mPhysUnits3.setSelection(2);
+
+            mPhysTitle4.setText("Volume");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, volumeItems);
+            mPhysUnits4.setAdapter(adapter);
+
         }
 
         if(opTitle == "Ideal Gas Law (V = nRT/P)"){
-            mPhysTitle1.setText("Freezing Point Constant");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, bpConstant);
-            mPhysUnits1.setAdapter(adapter);
+            mPhysTitle1.setText("Number of Moles");
 
-            mPhysTitle2.setText("Molality of Solute");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, moleItems);
+            mPhysTitle2.setText("Gas Constant");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, gasConst);
             mPhysUnits2.setAdapter(adapter);
 
-            linearLayout3.setVisibility(View.INVISIBLE);
+            mPhysTitle3.setText("Temperature");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, tempItems);
+            mPhysUnits3.setAdapter(adapter);
+            mPhysUnits3.setSelection(2);
+
+            mPhysTitle4.setText("Pressure");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, pressure);
+            mPhysUnits4.setAdapter(adapter);
         }
 
         if(opTitle == "Heat Released from Burning (Eh = cMw" + DELTA + "T)"){
