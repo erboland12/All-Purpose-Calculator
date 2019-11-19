@@ -3329,14 +3329,14 @@ public class OperationsActivity extends AppCompatActivity {
     private boolean checkInput(int counter){
         if(counter == 1){
             if(mPhsySub1.getText().toString().isEmpty()){
-                mError.setText("**Please Fill in all Fields**");
+                mError.setText("** Please Fill in all Fields **");
                 mError.setVisibility(View.VISIBLE);
                 mResult.setText("");
                 return false;
             }
             else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
-                    mPhsySub1.getText().toString().matches("^(?=.*[a-zA-Z])(?=.*[0-9])[A-Z0-9]+$")){
-                mError.setText("**Invalid Input**");
+                    !mPhsySub1.getText().toString().matches("^([0-9]+\\.?[0-9]*|[0-9]*\\.[0-9]+)$")){
+                mError.setText("** Invalid Input **");
                 mError.setVisibility(View.VISIBLE);
                 mResult.setText("");
                 return false;
@@ -3344,18 +3344,18 @@ public class OperationsActivity extends AppCompatActivity {
         }
         else if (counter == 2){
             if(mPhsySub1.getText().toString().isEmpty() || mPhysSub2.getText().toString().isEmpty()){
-                mError.setText("**Please Fill in all Fields**");
+                mError.setText("** Please Fill in all Fields **");
                 mError.setVisibility(View.VISIBLE);
                 mResult.setText("");
                 return false;
             }
             else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
                     mPhysSub2.getText().toString().matches("[a-zA-Z]+") ||
-                    !mPhsySub1.getText().toString().matches("^[0-9]*$") ||
-                    !mPhysSub2.getText().toString().matches("^[0-9]*$") ||
+                    !mPhsySub1.getText().toString().matches("^([-0-9]+\\.?[-0-9]*|[-0-9]*\\.[-0-9]+)$") ||
+                    !mPhysSub2.getText().toString().matches("^([-0-9]+\\.?[-0-9]*|[-0-9]*\\.[-0-9]+)$") ||
                     (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
                             mPhysSub2.getText().toString().matches("[a-zA-Z]+"))){
-                mError.setText("**Invalid Input**");
+                mError.setText("** Invalid Input **");
                 mError.setVisibility(View.VISIBLE);
                 mResult.setText("");
                 return false;
@@ -3364,7 +3364,7 @@ public class OperationsActivity extends AppCompatActivity {
         else if (counter == 3){
             if(mPhsySub1.getText().toString().isEmpty() || mPhysSub2.getText().toString().isEmpty() ||
                     mPhysSub3.getText().toString().isEmpty()){
-                mError.setText("**Please Fill in all Fields**");
+                mError.setText("** Please Fill in all Fields **");
                 mError.setVisibility(View.VISIBLE);
                 mResult.setText("");
                 return false;
@@ -3372,20 +3372,45 @@ public class OperationsActivity extends AppCompatActivity {
             else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
                     mPhysSub2.getText().toString().matches("[a-zA-Z]+") ||
                     mPhysSub3.getText().toString().matches("[a-zA-Z]+") ||
+                    !mPhsySub1.getText().toString().matches("^([-0-9]+\\.?[-0-9]*|[-0-9]*\\.[-0-9]+)$") ||
+                    !mPhysSub2.getText().toString().matches("^([-0-9]+\\.?[-0-9]*|[-0-9]*\\.[-0-9]+)$") ||
+                    !mPhysSub3.getText().toString().matches("^([-0-9]+\\.?[-0-9]*|[-0-9]*\\.[-0-9]+)$") ||
                     (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
                             mPhysSub2.getText().toString().matches("[a-zA-Z]+") &&
                             mPhysSub3.getText().toString().matches("[a-zA-Z]+"))){
-                mError.setText("**Invalid Input**");
+                mError.setText("** Invalid Input **");
                 mError.setVisibility(View.VISIBLE);
                 mResult.setText("");
                 return false;
             }
         }
-
+        else if (counter == 4){
+            if(mPhsySub1.getText().toString().isEmpty() || mPhysSub2.getText().toString().isEmpty() ||
+                mPhysSub3.getText().toString().isEmpty() || mPhysSub4.getText().toString().isEmpty()){
+                mError.setText("** Please Fill in all Fields **");
+                mError.setVisibility(View.VISIBLE);
+                mResult.setText("");
+                return false;
+            }
+            else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
+                    mPhysSub2.getText().toString().matches("[a-zA-Z]+") ||
+                    mPhysSub3.getText().toString().matches("[a-zA-Z]+") ||
+                    mPhysSub4.getText().toString().matches("[a-zA-Z]+") ||
+                    !mPhsySub1.getText().toString().matches("^([0-9]+\\.?[0-9]*|[0-9]*\\.[0-9]+)$") ||
+                    !mPhysSub2.getText().toString().matches("^([0-9]+\\.?[0-9]*|[0-9]*\\.[0-9]+)$") ||
+                    !mPhysSub3.getText().toString().matches("^([0-9]+\\.?[0-9]*|[0-9]*\\.[0-9]+)$") ||
+                    !mPhysSub4.getText().toString().matches("^([0-9]+\\.?[0-9]*|[0-9]*\\.[0-9]+)$") ||
+                    (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
+                    mPhysSub2.getText().toString().matches("[a-zA-Z]+") &&
+                    mPhysSub3.getText().toString().matches("[a-zA-Z]+") &&
+                    mPhysSub4.getText().toString().matches("[a-zA-Z]+"))){
+                mError.setText("** Invalid Input **");
+                mError.setVisibility(View.VISIBLE);
+                mResult.setText("");
+                return false;
+            }
+        }
         return true;
-
-
-
     }
 
     public static String superscript(String str) {
