@@ -115,6 +115,9 @@ public class OperationsActivity extends AppCompatActivity {
 
     private static double radToDegrees = 57.295779513;
     private static double meterToMile = 0.0000003861021585424;
+    private static double planckConstant = 6.62607004 * Math.pow(10, -34);
+    private static float coulombConstant = (float) (8.99 * Math.pow(10, 9));
+    private static float gasConstant = (float) 8.31446261815324;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -242,9 +245,11 @@ public class OperationsActivity extends AppCompatActivity {
         }
         if(isChem){
             setChemOps();
+            checkChemOps();
         }
         if(isChem4){
             setChemOps();
+            checkChemOps();
         }
     }
 
@@ -2689,6 +2694,506 @@ public class OperationsActivity extends AppCompatActivity {
 
     }
 
+    private void checkChemOps(){
+        enterBtn = findViewById(R.id.ops_page_enter_btn);
+        enterBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                ChemCalculator calc = new ChemCalculator();
+                if(opTitle == "Density (p = m/v)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result1 = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        //Conversion based on units
+                        if(mPhysUnits1.getSelectedItem().toString() == "mg") {
+                            result1 *= 1000000;
+                        }
+
+                        if(mPhysUnits1.getSelectedItem().toString() == "g"){
+                            result1 *= 1000;
+                        }
+
+                        if(mPhysUnits2.getSelectedItem().toString() == superscript("cm3")){
+                            result2 *= 1000000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "L"){
+                            result2 *= 1000;
+                        }
+                        mError.setVisibility(View.INVISIBLE);
+                        mResult.setText(calc.Density(result1, result2) + superscript("kg/m3"));
+                    }
+                    else{
+                        return;
+                    }
+
+                }
+
+                if(opTitle == "Number of Moles (n = Gm/Mm)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result1 = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        //Conversion based on units
+                        if(mPhysUnits1.getSelectedItem().toString() == "mg") {
+                            result1 *= 1000000;
+                        }
+
+                        if(mPhysUnits1.getSelectedItem().toString() == "g"){
+                            result1 *= 1000;
+                        }
+
+                        if(mPhysUnits2.getSelectedItem().toString() == "mg"){
+                            result2 *= 1000000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "g"){
+                            result2 *= 1000;
+                        }
+                        mError.setVisibility(View.INVISIBLE);
+                        mResult.setText(calc.NumMoles(result1, result2));
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Molarity (M = n/L)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result1 = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        //Conversion based on units
+                        if(mPhysUnits2.getSelectedItem().toString() == "mL"){
+                            result2 *= 1000;
+                        }
+                        mError.setVisibility(View.INVISIBLE);
+                        mResult.setText(calc.Molarity(result1, result2) + "moles/Liter");
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Molality (M = n/m)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result1 = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        //Conversion based on units
+                        if(mPhysUnits2.getSelectedItem().toString() == "mg"){
+                            result2 *= 1000000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "g"){
+                            result2 *= 1000;
+                        }
+                        mError.setVisibility(View.INVISIBLE);
+                        mResult.setText(calc.Molarity(result1, result2) + "mol/kg");
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Percent Error (PE = ((M - A) / A) * 100%)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result1 = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        //Conversion based on units
+                        if((result1 < 0 || result1 > 100) || (result2 < 0 || result2 > 100)){
+                            mError.setText("Percentage must be between 0 and 100.");
+                            mError.setVisibility(View.VISIBLE);
+                        }else{
+                            mError.setVisibility(View.INVISIBLE);
+                            mResult.setText(calc.PercError(result1, result2) + "%");
+                        }
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Percent Composition (PC = (Mp / Mw) * 100%)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result1 = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        //Conversion based on units
+                        if(result1 > result2){
+                            mError.setText("Mass of Part cannot be bigger than Mass of Whole");
+                            mError.setVisibility(View.VISIBLE);
+                        }else{
+                            mError.setVisibility(View.INVISIBLE);
+                            mResult.setText(calc.PercComp(result1, result2) + "%");
+                        }
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Rate of Reaction (Rate = Dq / Dt)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result1 = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        //Conversion based on units
+                        if((result1 < 0 || result1 > 100) || (result2 < 0 || result2 > 100)){
+                            mError.setText("Percentage must be between 0 and 100.");
+                            mError.setVisibility(View.VISIBLE);
+                        }else{
+                            mError.setVisibility(View.INVISIBLE);
+                            mResult.setText(calc.PercComp(result1, result2));
+                        }
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "de Broglie's Law (" + LAMBDA + " = h/(mv))"){
+                    int counter = 3;
+                    if(checkInput(counter)){
+                        float result1 = (float) planckConstant;
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        float result3 = Float.parseFloat(mPhysSub3.getText().toString());
+                        //Conversion based on units
+                        if(result2 == 0 || result3 == 0){
+                            mError.setText("Cannot Divide by 0");
+                            mError.setVisibility(View.VISIBLE);
+                        }else{
+                            if(mPhysUnits2.getSelectedItem().toString() == "um"){
+                                result2 *= 1000;
+                            }
+                            if(mPhysUnits2.getSelectedItem().toString() == "mm"){
+                                result2 *= 1000000;
+                            }
+                            if(mPhysUnits2.getSelectedItem().toString() == "cm"){
+                                result2 *= 10000000;
+                            }
+                            if(mPhysUnits3.getSelectedItem().toString() == "mm/s"){
+                                result3 /= 1000;
+                            }
+                            if(mPhysUnits3.getSelectedItem().toString() == "km/s"){
+                                result3 *= 1000;
+                            }
+                            mError.setVisibility(View.INVISIBLE);
+                            mResult.setText(calc.Broglie(result1, result2, result3) + " nm");
+                        }
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Energy of Wave (E = hv)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result1 = (float) planckConstant;
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        //Conversion based on units
+
+                        mError.setVisibility(View.INVISIBLE);
+                        mResult.setText(calc.EnergyOfWave(result1, result2) + " J");
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Coulomb's Law (Fe = Ke * (Q1Q2 / r2))"){
+                    int counter = 4;
+                    if(checkInput(counter)){
+                        float result1 = coulombConstant;
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        float result3 = Float.parseFloat(mPhysSub3.getText().toString());
+                        float result4 = Float.parseFloat(mPhysSub4.getText().toString());
+                        //Conversion based on units
+                        if(result4 == 0){
+                            mError.setText("** Cannot Divide by 0 **");
+                            mError.setVisibility(View.VISIBLE);
+                        }else{
+                            mError.setVisibility(View.INVISIBLE);
+                            mResult.setText(calc.Coulombs(result1, result2, result3, result4) + " N");
+                        }
+
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "pH (-log(H+))"){
+                    int counter = 1;
+                    if(checkInput(counter)){
+                        float result1 = Float.parseFloat(mPhsySub1.getText().toString());
+                        //Conversion based on units
+                        if(result1 <= 0){
+                            mError.setText("** Invalid Input **");
+                            mError.setVisibility(View.VISIBLE);
+                        }else{
+                            mError.setVisibility(View.INVISIBLE);
+                            mResult.setText(calc.pH(result1));
+                        }
+
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "pOH (-log(OH-))"){
+                    int counter = 1;
+                    if(checkInput(counter)){
+                        float result1 = Float.parseFloat(mPhsySub1.getText().toString());
+                        //Conversion based on units
+                        if(result1 <= 0){
+                            mError.setText("** Invalid Input **");
+                            mError.setVisibility(View.VISIBLE);
+                        }else{
+                            mError.setVisibility(View.INVISIBLE);
+                            mResult.setText(calc.pOH(result1));
+                        }
+
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Boiling Point Elevation (" + DELTA + "Ts = Kb * Ms)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result1 = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits1.getSelectedItem().toString() == "Fahrenheit"){
+                            PhysCalcultor physCalc = new PhysCalcultor();
+                            result1 = Float.parseFloat(physCalc.Celsius(result1));
+                        }
+                        if(mPhysUnits1.getSelectedItem().toString() == "Kelvin"){
+                            PhysCalcultor physCalc = new PhysCalcultor();
+                            result1 = (float) (result1 - 273.15);
+                        }
+                        //Conversion based on units
+                        mError.setVisibility(View.INVISIBLE);
+                        mResult.setText(calc.BPElevation(result1, result2) + " Celsius");
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Freezing Point Depression (" + DELTA + "Ts = Kf * Ms)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result1 = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        if(mPhysUnits1.getSelectedItem().toString() == "Fahrenheit"){
+                            PhysCalcultor physCalc = new PhysCalcultor();
+                            result1 = Float.parseFloat(physCalc.Celsius(result1));
+                        }
+                        if(mPhysUnits1.getSelectedItem().toString() == "Kelvin"){
+                            PhysCalcultor physCalc = new PhysCalcultor();
+                            result1 = (float) (result1 - 273.15);
+                        }
+                        //Conversion based on units
+                        mError.setVisibility(View.INVISIBLE);
+                        mResult.setText(calc.FPDepression(result1, result2) + " Celsius");
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Ideal Gas Law (P = nRT/V)"){
+                    int counter = 4;
+                    if(checkInput(counter)){
+                        float result1 = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = gasConstant;
+                        float result3 = Float.parseFloat(mPhysSub3.getText().toString());
+                        float result4 = Float.parseFloat(mPhysSub4.getText().toString());
+
+                        if(result4 == 0){
+                            mError.setText("** Cannot Divide by 0 **");
+                            mError.setVisibility(View.VISIBLE);
+                        }else{
+                            if(mPhysUnits3.getSelectedItem().toString() == "Fahrenheit"){
+                                PhysCalcultor physCalc = new PhysCalcultor();
+                                result3 = Float.parseFloat(physCalc.Celsius(result1));
+                            }
+                            if(mPhysUnits3.getSelectedItem().toString() == "Kelvin"){
+                                result3 = (float) (result1 - 273.15);
+                            }
+
+                            if(mPhysUnits4.getSelectedItem().toString() == superscript("cm3")){
+                                result4 *= 1000000;
+                            }
+                            if(mPhysUnits4.getSelectedItem().toString() == "L"){
+                                result4 *= 1000;
+                            }
+                            //Conversion based on units
+                            mError.setVisibility(View.INVISIBLE);
+                            mResult.setText(calc.IdealGasPressure(result1, result2, result3, result4) + " Pa");
+                        }
+
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Ideal Gas Law (V = nRT/P)"){
+                    int counter = 4;
+                    if(checkInput(counter)){
+                        float result1 = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = gasConstant;
+                        float result3 = Float.parseFloat(mPhysSub3.getText().toString());
+                        float result4 = Float.parseFloat(mPhysSub4.getText().toString());
+
+                        if(result4 == 0){
+                            mError.setText("** Cannot Divide by 0 **");
+                            mError.setVisibility(View.VISIBLE);
+                        }else{
+                            if(mPhysUnits3.getSelectedItem().toString() == "Fahrenheit"){
+                                PhysCalcultor physCalc = new PhysCalcultor();
+                                result3 = Float.parseFloat(physCalc.Celsius(result1));
+                            }
+                            if(mPhysUnits3.getSelectedItem().toString() == "Kelvin"){
+                                result3 = (float) (result1 - 273.15);
+                            }
+
+                            //Conversion based on units
+                            mError.setVisibility(View.INVISIBLE);
+                            mResult.setText(calc.IdealGasPressure(result1, result2, result3, result4) + " Pa");
+                        }
+
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Heat Released from Burning (Eh = cMw" + DELTA + "T)"){
+                    int counter = 3;
+                    if(checkInput(counter)){
+                        float result1 = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        float result3 = Float.parseFloat(mPhysSub3.getText().toString());
+
+                        if(mPhysUnits1.getSelectedItem().toString() == "mg"){
+                            result2 /= 1000000;
+                        }
+                        if (mPhysUnits1.getSelectedItem().toString() == "g") {
+                            result1 /= 1000;
+                        }
+                        if(mPhysUnits3.getSelectedItem().toString() == "Fahrenheit"){
+                            PhysCalcultor physCalc = new PhysCalcultor();
+                            result3 = Float.parseFloat(physCalc.Celsius(result1));
+                        }
+                        if(mPhysUnits3.getSelectedItem().toString() == "Kelvin"){
+                            result3 = (float) (result1 - 273.15);
+                        }
+
+                        //Conversion based on units
+                        mError.setVisibility(View.INVISIBLE);
+                        mResult.setText(calc.HeatReleased(result1, result2, result3) + " J");
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Heat Transfer (q = mc" + DELTA + "T)"){
+                    int counter = 3;
+                    if(checkInput(counter)){
+                        float result1 = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        float result3 = Float.parseFloat(mPhysSub3.getText().toString());
+
+                        if(mPhysUnits1.getSelectedItem().toString() == "mg"){
+                            result2 /= 1000000;
+                        }
+                        if (mPhysUnits1.getSelectedItem().toString() == "g") {
+                            result1 /= 1000;
+                        }
+                        if(mPhysUnits3.getSelectedItem().toString() == "Fahrenheit"){
+                            PhysCalcultor physCalc = new PhysCalcultor();
+                            result3 = Float.parseFloat(physCalc.Celsius(result1));
+                        }
+                        if(mPhysUnits3.getSelectedItem().toString() == "Kelvin"){
+                            result3 = (float) (result1 - 273.15);
+                        }
+
+                        //Conversion based on units
+                        mError.setVisibility(View.INVISIBLE);
+                        mResult.setText(calc.HeatTransfer(result1, result2, result3) + " J");
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Enthalpy (" + DELTA + "H = Hp - Hr)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result1 = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        //Conversion based on units
+                        mError.setVisibility(View.INVISIBLE);
+                        mResult.setText(calc.Enthalpy(result1, result2) + " J");
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Entropy (" + DELTA + "S = Sp - Sr)"){
+                    int counter = 2;
+                    if(checkInput(counter)){
+                        float result1 = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+
+                        //Conversion based on units
+                        mError.setVisibility(View.INVISIBLE);
+                        mResult.setText(calc.Enthalpy(result1, result2) + " J/K");
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+                if(opTitle == "Free Energy (" + DELTA + "G = " + DELTA + "H - T" + DELTA + "S)"){
+                    int counter = 3;
+                    if(checkInput(counter)){
+                        float result1 = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        float result3 = Float.parseFloat(mPhysSub3.getText().toString());
+
+                        if(mPhysUnits2.getSelectedItem().toString() == "Fahrenheit"){
+                            PhysCalcultor physCalc = new PhysCalcultor();
+                            result2 = Float.parseFloat(physCalc.Celsius(result2));
+                            result2 = Float.parseFloat(physCalc.Kelvin(result2));
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "Celsius"){
+                            PhysCalcultor physCalc = new PhysCalcultor();
+                            result2 = Float.parseFloat(physCalc.Kelvin(result2));
+                        }
+                        //Conversion based on units
+                        mError.setVisibility(View.INVISIBLE);
+                        mResult.setText(calc.FreeEnergy(result1, result2, result3) + " kJ");
+                    }
+                    else{
+                        return;
+                    }
+                }
+
+            }
+        });
+    }
+
     private void setOperation(){
         enterBtn = findViewById(R.id.ops_page_enter_btn);
         enterBtn.setOnClickListener(new View.OnClickListener(){
@@ -2830,7 +3335,7 @@ public class OperationsActivity extends AppCompatActivity {
                 return false;
             }
             else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
-                    mPhysSub2.getText().toString().matches("[a-zA-Z]+")){
+                    mPhsySub1.getText().toString().matches("^(?=.*[a-zA-Z])(?=.*[0-9])[A-Z0-9]+$")){
                 mError.setText("**Invalid Input**");
                 mError.setVisibility(View.VISIBLE);
                 mResult.setText("");
@@ -2846,6 +3351,8 @@ public class OperationsActivity extends AppCompatActivity {
             }
             else if(mPhsySub1.getText().toString().matches("[a-zA-z]+") ||
                     mPhysSub2.getText().toString().matches("[a-zA-Z]+") ||
+                    !mPhsySub1.getText().toString().matches("^[0-9]*$") ||
+                    !mPhysSub2.getText().toString().matches("^[0-9]*$") ||
                     (mPhsySub1.getText().toString().matches("[a-zA-z]+") &&
                             mPhysSub2.getText().toString().matches("[a-zA-Z]+"))){
                 mError.setText("**Invalid Input**");

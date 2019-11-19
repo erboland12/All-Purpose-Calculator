@@ -116,8 +116,6 @@ public class ChemActivity extends AppCompatActivity {
 
     private void populateOperations2(){
         ops2.add(new Operations("Energy of Wave (E = hv)"));
-        ops2.add(new Operations("Wave Relation (c = " + LAMBDA + "v)"));
-        ops2.add(new Operations("Quantization of Energy (" + DELTA + "E = n(hu))"));
         ops2.add(new Operations("Coulomb's Law (Fe = Ke * (Q1Q2 / r2))"));
     }
 
