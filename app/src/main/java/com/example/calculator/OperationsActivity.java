@@ -65,6 +65,7 @@ public class OperationsActivity extends AppCompatActivity {
     private String[] tempItems = {"Fahrenheit", "Celsius", "Kelvin"};
     private String[] liquidVolumeItems = {"mL", "L"};
     private String[] angularVelocityItems = {"rad/s"};
+    private String[] angularAccelerationItems = {superscript("rad/s2")};
     private String[] accelerationItems = {superscript("m/s2"), superscript("km/s2")};
     private String[] thetaItems = {"Radians", "Degrees"};
     private String[] gravity = {superscript("m/s2")};
@@ -93,7 +94,7 @@ public class OperationsActivity extends AppCompatActivity {
     // Define the maximum number of decimals (number of symbols #)
     DecimalFormat df = new DecimalFormat("#.#####", otherSymbols);
 
-    //Unicode declerations
+    //Unicode declarations
     public static final String DELTA = "\u0394";
     public static final String OMEGA = "\u03c9";
     public static final String MINUS = "\u2212";
@@ -226,7 +227,6 @@ public class OperationsActivity extends AppCompatActivity {
 
         //Shows degree or radians spinner if trig operation
 
-        checkForTrigOps();
 
         //Determines operation based on title
         if(isPhys) {
@@ -234,6 +234,7 @@ public class OperationsActivity extends AppCompatActivity {
             setPhysicsOps();
         }
         if(isOp){
+            checkForTrigOps();
             setOperation();
         }
         if(isCalc){
@@ -834,11 +835,11 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle1.setText("Inertia");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
             mPhysUnits1.setAdapter(adapter);
+            mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Velocity (" + OMEGA + ")");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
             mPhysUnits2.setAdapter(adapter);
-            mPhysUnits2.setSelection(1);
 
             linearLayout3.setVisibility(View.GONE);
         }
@@ -847,11 +848,11 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle1.setText("Radius");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
             mPhysUnits1.setAdapter(adapter);
+            mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Theta");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, thetaItems);
             mPhysUnits2.setAdapter(adapter);
-            mPhysUnits2.setSelection(1);
 
             linearLayout3.setVisibility(View.GONE);
         }
@@ -860,11 +861,11 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle1.setText("Radius");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
             mPhysUnits1.setAdapter(adapter);
+            mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Velocity (" + OMEGA + ")");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
             mPhysUnits2.setAdapter(adapter);
-            mPhysUnits2.setSelection(1);
 
             linearLayout3.setVisibility(View.GONE);
         }
@@ -873,11 +874,11 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle1.setText("Radius");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
             mPhysUnits1.setAdapter(adapter);
+            mPhysUnits1.setSelection(2);
 
-            mPhysTitle2.setText("Acceleration (" + ALPHA + ")");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
+            mPhysTitle2.setText("Acceleration");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularAccelerationItems);
             mPhysUnits2.setAdapter(adapter);
-            mPhysUnits2.setSelection(1);
 
             linearLayout3.setVisibility(View.GONE);
         }
@@ -886,11 +887,12 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle1.setText("Velocity");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, velocityItems);
             mPhysUnits1.setAdapter(adapter);
+            mPhysUnits1.setSelection(1);
 
             mPhysTitle2.setText("Radius");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
             mPhysUnits2.setAdapter(adapter);
-            mPhysUnits2.setSelection(1);
+            mPhysUnits2.setSelection(2);
 
             linearLayout3.setVisibility(View.GONE);
         }
@@ -903,7 +905,7 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle2.setText("Radius");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
             mPhysUnits2.setAdapter(adapter);
-            mPhysUnits2.setSelection(1);
+            mPhysUnits2.setSelection(2);
 
             linearLayout3.setVisibility(View.GONE);
         }
@@ -912,6 +914,7 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle1.setText("Mass");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
             mPhysUnits1.setAdapter(adapter);
+            mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Velocity");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, velocityItems);
@@ -920,10 +923,8 @@ public class OperationsActivity extends AppCompatActivity {
 
             mPhysTitle3.setText("Radius");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
-            mPhysUnits2.setAdapter(adapter);
-            mPhysUnits2.setSelection(1);
-
-            linearLayout3.setVisibility(View.GONE);
+            mPhysUnits3.setAdapter(adapter);
+            mPhysUnits3.setSelection(2);
         }
 
         if(opTitle == "Angular Velocity (" + OMEGA + "0 + " + ALPHA + "t)"){
@@ -1553,19 +1554,25 @@ public class OperationsActivity extends AppCompatActivity {
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
 
-                        if(mPhysUnits2.getSelectedItem().toString() == "ms") {
-                            result2 /= 1000;
-                        }
-                        if(mPhysUnits2.getSelectedItem().toString() == "mins"){
-                            result2 *= 60;
-                        }
-                        if(mPhysUnits2.getSelectedItem().toString() == "hrs"){
-                            result2 *= 3600;
-                        }
+                        if(result2 == 0){
+                            mError.setText("** Cannot Divide by 0 **");
+                            mError.setVisibility(View.VISIBLE);
+                            mResult.setText("");
+                        }else{
+                            if(mPhysUnits2.getSelectedItem().toString() == "ms") {
+                                result2 /= 1000;
+                            }
+                            if(mPhysUnits2.getSelectedItem().toString() == "mins"){
+                                result2 *= 60;
+                            }
+                            if(mPhysUnits2.getSelectedItem().toString() == "hrs"){
+                                result2 *= 3600;
+                            }
 
-                        String suffix = superscript(" rad/s2");
-                        mResult.setText(calc.AngularAcceleration(result, result2) + suffix);
-                        mError.setVisibility(View.INVISIBLE);
+                            String suffix = superscript(" rad/s2");
+                            mResult.setText(calc.AngularAcceleration(result, result2) + suffix);
+                            mError.setVisibility(View.INVISIBLE);
+                        }
                     }
                     else{
                         return;
@@ -1603,6 +1610,9 @@ public class OperationsActivity extends AppCompatActivity {
                         if(mPhysUnits1.getSelectedItem().toString() == "mm") {
                             result /= 1000;
                         }
+                        if(mPhysUnits1.getSelectedItem().toString() == "cm") {
+                            result /= 100;
+                        }
                         if(mPhysUnits1.getSelectedItem().toString() == "km"){
                             result *= 1000;
                         }
@@ -1610,7 +1620,7 @@ public class OperationsActivity extends AppCompatActivity {
                         if(mPhysUnits2.getSelectedItem().toString() == "Degrees"){
                             result2 *= (Math.PI / 180);
                         }
-                        String suffix = superscript("m");
+                        String suffix = superscript(" m");
                         mResult.setText(calc.AngularDisplacement(result, result2) + suffix);
                         mError.setVisibility(View.INVISIBLE);
                     }
@@ -1629,11 +1639,14 @@ public class OperationsActivity extends AppCompatActivity {
                         if(mPhysUnits1.getSelectedItem().toString() == "mm") {
                             result /= 1000;
                         }
+                        if(mPhysUnits1.getSelectedItem().toString() == "cm") {
+                            result /= 100;
+                        }
                         if(mPhysUnits1.getSelectedItem().toString() == "km"){
                             result *= 1000;
                         }
 
-                        String suffix = superscript("m/s");
+                        String suffix = superscript(" m/s");
                         mResult.setText(calc.VelocityFromAngle(result, result2) + suffix);
                         mError.setVisibility(View.INVISIBLE);
                     }
@@ -1652,11 +1665,14 @@ public class OperationsActivity extends AppCompatActivity {
                         if(mPhysUnits1.getSelectedItem().toString() == "mm") {
                             result /= 1000;
                         }
+                        if(mPhysUnits1.getSelectedItem().toString() == "cm") {
+                            result /= 100;
+                        }
                         if(mPhysUnits1.getSelectedItem().toString() == "km"){
                             result *= 1000;
                         }
 
-                        String suffix = superscript("m/s2");
+                        String suffix = superscript(" m/s2");
                         mResult.setText(calc.AccelerationFromAngle(result, result2) + suffix);
                         mError.setVisibility(View.INVISIBLE);
                     }
@@ -1672,23 +1688,34 @@ public class OperationsActivity extends AppCompatActivity {
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
 
-                        if(mPhysUnits1.getSelectedItem().toString() == "mm/s") {
-                            result /= 1000;
-                        }
-                        if(mPhysUnits1.getSelectedItem().toString() == "km/s"){
-                            result *= 1000;
+                        if(result2 == 0){
+                            mError.setText("** Cannot Divide by 0 **");
+                            mError.setVisibility(View.VISIBLE);
+                            mResult.setText("");
+                        } else{
+
+                            if(mPhysUnits1.getSelectedItem().toString() == "mm/s") {
+                                result /= 1000;
+                            }
+                            if(mPhysUnits1.getSelectedItem().toString() == "km/s"){
+                                result *= 1000;
+                            }
+
+                            if(mPhysUnits2.getSelectedItem().toString() == "mm") {
+                                result2 /= 1000;
+                            }
+                            if(mPhysUnits2.getSelectedItem().toString() == "cm") {
+                                result2 /= 100;
+                            }
+                            if(mPhysUnits2.getSelectedItem().toString() == "km"){
+                                result2 *= 1000;
+                            }
+
+                            String suffix = superscript(" m/s2");
+                            mResult.setText(calc.CentripetalAcceleration(result, result2) + suffix);
+                            mError.setVisibility(View.INVISIBLE);
                         }
 
-                        if(mPhysUnits2.getSelectedItem().toString() == "mm") {
-                            result2 /= 1000;
-                        }
-                        if(mPhysUnits2.getSelectedItem().toString() == "km"){
-                            result2 *= 1000;
-                        }
-
-                        String suffix = superscript("m/s2");
-                        mResult.setText(calc.CentripetalAcceleration(result, result2) + suffix);
-                        mError.setVisibility(View.INVISIBLE);
                     }
                     else{
                         return;
@@ -1702,18 +1729,27 @@ public class OperationsActivity extends AppCompatActivity {
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
 
+                        if(result2 == 0){
+                            mError.setText("** Cannot Divide by 0 **");
+                            mError.setVisibility(View.VISIBLE);
+                            mResult.setText("");
+                        } else{
+                            if(mPhysUnits2.getSelectedItem().toString() == "mm") {
+                                result2 /= 1000;
+                            }
+                            if(mPhysUnits2.getSelectedItem().toString() == "cm") {
+                                result2 /= 100;
+                            }
+                            if(mPhysUnits2.getSelectedItem().toString() == "km"){
+                                result2 *= 1000;
+                            }
 
-                        if(mPhysUnits2.getSelectedItem().toString() == "mm") {
-                            result2 /= 1000;
-                        }
-                        if(mPhysUnits2.getSelectedItem().toString() == "km"){
-                            result2 *= 1000;
+                            String suffix = superscript(" rad/s2");
+                            mResult.setText(calc.CentripetalAcceleration(result, result2) + suffix);
+                            mError.setVisibility(View.INVISIBLE);
+                            }
                         }
 
-                        String suffix = superscript("rad/s2");
-                        mResult.setText(calc.CentripetalAcceleration(result, result2) + suffix);
-                        mError.setVisibility(View.INVISIBLE);
-                    }
                     else{
                         return;
                     }
@@ -1727,30 +1763,40 @@ public class OperationsActivity extends AppCompatActivity {
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
                         float result3 = Float.parseFloat(mPhysSub3.getText().toString());
 
-                        if(mPhysUnits1.getSelectedItem().toString() == "mg") {
-                            result /= 1000000;
-                        }
-                        if(mPhysUnits1.getSelectedItem().toString() == "g"){
-                            result /= 1000;
+                        if(result3 == 0){
+                            mError.setText("** Cannot Divide by 0 **");
+                            mError.setVisibility(View.VISIBLE);
+                            mResult.setText("");
+                        } else{
+                            if(mPhysUnits1.getSelectedItem().toString() == "mg") {
+                                result /= 1000000;
+                            }
+                            if(mPhysUnits1.getSelectedItem().toString() == "g"){
+                                result /= 1000;
+                            }
+
+                            if(mPhysUnits2.getSelectedItem().toString() == "mm/s") {
+                                result2 /= 1000;
+                            }
+                            if(mPhysUnits2.getSelectedItem().toString() == "km/s"){
+                                result2 *= 1000;
+                            }
+
+                            if(mPhysUnits3.getSelectedItem().toString() == "mm") {
+                                result3 /= 1000;
+                            }
+                            if(mPhysUnits3.getSelectedItem().toString() == "cm") {
+                                result3 /= 100;
+                            }
+                            if(mPhysUnits3.getSelectedItem().toString() == "km"){
+                                result3 *= 1000;
+                            }
+
+                            String suffix = superscript(" N");
+                            mResult.setText(calc.CentripetalForce(result, result2, result3) + suffix);
+                            mError.setVisibility(View.INVISIBLE);
                         }
 
-                        if(mPhysUnits2.getSelectedItem().toString() == "mm/s") {
-                            result2 /= 1000;
-                        }
-                        if(mPhysUnits2.getSelectedItem().toString() == "km/s"){
-                            result2 *= 1000;
-                        }
-
-                        if(mPhysUnits3.getSelectedItem().toString() == "mm") {
-                            result3 /= 1000;
-                        }
-                        if(mPhysUnits3.getSelectedItem().toString() == "km"){
-                            result3 *= 1000;
-                        }
-
-                        String suffix = superscript("N");
-                        mResult.setText(calc.CentripetalForce(result, result2, result3) + suffix);
-                        mError.setVisibility(View.INVISIBLE);
                     }
                     else{
                         return;
@@ -3229,6 +3275,7 @@ public class OperationsActivity extends AppCompatActivity {
     }
 
     private void setOperation(){
+        rads.setVisibility(View.VISIBLE);
         enterBtn = findViewById(R.id.ops_page_enter_btn);
         enterBtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -3259,94 +3306,158 @@ public class OperationsActivity extends AppCompatActivity {
                 }
 
                 if (opTitle == "Cosine") {
-                    String type = rads.getSelectedItem().toString();
-                    if (type == "Radians") {
-                        Calculator calc = new Calculator();
-                        float result = Float.parseFloat(mSubmit.getText().toString());
-                        mResult.setText(calc.cosine(result));
-                    }else{
-                        Calculator calc = new Calculator();
-                        double result = Double.parseDouble(mSubmit.getText().toString());
-                        result = Math.toRadians(result);
-                        float finalResult = (float) result;
-                        mResult.setText(calc.cosine(finalResult));
+                    int counter = 1;
+                    if (checkInputSubmit(counter)) {
+                        String type = rads.getSelectedItem().toString();
+                        if (type == "Radians") {
+                            Calculator calc = new Calculator();
+                            float result = Float.parseFloat(mSubmit.getText().toString());
+                            mResult.setText(calc.cosine(result));
+                        }else{
+                            Calculator calc = new Calculator();
+                            double result = Double.parseDouble(mSubmit.getText().toString());
+                            result = Math.toRadians(result);
+                            float finalResult = (float) result;
+                            mResult.setText(calc.cosine(finalResult));
+                        }
                     }
                 }
                 if (opTitle == "Sine") {
-                    String type = rads.getSelectedItem().toString();
-                    if (type == "Radians") {
-                        Calculator calc = new Calculator();
-                        float result = Float.parseFloat(mSubmit.getText().toString());
-                        mResult.setText(calc.sine(result));
-                    }else{
-                        Calculator calc = new Calculator();
-                        double result = Double.parseDouble(mSubmit.getText().toString());
-                        result = Math.toRadians(result);
-                        float finalResult = (float) result;
-                        mResult.setText(calc.sine(finalResult));
+                    int counter = 1;
+                    if(checkInputSubmit(counter)){
+                        String type = rads.getSelectedItem().toString();
+                        if (type == "Radians") {
+                            Calculator calc = new Calculator();
+                            float result = Float.parseFloat(mSubmit.getText().toString());
+                            mResult.setText(calc.sine(result));
+                        }else{
+                            Calculator calc = new Calculator();
+                            double result = Double.parseDouble(mSubmit.getText().toString());
+                            result = Math.toRadians(result);
+                            float finalResult = (float) result;
+                            mResult.setText(calc.sine(finalResult));
+                        }
                     }
+
                 }
                 if (opTitle == "Tangent") {
-                    String type = rads.getSelectedItem().toString();
-                    if (type == "Radians") {
-                        Calculator calc = new Calculator();
-                        float result = Float.parseFloat(mSubmit.getText().toString());
-                        mResult.setText(calc.tan(result));
-                    }else{
-                        Calculator calc = new Calculator();
-                        double result = Double.parseDouble(mSubmit.getText().toString());
-                        result = Math.toRadians(result);
-                        float finalResult = (float) result;
-                        mResult.setText(calc.tan(finalResult));
+                    int counter = 1;
+                    if(checkInputSubmit(counter)){
+                        String type = rads.getSelectedItem().toString();
+                        if (type == "Radians") {
+                            Calculator calc = new Calculator();
+                            float result = Float.parseFloat(mSubmit.getText().toString());
+                            mResult.setText(calc.tan(result));
+                        }else{
+                            Calculator calc = new Calculator();
+                            double result = Double.parseDouble(mSubmit.getText().toString());
+                            result = Math.toRadians(result);
+                            float finalResult = (float) result;
+                            mResult.setText(calc.tan(finalResult));
+                        }
                     }
                 }
 
                 if (opTitle == "Arccos") {
-                    String type = rads.getSelectedItem().toString();
-                    if (type == "Radians") {
-                        Calculator calc = new Calculator();
-                        double result = Double.parseDouble(mSubmit.getText().toString());
-                        double result2 = Double.parseDouble(mSubmit2.getText().toString());
-                        mResult.setText(calc.arccos(result, result2));
-                    }else{
-                        double result = Double.parseDouble(mSubmit.getText().toString());
-                        double result2 = Double.parseDouble(mSubmit2.getText().toString());
-                        result = Math.toRadians(result);
-                        result2 = Math.toRadians(result2);
-                        double res = (result/result2);
-                        mResult.setText(Double.toString(Math.acos(res) * radToDegrees));
+                    int counter = 2;
+                    if(checkInputSubmit(counter)){
+                        String type = rads.getSelectedItem().toString();
+                        if (type == "Radians") {
+                            Calculator calc = new Calculator();
+                            double result = Double.parseDouble(mSubmit.getText().toString());
+                            double result2 = Double.parseDouble(mSubmit2.getText().toString());
+                            if(result / result2 < -1 || result / result2 > 1){
+                                mError.setText("** Must be Between -1 and 1 **");
+                                mError.setVisibility(View.VISIBLE);
+                                mResult.setText("");
+                            }else{
+                                mResult.setText(calc.arccos(result, result2));
+                                mError.setVisibility(View.INVISIBLE);
+                            }
+                        }else{
+                            double result = Double.parseDouble(mSubmit.getText().toString());
+                            double result2 = Double.parseDouble(mSubmit2.getText().toString());
+                            result = Math.toRadians(result);
+                            result2 = Math.toRadians(result2);
+                            double res = (result/result2);
+                            if(res < -1 || res > 1){
+                                mError.setText("** Must be Between -1 and 1 **");
+                                mError.setVisibility(View.VISIBLE);
+                                mResult.setText("");
+                            }else{
+                                mResult.setText(Double.toString(Math.acos(res) * radToDegrees));
+                                mError.setVisibility(View.INVISIBLE);
+                            }
+                        }
                     }
+
                 }
                 if (opTitle == "Arcsin") {
-                    String type = rads.getSelectedItem().toString();
-                    if (type == "Radians") {
-                        Calculator calc = new Calculator();
-                        double result = Double.parseDouble(mSubmit.getText().toString());
-                        double result2 = Double.parseDouble(mSubmit2.getText().toString());
-                        mResult.setText(calc.arcsin(result, result2));
-                    }else{
-                        double result = Double.parseDouble(mSubmit.getText().toString());
-                        double result2 = Double.parseDouble(mSubmit2.getText().toString());
-                        result = Math.toRadians(result);
-                        result2 = Math.toRadians(result2);
-                        double res = (result/result2);
-                        mResult.setText(Double.toString(Math.asin(res) * radToDegrees));
+                    int counter = 2;
+                    if(checkInputSubmit(counter)){
+                        String type = rads.getSelectedItem().toString();
+                        if (type == "Radians") {
+                            Calculator calc = new Calculator();
+                            double result = Double.parseDouble(mSubmit.getText().toString());
+                            double result2 = Double.parseDouble(mSubmit2.getText().toString());
+                            if(result / result2 < -1 || result / result2 > 1){
+                                mError.setText("** Must be Between -1 and 1 **");
+                                mError.setVisibility(View.VISIBLE);
+                                mResult.setText("");
+                            }else{
+                                mResult.setText(calc.arcsin(result, result2));
+                                mError.setVisibility(View.INVISIBLE);
+                            }
+                        }else{
+                            double result = Double.parseDouble(mSubmit.getText().toString());
+                            double result2 = Double.parseDouble(mSubmit2.getText().toString());
+                            result = Math.toRadians(result);
+                            result2 = Math.toRadians(result2);
+                            double res = (result/result2);
+                            if(res < -1 || res > 1){
+                                mError.setText("** Must be Between -1 and 1 **");
+                                mError.setVisibility(View.VISIBLE);
+                                mResult.setText("");
+                            }else{
+                                mResult.setText(Double.toString(Math.asin(res) * radToDegrees));
+                                mError.setVisibility(View.INVISIBLE);
+                            }
+
+                        }
                     }
+
                 }
                 if (opTitle == "Arctan") {
-                    String type = rads.getSelectedItem().toString();
-                    if (type == "Radians") {
-                        Calculator calc = new Calculator();
-                        double result = Double.parseDouble(mSubmit.getText().toString());
-                        double result2 = Double.parseDouble(mSubmit2.getText().toString());
-                        mResult.setText(calc.arctan(result, result2));
-                    }else{
-                        double result = Double.parseDouble(mSubmit.getText().toString());
-                        double result2 = Double.parseDouble(mSubmit2.getText().toString());
-                        result = Math.toRadians(result);
-                        result2 = Math.toRadians(result2);
-                        double res = (result/result2);
-                        mResult.setText(Double.toString(Math.atan(res) * radToDegrees));
+                    int counter = 2;
+                    if(checkInputSubmit(counter)){
+                        String type = rads.getSelectedItem().toString();
+                        if (type == "Radians") {
+                            Calculator calc = new Calculator();
+                            double result = Double.parseDouble(mSubmit.getText().toString());
+                            double result2 = Double.parseDouble(mSubmit2.getText().toString());
+                            if(result / result2 < -1 || result / result2 > 1){
+                                mError.setText("** Must be Between -1 and 1 **");
+                                mError.setVisibility(View.VISIBLE);
+                                mResult.setText("");
+                            }else{
+                                mResult.setText(calc.arctan(result, result2));
+                                mError.setVisibility(View.INVISIBLE);
+                            }
+                        }else{
+                            double result = Double.parseDouble(mSubmit.getText().toString());
+                            double result2 = Double.parseDouble(mSubmit2.getText().toString());
+                            result = Math.toRadians(result);
+                            result2 = Math.toRadians(result2);
+                            double res = (result/result2);
+                            if(res < -1 || res > 1){
+                                mError.setText("** Must be Between -1 and 1 **");
+                                mError.setVisibility(View.VISIBLE);
+                                mResult.setText("");
+                            }else{
+                                mResult.setText(Double.toString(Math.atan(res) * radToDegrees));
+                                mError.setVisibility(View.INVISIBLE);
+                            }
+                        }
                     }
                 }
             }
@@ -3438,6 +3549,42 @@ public class OperationsActivity extends AppCompatActivity {
                     mPhysSub2.getText().toString().matches("[a-zA-Z]+") &&
                     mPhysSub3.getText().toString().matches("[a-zA-Z]+") &&
                     mPhysSub4.getText().toString().matches("[a-zA-Z]+"))){
+                mError.setText("** Invalid Input **");
+                mError.setVisibility(View.VISIBLE);
+                mResult.setText("");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean checkInputSubmit(int counter){
+        if(counter == 1){
+            if(mSubmit.getText().toString().isEmpty()){
+                mError.setText("** Please Fill in all Fields **");
+                mError.setVisibility(View.VISIBLE);
+                mResult.setText("");
+                return false;
+            }
+            else if(mSubmit.getText().toString().matches("[a-zA-z]+") ||
+                    !mSubmit.getText().toString().matches("^([0-9]+\\.?[0-9]*|[0-9]*\\.[0-9]+)$")){
+                mError.setText("** Invalid Input **");
+                mError.setVisibility(View.VISIBLE);
+                mResult.setText("");
+                return false;
+            }
+        }
+        if(counter == 2){
+            if(mSubmit.getText().toString().isEmpty() || mSubmit2.getText().toString().isEmpty()){
+                mError.setText("** Please Fill in all Fields **");
+                mError.setVisibility(View.VISIBLE);
+                mResult.setText("");
+                return false;
+            }
+            else if(mSubmit.getText().toString().matches("[a-zA-z]+") ||
+                    mSubmit2.getText().toString().matches("[a-zA-z]+") ||
+                    !mSubmit.getText().toString().matches("^([0-9]+\\.?[0-9]*|[0-9]*\\.[0-9]+)$") ||
+                    !mSubmit2.getText().toString().matches("^([0-9]+\\.?[0-9]*|[0-9]*\\.[0-9]+)$")){
                 mError.setText("** Invalid Input **");
                 mError.setVisibility(View.VISIBLE);
                 mResult.setText("");
