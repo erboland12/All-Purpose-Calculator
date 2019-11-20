@@ -696,12 +696,12 @@ public class OperationsActivity extends AppCompatActivity {
             linearLayout3.setVisibility(View.GONE);
         }
         if(opTitle == "Acceleration (" + DELTA + "v/" + DELTA + "t)"){
-            mPhysTitle1.setText(DELTA +"v");
+            mPhysTitle1.setText("Velocity");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, velocityItems);
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(1);
 
-            mPhysTitle2.setText(DELTA + "t");
+            mPhysTitle2.setText("Time");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(1);
@@ -740,6 +740,7 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle1.setText("Mass");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
             mPhysUnits1.setAdapter(adapter);
+            mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Velocity");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, velocityItems);
@@ -751,13 +752,13 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Kinetic Energy (p2/2m)"){
             mPhysTitle1.setText("Momentum");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, momentum);
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Mass");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
             mPhysUnits2.setAdapter(adapter);
-            mPhysUnits2.setSelection(1);
+            mPhysUnits2.setSelection(2);
 
             linearLayout3.setVisibility(View.GONE);
         }
@@ -766,6 +767,7 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle1.setText("Mass");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
             mPhysUnits1.setAdapter(adapter);
+            mPhysUnits1.setSelection(2);
 
             mPhysSub2.setText("9.81");
             mPhysTitle2.setText("Gravity");
@@ -775,6 +777,7 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle3.setText("Height");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
             mPhysUnits3.setAdapter(adapter);
+            mPhysUnits3.setSelection(2);
         }
 
         if(opTitle == "Power (" + DELTA + "W/" + DELTA + "t)"){
@@ -794,10 +797,10 @@ public class OperationsActivity extends AppCompatActivity {
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, springConstant);
             mPhysUnits1.setAdapter(adapter);
 
-            mPhysTitle2.setText("Time");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
+            mPhysTitle2.setText("Displacement");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
             mPhysUnits2.setAdapter(adapter);
-            mPhysUnits2.setSelection(1);
+            mPhysUnits2.setSelection(2);
 
             linearLayout3.setVisibility(View.GONE);
         }
@@ -1228,18 +1231,18 @@ public class OperationsActivity extends AppCompatActivity {
                         //Conversion based on units
                         float finalResult = result1 * result2;
                         if(mPhysUnits1.getSelectedItem().toString() == "mg") {
+                            finalResult /= 1000000;
+                        }
+
+                        if(mPhysUnits1.getSelectedItem().toString() == "g"){
                             finalResult /= 1000;
                         }
 
-                        if(mPhysUnits1.getSelectedItem().toString() == "kg"){
+                        if(mPhysUnits2.getSelectedItem().toString() == "km/s2"){
                             finalResult *= 1000;
                         }
-
-                        if(mPhysUnits2.getSelectedItem().toString() == superscript("m/s^2")){
-                            finalResult /= 1000;
-                        }
                         mError.setVisibility(View.INVISIBLE);
-                        mResult.setText(finalResult + "N");
+                        mResult.setText(finalResult + " N");
                     }
                      else{
                         return;
@@ -1261,7 +1264,7 @@ public class OperationsActivity extends AppCompatActivity {
                         }
                         float finalResult = result * result2;
                         mError.setVisibility(View.INVISIBLE);
-                        mResult.setText(finalResult + superscript("kg*m/s2"));
+                        mResult.setText(finalResult + superscript(" kg*m/s2"));
                     } else{
                         return;
                     }
@@ -1272,28 +1275,35 @@ public class OperationsActivity extends AppCompatActivity {
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
-                        if(mPhysUnits1.getSelectedItem().toString() == "mm/s") {
-                            result /= 1000;
-                        }
-                        if(mPhysUnits1.getSelectedItem().toString() == "km/s"){
-                            result *= 1000;
+                        if(result2 == 0){
+                            mError.setText("** Cannot Divide by 0 **");
+                            mError.setVisibility(View.VISIBLE);
+                            mResult.setText("");
+                        }else{
+                            if(mPhysUnits1.getSelectedItem().toString() == "mm/s") {
+                                result /= 1000;
+                            }
+                            if(mPhysUnits1.getSelectedItem().toString() == "km/s"){
+                                result *= 1000;
+                            }
+
+                            if(mPhysUnits2.getSelectedItem().toString() == "ms") {
+                                result2 /= 1000;
+                            }
+                            if(mPhysUnits2.getSelectedItem().toString() == "mins"){
+                                result2 *= 60;
+                            }
+                            if(mPhysUnits2.getSelectedItem().toString() == "hrs"){
+                                result2 *= 3600;
+                            }
+
+                            float finalResult = result / result2;
+                            String exp = " m/s2";
+                            exp = superscript(exp);
+                            mError.setVisibility(View.INVISIBLE);
+                            mResult.setText(finalResult + exp);
                         }
 
-                        if(mPhysUnits2.getSelectedItem().toString() == "ms") {
-                            result2 /= 1000;
-                        }
-                        if(mPhysUnits2.getSelectedItem().toString() == "mins"){
-                            result2 *= 60;
-                        }
-                        if(mPhysUnits2.getSelectedItem().toString() == "hrs"){
-                            result2 *= 3600;
-                        }
-
-                        float finalResult = result / result2;
-                        String exp = "m/s2";
-                        exp = superscript(exp);
-                        mError.setVisibility(View.INVISIBLE);
-                        mResult.setText(finalResult + exp);
                     } else{
                         return;
                     }
@@ -1321,7 +1331,7 @@ public class OperationsActivity extends AppCompatActivity {
 
                         float finalResult = result * result2;
                         mError.setVisibility(View.INVISIBLE);
-                        mResult.setText(finalResult + superscript("kg * m/s"));
+                        mResult.setText(finalResult + superscript(" kg * m/s"));
                     } else{
                         return;
                     }
@@ -1346,7 +1356,7 @@ public class OperationsActivity extends AppCompatActivity {
                         float finalResult = result * result2;
 
                         mError.setVisibility(View.INVISIBLE);
-                        mResult.setText(finalResult + "kg * m/s");
+                        mResult.setText(finalResult + " kg * m/s");
                     }
                     else{
                         return;
@@ -1360,17 +1370,24 @@ public class OperationsActivity extends AppCompatActivity {
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
 
-                        if(mPhysUnits2.getSelectedItem().toString() == "ms") {
-                            result2 /= 1000;
+                        if(mPhysUnits1.getSelectedItem().toString() == "mg") {
+                            result /= 1000000;
                         }
-                        if(mPhysUnits2.getSelectedItem().toString() == "mins"){
-                            result2 *= 60;
-                        }
-                        if(mPhysUnits2.getSelectedItem().toString() == "hrs"){
-                            result2 *= 3600;
+                        if(mPhysUnits1.getSelectedItem().toString() == "g"){
+                            result /= 1000;
                         }
 
-                        mResult.setText(calc.KineticEnergy(result, result2) + "J");
+
+                        if(mPhysUnits2.getSelectedItem().toString() == "mm/s") {
+                            result2 /= 1000;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "km/s"){
+                            result2 *= 1000;
+                        }
+
+                        float finalResult = (float) (0.5 * (result) * (result2 * result2));
+
+                        mResult.setText(finalResult + " J");
                         mError.setVisibility(View.INVISIBLE);
                     }
                     else{
@@ -1384,16 +1401,21 @@ public class OperationsActivity extends AppCompatActivity {
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        if(result2 == 0){
+                            mError.setText("** Cannot Divide by 0 **");
+                            mError.setVisibility(View.VISIBLE);
+                            mResult.setText("");
+                        }else{
+                            if(mPhysUnits2.getSelectedItem().toString() == "mg") {
+                                result2 /= 1000000;
+                            }
+                            if(mPhysUnits2.getSelectedItem().toString() == "g"){
+                                result2 /= 1000;
+                            }
 
-                        if(mPhysUnits2.getSelectedItem().toString() == "mg") {
-                            result2 /= 1000000;
+                            mResult.setText(calc.KineticEnergy2(result, result2) + " J");
+                            mError.setVisibility(View.INVISIBLE);
                         }
-                        if(mPhysUnits2.getSelectedItem().toString() == "g"){
-                            result2 /= 1000;
-                        }
-
-                        mResult.setText(calc.KineticEnergy2(result, result2) + "J");
-                        mError.setVisibility(View.INVISIBLE);
                     }
                     else{
                         return;
@@ -1425,7 +1447,7 @@ public class OperationsActivity extends AppCompatActivity {
                             result3 *= 1000;
                         }
 
-                        mResult.setText(calc.GravPE(result, result2, result3) + "J");
+                        mResult.setText(calc.GravPE(result, result2, result3) + " J");
                         mError.setVisibility(View.INVISIBLE);
                     }
                     else{
@@ -1439,19 +1461,25 @@ public class OperationsActivity extends AppCompatActivity {
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        if(result2 == 0){
+                            mError.setText("** Cannot Divide by 0 **");
+                            mError.setVisibility(View.VISIBLE);
+                            mResult.setText("");
+                        }else{
+                            if(mPhysUnits2.getSelectedItem().toString() == "ms") {
+                                result2 /= 1000;
+                            }
+                            if(mPhysUnits2.getSelectedItem().toString() == "mins"){
+                                result2 *= 60;
+                            }
+                            if(mPhysUnits2.getSelectedItem().toString() == "hrs"){
+                                result2 *= 3600;
+                            }
 
-                        if(mPhysUnits2.getSelectedItem().toString() == "ms") {
-                            result2 /= 1000;
-                        }
-                        if(mPhysUnits2.getSelectedItem().toString() == "mins"){
-                            result2 *= 60;
-                        }
-                        if(mPhysUnits2.getSelectedItem().toString() == "hrs"){
-                            result2 *= 3600;
+                            mResult.setText(calc.Power(result, result2) + " Watts");
+                            mError.setVisibility(View.INVISIBLE);
                         }
 
-                        mResult.setText(calc.Power(result, result2) + " Watts");
-                        mError.setVisibility(View.INVISIBLE);
                     }
                     else{
                         return;
@@ -1475,7 +1503,7 @@ public class OperationsActivity extends AppCompatActivity {
                             result2 *= 1000;
                         }
 
-                        mResult.setText(calc.Hooke(result, result2) + "N");
+                        mResult.setText(calc.Hooke(result, result2) + " N");
                         mError.setVisibility(View.INVISIBLE);
                     }
                     else{
@@ -1489,23 +1517,29 @@ public class OperationsActivity extends AppCompatActivity {
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        if(result2 == 0){
+                            mError.setText("** Cannot Divide by 0 **");
+                            mError.setVisibility(View.VISIBLE);
+                            mResult.setText("");
+                        }else{
+                            if(mPhysUnits1.getSelectedItem().toString() == "Degrees"){
+                                result *= (Math.PI/180);
+                            }
 
-                        if(mPhysUnits1.getSelectedItem().toString() == "Degrees"){
-                            result *= (Math.PI/180);
+                            if(mPhysUnits2.getSelectedItem().toString() == "ms") {
+                                result2 /= 1000;
+                            }
+                            if(mPhysUnits2.getSelectedItem().toString() == "mins"){
+                                result2 *= 60;
+                            }
+                            if(mPhysUnits2.getSelectedItem().toString() == "hrs"){
+                                result2 *= 3600;
+                            }
+
+                            mResult.setText(calc.AngularVelocity(result, result2) + " rad/s");
+                            mError.setVisibility(View.INVISIBLE);
                         }
 
-                        if(mPhysUnits2.getSelectedItem().toString() == "ms") {
-                            result2 /= 1000;
-                        }
-                        if(mPhysUnits2.getSelectedItem().toString() == "mins"){
-                            result2 *= 60;
-                        }
-                        if(mPhysUnits2.getSelectedItem().toString() == "hrs"){
-                            result2 *= 3600;
-                        }
-
-                        mResult.setText(calc.AngularVelocity(result, result2) + " rad/s");
-                        mError.setVisibility(View.INVISIBLE);
                     }
                     else{
                         return;
