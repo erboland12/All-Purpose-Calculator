@@ -56,8 +56,8 @@ public class OperationsActivity extends AppCompatActivity {
     //Spinner arrays
     ArrayAdapter<String> adapter;
     private String[] massItems = {"mg", "g", "kg"};
-    private String[] areaItems = {superscript("cm2"), superscript("m2"), superscript("in2"), superscript("mi2")};
-    private String[] volumeItems = {superscript("cm3"), superscript("m3"), "L"};
+    private String[] areaItems = {"cm^2", "m^2", "in^2", "mi^2"};
+    private String[] volumeItems = {"cm^3", "m^3", "L"};
     private String[] lengthItems = {"mm", "cm", "m", "km"};
     private String[] waveItems = {"nm", "um", "mm", "cm"};
     private String[] timeItems = {"ms", "s", "mins", "hrs"};
@@ -65,10 +65,10 @@ public class OperationsActivity extends AppCompatActivity {
     private String[] tempItems = {"Fahrenheit", "Celsius", "Kelvin"};
     private String[] liquidVolumeItems = {"mL", "L"};
     private String[] angularVelocityItems = {"rad/s"};
-    private String[] angularAccelerationItems = {superscript("rad/s2")};
-    private String[] accelerationItems = {superscript("m/s2"), superscript("km/s2")};
+    private String[] angularAccelerationItems = {"rad/s^2"};
+    private String[] accelerationItems = {"m/s^2", "km/s^2"};
     private String[] thetaItems = {"Radians", "Degrees"};
-    private String[] gravity = {superscript("m/s2")};
+    private String[] gravity = {"m/s^2"};
     private String[] forceItems = {"N"};
     private String[] work = {"J"};
     private String[] torque = {"N*m"};
@@ -85,10 +85,10 @@ public class OperationsActivity extends AppCompatActivity {
     private String[] entropy = {"J/K"};
     private String[] coulombs = {"C"};
     private String[] pressure = {"Pa"};
-    private String[] coulombConst = {superscript("N*m^2*C-2")};
-    private String[] gasConst = {superscript("Kg*m2*s-2*K-1*mol-1")};
-    private String[] springConstant = {superscript("kg * m/s2")};
-    private String[] densityItems = {superscript("g/cm3"), superscript("kg/cm3")};
+    private String[] coulombConst = {"N*m^2*C^-2"};
+    private String[] gasConst = {"Kg*m^2*s^-2*K^-1*mol^-1"};
+    private String[] springConstant = {"kg * m/s^2"};
+    private String[] densityItems = {"g/cm^3", "kg/cm^3"};
 
     DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.US);
     // Define the maximum number of decimals (number of symbols #)
@@ -729,7 +729,7 @@ public class OperationsActivity extends AppCompatActivity {
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, forceItems);
             mPhysUnits1.setAdapter(adapter);
 
-            mPhysTitle2.setText(DELTA + "t");
+            mPhysTitle2.setText("Time");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(1);
@@ -819,7 +819,7 @@ public class OperationsActivity extends AppCompatActivity {
         }
 
         if(opTitle == "Angular Acceleration (" + DELTA + OMEGA + "/" + DELTA + "t)"){
-            mPhysTitle1.setText("Velocity (" + OMEGA + ")");
+            mPhysTitle1.setText("Velocity");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
             mPhysUnits1.setAdapter(adapter);
 
@@ -837,7 +837,7 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(2);
 
-            mPhysTitle2.setText("Velocity (" + OMEGA + ")");
+            mPhysTitle2.setText("Velocity");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
             mPhysUnits2.setAdapter(adapter);
 
@@ -863,7 +863,7 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(2);
 
-            mPhysTitle2.setText("Velocity (" + OMEGA + ")");
+            mPhysTitle2.setText("Velocity");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
             mPhysUnits2.setAdapter(adapter);
 
@@ -898,7 +898,7 @@ public class OperationsActivity extends AppCompatActivity {
         }
 
         if(opTitle == "Centripetal Acceleration (" + OMEGA + "2/r)"){
-            mPhysTitle1.setText("Velocity (" + OMEGA + ")");
+            mPhysTitle1.setText("Velocity");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
             mPhysUnits1.setAdapter(adapter);
 
@@ -928,23 +928,27 @@ public class OperationsActivity extends AppCompatActivity {
         }
 
         if(opTitle == "Angular Velocity (" + OMEGA + "0 + " + ALPHA + "t)"){
-            mPhysTitle1.setText("Velocity (" + OMEGA + ")");
+            mPhysTitle1.setText("Initial Velocity");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
             mPhysUnits1.setAdapter(adapter);
 
-            mPhysTitle2.setText("Time");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
+            mPhysTitle2.setText("Acceleration");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularAccelerationItems);
             mPhysUnits2.setAdapter(adapter);
 
-            linearLayout3.setVisibility(View.GONE);
+            mPhysTitle3.setText("Time");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
+            mPhysUnits3.setAdapter(adapter);
+            mPhysUnits3.setSelection(1);
+
         }
 
         if(opTitle == "Average Angular Velocity (1/2(" + OMEGA + "+" + OMEGA + "0))"){
-            mPhysTitle1.setText("Velocity (" + OMEGA + ")");
+            mPhysTitle1.setText("Velocity");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
             mPhysUnits1.setAdapter(adapter);
 
-            mPhysTitle2.setText("Initial Velocity (" + OMEGA + ")");
+            mPhysTitle2.setText("Initial Velocity");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
             mPhysUnits2.setAdapter(adapter);
 
@@ -968,7 +972,7 @@ public class OperationsActivity extends AppCompatActivity {
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, torque);
             mPhysUnits1.setAdapter(adapter);
 
-            mPhysTitle2.setText("Velocity (" + OMEGA + ")");
+            mPhysTitle2.setText("Velocity");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
             mPhysUnits2.setAdapter(adapter);
 
@@ -980,7 +984,7 @@ public class OperationsActivity extends AppCompatActivity {
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, torque);
             mPhysUnits1.setAdapter(adapter);
 
-            mPhysTitle2.setText("Velocity (" + OMEGA + ")");
+            mPhysTitle2.setText("Velocity");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
             mPhysUnits2.setAdapter(adapter);
 
@@ -993,8 +997,9 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle1.setText("Inertia");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
             mPhysUnits1.setAdapter(adapter);
+            mPhysUnits1.setSelection(2);
 
-            mPhysTitle2.setText("Velocity (" + OMEGA + ")");
+            mPhysTitle2.setText("Velocity");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
             mPhysUnits2.setAdapter(adapter);
 
@@ -1005,9 +1010,10 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle1.setText("Mass");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
             mPhysUnits1.setAdapter(adapter);
+            mPhysUnits1.setSelection(1);
 
-            mPhysTitle2.setText("Velocity");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
+            mPhysTitle2.setText("Volume");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, volumeItems);
             mPhysUnits2.setAdapter(adapter);
 
             linearLayout3.setVisibility(View.GONE);
@@ -1021,14 +1027,16 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle2.setText("Area");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, areaItems);
             mPhysUnits2.setAdapter(adapter);
+            mPhysUnits2.setSelection(1);
 
             linearLayout3.setVisibility(View.GONE);
         }
 
         if(opTitle == "Change of Pressure (" + DELTA + "P = pgh)"){
-            mPhysTitle1.setText("Density (p)");
+            mPhysTitle1.setText("Density");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, densityItems);
             mPhysUnits1.setAdapter(adapter);
+            mPhysUnits1.setSelection(1);
 
             mPhysSub2.setText("9.81");
             mPhysTitle2.setText("Gravity");
@@ -1037,17 +1045,20 @@ public class OperationsActivity extends AppCompatActivity {
 
             mPhysTitle3.setText("Height");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
-            mPhysUnits2.setAdapter(adapter);
+            mPhysUnits3.setAdapter(adapter);
+            mPhysUnits3.setSelection(2);
         }
 
         if(opTitle == "Dynamic Pressure (q = 1/2" + RHO + "v2)"){
-            mPhysTitle1.setText("Density (" + RHO + ")");
+            mPhysTitle1.setText("Density");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, densityItems);
             mPhysUnits1.setAdapter(adapter);
+            mPhysUnits1.setSelection(1);
 
             mPhysTitle2.setText("Velocity");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, velocityItems);
             mPhysUnits2.setAdapter(adapter);
+            mPhysUnits2.setSelection(1);
 
             linearLayout3.setVisibility(View.GONE);
         }
@@ -1056,10 +1067,12 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle1.setText("Mass");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
             mPhysUnits1.setAdapter(adapter);
+            mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Radius");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
             mPhysUnits2.setAdapter(adapter);
+            mPhysUnits2.setSelection(2);
 
             linearLayout3.setVisibility(View.GONE);
         }
@@ -1068,10 +1081,12 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle1.setText("Mass");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
             mPhysUnits1.setAdapter(adapter);
+            mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Radius");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
             mPhysUnits2.setAdapter(adapter);
+            mPhysUnits2.setSelection(2);
 
             linearLayout3.setVisibility(View.GONE);
         }
@@ -1080,10 +1095,12 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle1.setText("Mass");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
             mPhysUnits1.setAdapter(adapter);
+            mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Radius");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
             mPhysUnits2.setAdapter(adapter);
+            mPhysUnits2.setSelection(2);
 
             linearLayout3.setVisibility(View.GONE);
         }
@@ -1092,38 +1109,46 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle1.setText("Mass");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
             mPhysUnits1.setAdapter(adapter);
+            mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Radius 1");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
             mPhysUnits2.setAdapter(adapter);
+            mPhysUnits2.setSelection(2);
 
             mPhysTitle3.setText("Radius 2");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
             mPhysUnits3.setAdapter(adapter);
+            mPhysUnits3.setSelection(3);
         }
 
         if(opTitle == "Rect. Plate, Center Axis (I = 1/12 * M(a2 + b2))"){
             mPhysTitle1.setText("Mass");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
             mPhysUnits1.setAdapter(adapter);
+            mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Side 1 (A)");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
             mPhysUnits2.setAdapter(adapter);
+            mPhysUnits2.setSelection(2);
 
             mPhysTitle3.setText("Side 2 (B)");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
             mPhysUnits3.setAdapter(adapter);
+            mPhysUnits3.setSelection(2);
         }
 
         if(opTitle == "Rect. Plate, Edge Axis (I = 1/3 * Ma2)"){
             mPhysTitle1.setText("Mass");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
             mPhysUnits1.setAdapter(adapter);
+            mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Side (A)");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
             mPhysUnits2.setAdapter(adapter);
+            mPhysUnits2.setSelection(2);
 
             linearLayout3.setVisibility(View.GONE);
         }
@@ -1132,10 +1157,12 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle1.setText("Mass");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
             mPhysUnits1.setAdapter(adapter);
+            mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Length");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
             mPhysUnits2.setAdapter(adapter);
+            mPhysUnits2.setSelection(2);
 
             linearLayout3.setVisibility(View.GONE);
         }
@@ -1144,10 +1171,12 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle1.setText("Mass");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
             mPhysUnits1.setAdapter(adapter);
+            mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Length");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
             mPhysUnits2.setAdapter(adapter);
+            mPhysUnits2.setSelection(2);
 
             linearLayout3.setVisibility(View.GONE);
         }
@@ -1164,6 +1193,7 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle3.setText("Time");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
             mPhysUnits3.setAdapter(adapter);
+            mPhysUnits3.setSelection(1);
         }
 
         if(opTitle == "Velocity (v = -A" + OMEGA + "*sin(" + OMEGA + ")t)"){
@@ -1178,6 +1208,7 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle3.setText("Time");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
             mPhysUnits3.setAdapter(adapter);
+            mPhysUnits3.setSelection(1);
         }
 
         if(opTitle == "Acceleration (a = -A" + OMEGA + "2 * cos(" + OMEGA + ")t)"){
@@ -1192,22 +1223,24 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle3.setText("Time");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
             mPhysUnits3.setAdapter(adapter);
+            mPhysUnits3.setSelection(1);
         }
 
         if(opTitle == "Force (F = -kx)"){
             mPhysTitle1.setText("Constant (k)");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item);
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, springConstant);
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Displacement");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
             mPhysUnits2.setAdapter(adapter);
+            mPhysUnits2.setSelection(2);
 
             linearLayout3.setVisibility(View.INVISIBLE);
         }
 
         if(opTitle == "Period (2" + PI + "/" + OMEGA + ")"){
-            mPhysTitle1.setText("Angular Frequency (" + OMEGA + ")");
+            mPhysTitle1.setText("Angular Frequency");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularFrequency);
             mPhysUnits1.setAdapter(adapter);
 
@@ -1239,7 +1272,7 @@ public class OperationsActivity extends AppCompatActivity {
                             finalResult /= 1000;
                         }
 
-                        if(mPhysUnits2.getSelectedItem().toString() == "km/s2"){
+                        if(mPhysUnits2.getSelectedItem().toString() == "km/s^2"){
                             finalResult *= 1000;
                         }
                         mError.setVisibility(View.INVISIBLE);
@@ -1822,7 +1855,7 @@ public class OperationsActivity extends AppCompatActivity {
                         }
 
 
-                        String suffix = superscript("rad/s");
+                        String suffix = superscript(" rad/s");
                         mResult.setText(calc.RotationAngularVelocity(result, result2, result3) + suffix);
                         mError.setVisibility(View.INVISIBLE);
                     }
@@ -1839,7 +1872,7 @@ public class OperationsActivity extends AppCompatActivity {
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
 
 
-                        String suffix = superscript("rad/s");
+                        String suffix = superscript(" rad/s");
                         mResult.setText(calc.AverageRotationalAngularVelocity(result, result2) + suffix);
                         mError.setVisibility(View.INVISIBLE);
                     }
@@ -1858,7 +1891,7 @@ public class OperationsActivity extends AppCompatActivity {
                             result2 *= (Math.PI / 180);
                         }
 
-                        String suffix = superscript("J");
+                        String suffix = superscript(" J");
                         mResult.setText(calc.RotationalWork(result, result2) + suffix);
                         mError.setVisibility(View.INVISIBLE);
                     }
@@ -1933,20 +1966,18 @@ public class OperationsActivity extends AppCompatActivity {
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
 
                         if(mPhysUnits1.getSelectedItem().toString() == "mg"){
-                            result /= 1000000;
-                        }
-                        if(mPhysUnits1.getSelectedItem().toString() == "g"){
                             result /= 1000;
                         }
+                        if(mPhysUnits1.getSelectedItem().toString() == "kg"){
+                            result *= 1000;
+                        }
 
-                        if(mPhysUnits2.getSelectedItem().toString() == superscript("m^3")){
-                            result2 /= 1000000;
+                        if(mPhysUnits2.getSelectedItem().toString() == superscript("m3")){
+                            result2 *= 1000000;
                         }
                         if(mPhysUnits2.getSelectedItem().toString() == "L"){
-                            result2 /= 1000;
+                            result2 *= 1000;
                         }
-
-
 
                         String suffix = superscript(" g/cm3");
                         mResult.setText(calc.FluidDensity(result, result2) + suffix);
@@ -1962,22 +1993,26 @@ public class OperationsActivity extends AppCompatActivity {
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        if(result2 == 0){
+                            mError.setText("** Cannot Divide by 0 **");
+                            mError.setVisibility(View.VISIBLE);
+                            mResult.setText("");
+                        }else{
+                            if(mPhysUnits2.getSelectedItem().toString() == "cm^2"){
+                                result2 /= 10000;
+                            }
+                            if(mPhysUnits2.getSelectedItem().toString() == "in^2"){
+                                result2 /= 1550;
+                            }
+                            if(mPhysUnits2.getSelectedItem().toString() == "mi^2"){
+                                result2 /= meterToMile;
+                            }
 
-
-                        if(mPhysUnits2.getSelectedItem().toString() == superscript("cm2")){
-                            result2 *= 10000;
+                            String suffix = superscript(" Pascals");
+                            mResult.setText(calc.Pressure(result, result2) + suffix);
+                            mError.setVisibility(View.INVISIBLE);
                         }
-                        if(mPhysUnits2.getSelectedItem().toString() == superscript("in2")){
-                            result2 *= 1550;
-                        }
-                        if(mPhysUnits2.getSelectedItem().toString() == superscript("mi2")){
-                            result2 *= meterToMile;
-                        }
 
-
-                        String suffix = superscript(" Pascals");
-                        mResult.setText(calc.Pressure(result, result2) + suffix);
-                        mError.setVisibility(View.INVISIBLE);
                     }
                     else{
                         return;
@@ -1991,14 +2026,17 @@ public class OperationsActivity extends AppCompatActivity {
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
                         float result3 = Float.parseFloat(mPhysSub3.getText().toString());
 
-                        if(mPhysUnits1.getSelectedItem().toString() == superscript("kg/m2")){
-                            result *= 1000;
+                        if(mPhysUnits1.getSelectedItem().toString() == "g/cm^3"){
+                            result /= 1000;
                         }
 
-                        if(mPhysUnits3.getSelectedItem().toString() == superscript("mm")){
+                        if(mPhysUnits3.getSelectedItem().toString() == "mm"){
                             result3 /= 1000;
                         }
-                        if(mPhysUnits3.getSelectedItem().toString() == superscript("km")){
+                        if(mPhysUnits3.getSelectedItem().toString() == "cm"){
+                            result3 /= 100;
+                        }
+                        if(mPhysUnits3.getSelectedItem().toString() == "km"){
                             result3 *= 1000;
                         }
 
@@ -2012,44 +2050,19 @@ public class OperationsActivity extends AppCompatActivity {
                 }
 
                 if(opTitle == "Dynamic Pressure (q = 1/2" + RHO + "v2)"){
-                    int counter = 3;
-                    if(checkInput(counter)){
-                        float result = Float.parseFloat(mPhsySub1.getText().toString());
-                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
-
-                        if(mPhysUnits1.getSelectedItem().toString() == superscript("kg/cm3")){
-                            result *= 1000;
-                        }
-
-                        if(mPhysUnits2.getSelectedItem().toString() == superscript("mm")){
-                            result2 /= 1000;
-                        }
-                        if(mPhysUnits2.getSelectedItem().toString() == superscript("km")){
-                            result2 *= 1000;
-                        }
-
-                        String suffix = superscript(" Pascals");
-                        mResult.setText(calc.DynamicPressure(result, result2) + suffix);
-                        mError.setVisibility(View.INVISIBLE);
-                    }
-                    else{
-                        return;
-                    }
-                }
-                if(opTitle == "Dynamic Pressure (q = 1/2" + RHO + "v2)"){
                     int counter = 2;
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
 
-                        if(mPhysUnits1.getSelectedItem().toString() == superscript("kg/cm3")){
-                            result *= 1000;
+                        if(mPhysUnits1.getSelectedItem().toString() == "g/cm^3"){
+                            result /= 1000;
                         }
 
-                        if(mPhysUnits2.getSelectedItem().toString() == superscript("mm")){
+                        if(mPhysUnits2.getSelectedItem().toString() == "mm/s"){
                             result2 /= 1000;
                         }
-                        if(mPhysUnits2.getSelectedItem().toString() == superscript("km")){
+                        if(mPhysUnits2.getSelectedItem().toString() == "km/s"){
                             result2 *= 1000;
                         }
 
@@ -2079,6 +2092,9 @@ public class OperationsActivity extends AppCompatActivity {
                         if(mPhysUnits2.getSelectedItem().toString() == "mm"){
                             result2 /= 1000;
                         }
+                        if(mPhysUnits2.getSelectedItem().toString() == "cm"){
+                            result2 /= 100;
+                        }
                         if(mPhysUnits2.getSelectedItem().toString() == "km"){
                             result2 *= 1000;
                         }
@@ -2098,18 +2114,21 @@ public class OperationsActivity extends AppCompatActivity {
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
 
-                        if(mPhysUnits1.getSelectedItem().toString() == superscript("mg")){
+                        if(mPhysUnits1.getSelectedItem().toString() == "mg"){
                             result /= 1000000;
                         }
 
-                        if(mPhysUnits1.getSelectedItem().toString() == superscript("g")){
+                        if(mPhysUnits1.getSelectedItem().toString() == "g"){
                             result /= 1000;
                         }
 
-                        if(mPhysUnits2.getSelectedItem().toString() == superscript("mm")){
+                        if(mPhysUnits2.getSelectedItem().toString() == "mm"){
                             result2 /= 1000;
                         }
-                        if(mPhysUnits2.getSelectedItem().toString() == superscript("km")){
+                        if(mPhysUnits2.getSelectedItem().toString() == "cm"){
+                            result2 /= 100;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "km"){
                             result2 *= 1000;
                         }
 
@@ -2139,6 +2158,11 @@ public class OperationsActivity extends AppCompatActivity {
                         if(mPhysUnits2.getSelectedItem().toString() == "mm"){
                             result2 /= 1000;
                         }
+
+                        if(mPhysUnits2.getSelectedItem().toString() == "cm"){
+                            result2 /= 100;
+                        }
+
                         if(mPhysUnits2.getSelectedItem().toString() == "km"){
                             result2 *= 1000;
                         }
@@ -2159,25 +2183,31 @@ public class OperationsActivity extends AppCompatActivity {
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
                         float result3 = Float.parseFloat(mPhysSub3.getText().toString());
 
-                        if(mPhysUnits1.getSelectedItem().toString() == superscript("mg")){
+                        if(mPhysUnits1.getSelectedItem().toString() == "mg"){
                             result /= 1000000;
                         }
 
-                        if(mPhysUnits1.getSelectedItem().toString() == superscript("g")){
+                        if(mPhysUnits1.getSelectedItem().toString() == "g"){
                             result /= 1000;
                         }
 
-                        if(mPhysUnits2.getSelectedItem().toString() == superscript("mm")){
+                        if(mPhysUnits2.getSelectedItem().toString() == "mm"){
                             result2 /= 1000;
                         }
-                        if(mPhysUnits2.getSelectedItem().toString() == superscript("km")){
+                        if(mPhysUnits2.getSelectedItem().toString() == "cm"){
+                            result2 /= 100;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "km"){
                             result2 *= 1000;
                         }
 
-                        if(mPhysUnits3.getSelectedItem().toString() == superscript("mm")){
+                        if(mPhysUnits3.getSelectedItem().toString() == "mm"){
                             result3 /= 1000;
                         }
-                        if(mPhysUnits3.getSelectedItem().toString() == superscript("km")){
+                        if(mPhysUnits3.getSelectedItem().toString() == "cm"){
+                            result3 /= 100;
+                        }
+                        if(mPhysUnits3.getSelectedItem().toString() == "km"){
                             result3 *= 1000;
                         }
 
@@ -2197,25 +2227,31 @@ public class OperationsActivity extends AppCompatActivity {
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
                         float result3 = Float.parseFloat(mPhysSub3.getText().toString());
 
-                        if(mPhysUnits1.getSelectedItem().toString() == superscript("mg")){
+                        if(mPhysUnits1.getSelectedItem().toString() == "mg"){
                             result /= 1000000;
                         }
 
-                        if(mPhysUnits1.getSelectedItem().toString() == superscript("g")){
+                        if(mPhysUnits1.getSelectedItem().toString() == "g"){
                             result /= 1000;
                         }
 
-                        if(mPhysUnits2.getSelectedItem().toString() == superscript("mm")){
+                        if(mPhysUnits2.getSelectedItem().toString() == "mm"){
                             result2 /= 1000;
                         }
-                        if(mPhysUnits2.getSelectedItem().toString() == superscript("km")){
+                        if(mPhysUnits2.getSelectedItem().toString() == "cm"){
+                            result2 /= 100;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "km"){
                             result2 *= 1000;
                         }
 
-                        if(mPhysUnits3.getSelectedItem().toString() == superscript("mm")){
+                        if(mPhysUnits3.getSelectedItem().toString() == "mm"){
                             result3 /= 1000;
                         }
-                        if(mPhysUnits3.getSelectedItem().toString() == superscript("km")){
+                        if(mPhysUnits3.getSelectedItem().toString() == "cm"){
+                            result3 /= 100;
+                        }
+                        if(mPhysUnits3.getSelectedItem().toString() == "km"){
                             result3 *= 1000;
                         }
 
@@ -2234,18 +2270,21 @@ public class OperationsActivity extends AppCompatActivity {
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
 
-                        if(mPhysUnits1.getSelectedItem().toString() == superscript("mg")){
+                        if(mPhysUnits1.getSelectedItem().toString() == "mg"){
                             result /= 1000000;
                         }
 
-                        if(mPhysUnits1.getSelectedItem().toString() == superscript("g")){
+                        if(mPhysUnits1.getSelectedItem().toString() == "g"){
                             result /= 1000;
                         }
 
-                        if(mPhysUnits2.getSelectedItem().toString() == superscript("mm")){
+                        if(mPhysUnits2.getSelectedItem().toString() == "mm"){
                             result2 /= 1000;
                         }
-                        if(mPhysUnits2.getSelectedItem().toString() == superscript("km")){
+                        if(mPhysUnits2.getSelectedItem().toString() == "cm"){
+                            result2 /= 100;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "km"){
                             result2 *= 1000;
                         }
 
@@ -2265,18 +2304,21 @@ public class OperationsActivity extends AppCompatActivity {
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
 
-                        if(mPhysUnits1.getSelectedItem().toString() == superscript("mg")){
+                        if(mPhysUnits1.getSelectedItem().toString() == "mg"){
                             result /= 1000000;
                         }
 
-                        if(mPhysUnits1.getSelectedItem().toString() == superscript("g")){
+                        if(mPhysUnits1.getSelectedItem().toString() == "g"){
                             result /= 1000;
                         }
 
-                        if(mPhysUnits2.getSelectedItem().toString() == superscript("mm")){
+                        if(mPhysUnits2.getSelectedItem().toString() == "mm"){
                             result2 /= 1000;
                         }
-                        if(mPhysUnits2.getSelectedItem().toString() == superscript("km")){
+                        if(mPhysUnits2.getSelectedItem().toString() == "cm"){
+                            result2 /= 100;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "km"){
                             result2 *= 1000;
                         }
 
@@ -2296,18 +2338,21 @@ public class OperationsActivity extends AppCompatActivity {
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
 
-                        if(mPhysUnits1.getSelectedItem().toString() == superscript("mg")){
+                        if(mPhysUnits1.getSelectedItem().toString() == "mg"){
                             result /= 1000000;
                         }
 
-                        if(mPhysUnits1.getSelectedItem().toString() == superscript("g")){
+                        if(mPhysUnits1.getSelectedItem().toString() == "g"){
                             result /= 1000;
                         }
 
-                        if(mPhysUnits2.getSelectedItem().toString() == superscript("mm")){
+                        if(mPhysUnits2.getSelectedItem().toString() == "mm"){
                             result2 /= 1000;
                         }
-                        if(mPhysUnits2.getSelectedItem().toString() == superscript("km")){
+                        if(mPhysUnits2.getSelectedItem().toString() == "cm"){
+                            result2 /= 100;
+                        }
+                        if(mPhysUnits2.getSelectedItem().toString() == "km"){
                             result2 *= 1000;
                         }
 
@@ -2360,14 +2405,18 @@ public class OperationsActivity extends AppCompatActivity {
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
                         float result3 = Float.parseFloat(mPhysSub3.getText().toString());
 
-                        if(mPhysUnits3.getSelectedItem().toString() == superscript("ms")){
+                        if(mPhysUnits2.getSelectedItem().toString() == "Degrees"){
+                            result2 *= (Math.PI / 180);
+                        }
+
+                        if(mPhysUnits3.getSelectedItem().toString() == "ms"){
                             result3 /= 1000;
                         }
-                        if(mPhysUnits3.getSelectedItem().toString() == superscript("mins")){
+                        if(mPhysUnits3.getSelectedItem().toString() == "mins"){
                             result3 *= 60;
                         }
 
-                        if(mPhysUnits3.getSelectedItem().toString() == superscript("hrs")){
+                        if(mPhysUnits3.getSelectedItem().toString() == "hrs"){
                             result3 *= 3600;
                         }
 
@@ -2388,14 +2437,14 @@ public class OperationsActivity extends AppCompatActivity {
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
                         float result3 = Float.parseFloat(mPhysSub3.getText().toString());
 
-                        if(mPhysUnits3.getSelectedItem().toString() == superscript("ms")){
+                        if(mPhysUnits3.getSelectedItem().toString() == "ms"){
                             result3 /= 1000;
                         }
-                        if(mPhysUnits3.getSelectedItem().toString() == superscript("mins")){
+                        if(mPhysUnits3.getSelectedItem().toString() == "mins"){
                             result3 *= 60;
                         }
 
-                        if(mPhysUnits3.getSelectedItem().toString() == superscript("hrs")){
+                        if(mPhysUnits3.getSelectedItem().toString() == "hrs"){
                             result3 *= 3600;
                         }
 
@@ -2418,30 +2467,11 @@ public class OperationsActivity extends AppCompatActivity {
                         if(mPhysUnits2.getSelectedItem().toString() == "mm"){
                             result2 /= 1000;
                         }
+                        if(mPhysUnits2.getSelectedItem().toString() == "cm"){
+                            result2 /= 100;
+                        }
                         if(mPhysUnits2.getSelectedItem().toString() == "km"){
-                            result2 *= 60;
-                        }
-
-                        String suffix = superscript(" N");
-                        mResult.setText(calc.HarmonicForce(result, result2) + suffix);
-                        mError.setVisibility(View.INVISIBLE);
-                    }
-                    else{
-                        return;
-                    }
-                }
-
-                if(opTitle == "Force (F = -kx)"){
-                    int counter = 2;
-                    if(checkInput(counter)){
-                        float result = Float.parseFloat(mPhsySub1.getText().toString());
-                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
-
-                        if(mPhysUnits2.getSelectedItem().toString() == superscript("mm")){
-                            result2 /= 1000;
-                        }
-                        if(mPhysUnits2.getSelectedItem().toString() == superscript("km")){
-                            result2 *= 60;
+                            result2 *= 1000;
                         }
 
                         String suffix = superscript(" N");
@@ -2458,7 +2488,7 @@ public class OperationsActivity extends AppCompatActivity {
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
 
-                        String suffix = superscript(" N");
+                        String suffix = superscript(" s");
                         mResult.setText(calc.Period(result) + suffix);
                         mError.setVisibility(View.INVISIBLE);
                     }

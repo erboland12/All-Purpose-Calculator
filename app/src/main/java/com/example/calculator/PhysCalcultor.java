@@ -55,7 +55,7 @@ public class PhysCalcultor {
         return df.format(omega + (alpha * t));
     }
     public String AverageRotationalAngularVelocity(float omega, float omegaI){
-        return df.format(1/2 * (omega + omegaI));
+        return df.format(0.5 * (omega + omegaI));
     }
     public String RotationalWork(float tau, float theta){
         return df.format(tau * theta);
@@ -68,7 +68,7 @@ public class PhysCalcultor {
         return df.format(result);
     }
     public String RotationalKE(float I, float omega){
-        float result = (1/2) * (I * (omega * omega));
+        float result = (float) (0.5 * (I * (omega * omega)));
         return df.format(result);
     }
     public String FluidDensity(float m, float v){
@@ -81,14 +81,11 @@ public class PhysCalcultor {
         return df.format(p * g * h);
     }
     public String DynamicPressure(float rho, float v){
-        float result = (1/2) * (rho * (v * v));
+        float result = (float) (0.5 * (rho * (v * v)));
         return df.format(result);
     }
-    public String KinematicViscosity(float eta, float rho){
-        return df.format(eta / rho);
-    }
     public String SolidCylinder(float m, float r){
-        float result = (1/2) * (m * (r * r));
+        float result = (float) (0.5 * (m * (r * r)));
         return df.format(result);
     }
     public String SolidSphere(float m, float r){
@@ -96,27 +93,27 @@ public class PhysCalcultor {
         return df.format(result);
     }
     public String HollowSphere(float m, float r){
-        float result = (2/3) * (m * (r * r));
+        float result = (float) (0.6667 * (m * (r * r)));
         return df.format(result);
     }
     public String HollowCylinder(float m, float ra, float rb){
-        float result = (1/2) * (m * ((ra * ra) + (rb * rb)));
+        float result = (float) (0.5 * (m * ((ra * ra) + (rb * rb))));
         return df.format(result);
     }
     public String RectPlateCenter(float m, float a, float b){
-        float result = (1/12) * (m * ((a * a) + (b * b)));
+        float result = (float) (0.083333 * (m * ((a * a) + (b * b))));
         return df.format(result);
     }
     public String RectPlateEdge(float m, float a){
-        float result = (1/3) * (m * ((a * a)));
+        float result = (float) (0.333333 * (m * ((a * a))));
         return df.format(result);
     }
     public String RodCenter(float m, float l){
-        float result = (1/12) * (m * (l * l));
+        float result = (float) (0.083333 * (m * (l * l)));
         return df.format(result);
     }
     public String RodEdge(float m, float l){
-        float result = (1/3) * (m * (l * l));
+        float result = (float) (0.333333 * (m * (l * l)));
         return df.format(result);
     }
     public String HarmonicPosition(float a, float omega, float t){
@@ -135,10 +132,10 @@ public class PhysCalcultor {
         return df.format(-k * x);
     }
     public String Period(float omega){
-        return df.format((2 * Math.PI) / omega);
+        return df.format(1 / omega);
     }
     public String Celsius(float fahrenheit){
-        float result = (5/9) * (fahrenheit - 32);
+        float result = (float) (0.55555556 * (fahrenheit - 32));
         return df.format(result);
     }
     public String Fahrenheit(float celsius){
@@ -149,16 +146,16 @@ public class PhysCalcultor {
         float result = (float) (celsius + 273.15);
         return df.format(result);
     }
-    public String HeatLost(float c, float m, float t){
-        return df.format(c * m * t);
-    }
-    public String PressureOfIdealGas(float rho, float v){
-        float result = (1/3) * (rho * (v * v));
-        return df.format(rho);
-    }
-    public String KEIdealGas(float k, float t){
-        float result = (3/2) * (k * t);
-        return df.format(result);
-    }
+//    public String HeatLost(float c, float m, float t){
+//        return df.format(c * m * t);
+//    }
+//    public String PressureOfIdealGas(float rho, float v){
+//        float result = (1/3) * (rho * (v * v));
+//        return df.format(rho);
+//    }
+//    public String KEIdealGas(float k, float t){
+//        float result = (3/2) * (k * t);
+//        return df.format(result);
+//    }
 
 }
