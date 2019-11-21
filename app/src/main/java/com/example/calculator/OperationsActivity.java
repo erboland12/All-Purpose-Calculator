@@ -122,26 +122,24 @@ public class OperationsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String centA2 = "Centripetal Acceleration (" + OMEGA + "2/r)";
+        String centA2 = "Centripetal Acceleration (" + ALPHA + " = " + OMEGA + "2/r)";
 
-        if(opTitle == "Force (F = ma)" || opTitle == "Weight (W = mg)" || opTitle == "Acceleration (" + DELTA + "v/" + DELTA + "t)" ||
-            opTitle == "Momentum (p = mv)" || opTitle == "Centripetal Acceleration (v2/r)" || opTitle == centA2 || opTitle == "Impulse (" + DELTA + "p = F" + DELTA + "t)" ||
-            opTitle == "Kinetic Energy (1/2 * mv2)" || opTitle == "Kinetic Energy (p2/2m)" || opTitle == "Gravitational P.E (" + DELTA + "Ug = mg" + DELTA +"h)" ||
-            opTitle == "Power (" + DELTA + "W/" + DELTA + "t)" || opTitle == "Hooke's Law (F = -k" + DELTA + "x)" || opTitle == "Angular Velocity (" + DELTA + THETA + "/" + DELTA + "t)" ||
-            opTitle == "Angular Acceleration (" + DELTA + OMEGA + "/" + DELTA + "t)" || opTitle == "Angular Momentum (I" + OMEGA + ")" || opTitle == "Displacement (r" +  THETA + ")" ||
-            opTitle == "Velocity (r" + OMEGA + ")" || opTitle == "Acceleration (r" + ALPHA + ")" || opTitle == "Centripetal Acceleration (v2/r)" ||
-            opTitle == "Centripetal Acceleration (" + OMEGA + "2/r)" || opTitle == "Centripetal Force (mv2/r)" || opTitle == "Angular Velocity (" + OMEGA + "0 + " + ALPHA + "t)" ||
-            opTitle == "Average Angular Velocity (1/2(" + OMEGA + "+" + OMEGA + "0))" || opTitle == "Rotational Work (" + TAU + DELTA + THETA + ")" ||
-            opTitle == "Rotational Power (" + TAU + OMEGA + ")" || opTitle == "Rotational Power (" + TAU + OMEGA + "cos(" + THETA + "))" ||
-            opTitle == "Rotational K.E (K = 1/2 * I" + OMEGA + "2)" || opTitle == "Density (p = m/v)" || opTitle == "Pressure (P = F/A)" ||
-            opTitle == "Change of Pressure (" + DELTA + "P = pgh)" || opTitle == "Dynamic Pressure (q = 1/2" + RHO + "v2)" || opTitle == "Kinematic Viscosity (v = " + ETA + "/" + RHO + ")" ||
+        if(opTitle == "Force (F = ma)" || opTitle == "Weight (W = mg)" || opTitle == "Acceleration (a = " + DELTA + "v/" + DELTA + "t)" ||
+            opTitle == "Momentum (p = mv)" || opTitle == "Centripetal Acceleration (" + ALPHA + " = v2/r)" || opTitle == centA2 || opTitle == "Impulse (" + DELTA + "p = F" + DELTA + "t)" ||
+            opTitle == "Kinetic Energy (KE = 1/2 * mv2)" || opTitle == "Kinetic Energy (KE = p2/2m)" || opTitle == "Gravitational P.E (" + DELTA + "Ug = mg" + DELTA +"h)" ||
+            opTitle == "Power (P = " + DELTA + "W/" + DELTA + "t)" || opTitle == "Hooke's Law (F = -k" + DELTA + "x)" || opTitle == "Angular Velocity (" + OMEGA + " = " + DELTA + THETA + "/" + DELTA + "t)" ||
+            opTitle == "Angular Acceleration (" + ALPHA + " = " + DELTA + OMEGA + "/" + DELTA + "t)" || opTitle == "Angular Momentum (L = I" + OMEGA + ")" || opTitle == "Displacement (x = r" +  THETA + ")" ||
+            opTitle == "Velocity (v = r" + OMEGA + ")" || opTitle == "Acceleration (a = r" + ALPHA + ")" || opTitle == "Centripetal Acceleration (" + ALPHA + " = v2/r)" ||
+            opTitle == "Centripetal Acceleration (" + ALPHA + " = " + OMEGA + "2/r)" || opTitle == "Centripetal Force (F = mv2/r)" || opTitle == "Angular Velocity (" + OMEGA + " = " + OMEGA + "0 + " + ALPHA + "t)" ||
+            opTitle == "Average Angular Velocity (" + OMEGA + " = 1/2(" + OMEGA + "+" + OMEGA + "0))" || opTitle == "Rotational Work (W = " + TAU + DELTA + THETA + ")" ||
+            opTitle == "Rotational Power (P = " + TAU + OMEGA + ")" || opTitle == "Rotational Power (P = " + TAU + OMEGA + "cos(" + THETA + "))" ||
+            opTitle == "Rotational K.E (KE = 1/2 * I" + OMEGA + "2)" || opTitle == "Density (p = m/v)" || opTitle == "Pressure (P = F/A)" ||
+            opTitle == "Hydrostatic Pressure (" + DELTA + "P = pgh)" || opTitle == "Dynamic Pressure (q = 1/2" + RHO + "v2)" || opTitle == "Kinematic Viscosity (v = " + ETA + "/" + RHO + ")" ||
             opTitle == "Bernoulli's Equation (Constant = P + 1/2" + RHO + "v2 + " + RHO + "pgh)" || opTitle == "Solid Sphere (I = 2/5 * MR2)" || opTitle == "Hollow Sphere (I = 2/3 * MR2)" ||
             opTitle == "Solid Cylinder (I = 1/2 * MR2)" || opTitle == "Hollow Cylinder (I = 1/2 *  M(Ra2 + Rb2))" || opTitle == "Rect. Plate, Center Axis (I = 1/12 * M(a2 + b2))" ||
             opTitle == "Rect. Plate, Edge Axis (I = 1/3 * Ma2)" || opTitle == "Slender Rod, Center Axis (I = 1/12 * ML2)" || opTitle == "Slender Rod, Edge Axis (I = 1/3 * ML2)" ||
-            opTitle == "Position (x = A*cos(" + OMEGA + ")t)" || opTitle == "Velocity (v = -A" + OMEGA + "*sin(" + OMEGA + ")t)" || opTitle == "Acceleration (a = -A" + OMEGA + "2 * cos(" + OMEGA + ")t)" ||
-            opTitle == "Force (F = -kx)" || opTitle == "Period (2" + PI + "/" + OMEGA + ")" || opTitle == "Celsius (C = 5/9(F - 32))" || opTitle == "Fahrenheit (F = 9/5*C + 32)" ||
-            opTitle == "Kelvin (K = C + 273.15)" || opTitle == "Heat Lost in Water (" + DELTA + "Q = cm" + DELTA + "T)" || opTitle == "Pressure of Ideal Gas (p = 1/3 * " + RHO + "v2)" ||
-            opTitle == "K.E of Ideal Gas (3/2 * kT)"){
+            opTitle == "Displacement (x = A*cos(2" + PI + "ft))" || opTitle == "Velocity (v = 2" + PI + "f * " + SQRT + "(A2 - x2))" || opTitle == "Acceleration (a = (-2" + PI + "f)2 * x)" ||
+            opTitle == "Force (F = -kx)" || opTitle == "Frequency (f = 1/T)"){
             setContentView(R.layout.physics_layout);
             isPhys = true;
         }
@@ -696,7 +694,7 @@ public class OperationsActivity extends AppCompatActivity {
 
             linearLayout3.setVisibility(View.GONE);
         }
-        if(opTitle == "Acceleration (" + DELTA + "v/" + DELTA + "t)"){
+        if(opTitle == "Acceleration (a = " + DELTA + "v/" + DELTA + "t)"){
             mPhysTitle1.setText("Velocity");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, velocityItems);
             mPhysUnits1.setAdapter(adapter);
@@ -737,7 +735,7 @@ public class OperationsActivity extends AppCompatActivity {
             linearLayout3.setVisibility(View.GONE);
         }
 
-        if(opTitle == "Kinetic Energy (1/2 * mv2)"){
+        if(opTitle == "Kinetic Energy (KE = 1/2 * mv2)"){
             mPhysTitle1.setText("Mass");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
             mPhysUnits1.setAdapter(adapter);
@@ -751,7 +749,7 @@ public class OperationsActivity extends AppCompatActivity {
             linearLayout3.setVisibility(View.GONE);
         }
 
-        if(opTitle == "Kinetic Energy (p2/2m)"){
+        if(opTitle == "Kinetic Energy (KE = p2/2m)"){
             mPhysTitle1.setText("Momentum");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, momentum);
             mPhysUnits1.setAdapter(adapter);
@@ -781,7 +779,7 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysUnits3.setSelection(2);
         }
 
-        if(opTitle == "Power (" + DELTA + "W/" + DELTA + "t)"){
+        if(opTitle == "Power (P = " + DELTA + "W/" + DELTA + "t)"){
             mPhysTitle1.setText("Work");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, work);
             mPhysUnits1.setAdapter(adapter);
@@ -805,7 +803,7 @@ public class OperationsActivity extends AppCompatActivity {
 
             linearLayout3.setVisibility(View.GONE);
         }
-        if(opTitle == "Angular Velocity (" + DELTA + THETA + "/" + DELTA + "t)"){
+        if(opTitle == "Angular Velocity (" + OMEGA + " = " + DELTA + THETA + "/" + DELTA + "t)"){
             mPhysTitle1.setText("Theta");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, thetaItems);
             mPhysUnits1.setAdapter(adapter);
@@ -818,7 +816,7 @@ public class OperationsActivity extends AppCompatActivity {
             linearLayout3.setVisibility(View.GONE);
         }
 
-        if(opTitle == "Angular Acceleration (" + DELTA + OMEGA + "/" + DELTA + "t)"){
+        if(opTitle == "Angular Acceleration (" + ALPHA + " = " + DELTA + OMEGA + "/" + DELTA + "t)"){
             mPhysTitle1.setText("Velocity");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
             mPhysUnits1.setAdapter(adapter);
@@ -831,7 +829,7 @@ public class OperationsActivity extends AppCompatActivity {
             linearLayout3.setVisibility(View.GONE);
         }
 
-        if(opTitle == "Angular Momentum (I" + OMEGA + ")"){
+        if(opTitle == "Angular Momentum (L = I" + OMEGA + ")"){
             mPhysTitle1.setText("Inertia");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
             mPhysUnits1.setAdapter(adapter);
@@ -844,7 +842,7 @@ public class OperationsActivity extends AppCompatActivity {
             linearLayout3.setVisibility(View.GONE);
         }
 
-        if(opTitle == "Displacement (r" +  THETA + ")"){
+        if(opTitle == "Displacement (x = r" +  THETA + ")"){
             mPhysTitle1.setText("Radius");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
             mPhysUnits1.setAdapter(adapter);
@@ -857,7 +855,7 @@ public class OperationsActivity extends AppCompatActivity {
             linearLayout3.setVisibility(View.GONE);
         }
 
-        if(opTitle == "Velocity (r" + OMEGA + ")"){
+        if(opTitle == "Velocity (v = r" + OMEGA + ")"){
             mPhysTitle1.setText("Radius");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
             mPhysUnits1.setAdapter(adapter);
@@ -870,7 +868,7 @@ public class OperationsActivity extends AppCompatActivity {
             linearLayout3.setVisibility(View.GONE);
         }
 
-        if(opTitle == "Acceleration (r" + ALPHA + ")"){
+        if(opTitle == "Acceleration (a = r" + ALPHA + ")"){
             mPhysTitle1.setText("Radius");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
             mPhysUnits1.setAdapter(adapter);
@@ -883,7 +881,7 @@ public class OperationsActivity extends AppCompatActivity {
             linearLayout3.setVisibility(View.GONE);
         }
 
-        if(opTitle == "Centripetal Acceleration (v2/r)"){
+        if(opTitle == "Centripetal Acceleration (" + ALPHA + "  = v2/r)"){
             mPhysTitle1.setText("Velocity");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, velocityItems);
             mPhysUnits1.setAdapter(adapter);
@@ -897,7 +895,7 @@ public class OperationsActivity extends AppCompatActivity {
             linearLayout3.setVisibility(View.GONE);
         }
 
-        if(opTitle == "Centripetal Acceleration (" + OMEGA + "2/r)"){
+        if(opTitle == "Centripetal Acceleration (" + ALPHA + " = " + OMEGA + "2/r)"){
             mPhysTitle1.setText("Velocity");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
             mPhysUnits1.setAdapter(adapter);
@@ -910,7 +908,7 @@ public class OperationsActivity extends AppCompatActivity {
             linearLayout3.setVisibility(View.GONE);
         }
 
-        if(opTitle == "Centripetal Force (mv2/r)"){
+        if(opTitle == "Centripetal Force (F = mv2/r)"){
             mPhysTitle1.setText("Mass");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
             mPhysUnits1.setAdapter(adapter);
@@ -927,7 +925,7 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysUnits3.setSelection(2);
         }
 
-        if(opTitle == "Angular Velocity (" + OMEGA + "0 + " + ALPHA + "t)"){
+        if(opTitle == "Angular Velocity (" + OMEGA + " = " + OMEGA + "0 + " + ALPHA + "t)"){
             mPhysTitle1.setText("Initial Velocity");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
             mPhysUnits1.setAdapter(adapter);
@@ -943,7 +941,7 @@ public class OperationsActivity extends AppCompatActivity {
 
         }
 
-        if(opTitle == "Average Angular Velocity (1/2(" + OMEGA + "+" + OMEGA + "0))"){
+        if(opTitle == "Average Angular Velocity (" + OMEGA + " = 1/2(" + OMEGA + "+" + OMEGA + "0))"){
             mPhysTitle1.setText("Velocity");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
             mPhysUnits1.setAdapter(adapter);
@@ -955,7 +953,7 @@ public class OperationsActivity extends AppCompatActivity {
             linearLayout3.setVisibility(View.GONE);
         }
 
-        if(opTitle == "Rotational Work (" + TAU + DELTA + THETA + ")"){
+        if(opTitle == "Rotational Work (W = " + TAU + DELTA + THETA + ")"){
             mPhysTitle1.setText("Torque");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, torque);
             mPhysUnits1.setAdapter(adapter);
@@ -967,7 +965,7 @@ public class OperationsActivity extends AppCompatActivity {
             linearLayout3.setVisibility(View.GONE);
         }
 
-        if(opTitle == "Rotational Power (" + TAU + OMEGA + ")"){
+        if(opTitle == "Rotational Power (P = " + TAU + OMEGA + ")"){
             mPhysTitle1.setText("Torque");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, torque);
             mPhysUnits1.setAdapter(adapter);
@@ -979,7 +977,7 @@ public class OperationsActivity extends AppCompatActivity {
             linearLayout3.setVisibility(View.GONE);
         }
 
-        if(opTitle == "Rotational Power (" + TAU + OMEGA + "cos(" + THETA + "))"){
+        if(opTitle == "Rotational Power (P = " + TAU + OMEGA + "cos(" + THETA + "))"){
             mPhysTitle1.setText("Torque");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, torque);
             mPhysUnits1.setAdapter(adapter);
@@ -993,7 +991,7 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysUnits3.setAdapter(adapter);
         }
 
-        if(opTitle == "Rotational K.E (K = 1/2 * I" + OMEGA + "2)"){
+        if(opTitle == "Rotational K.E (KE = 1/2 * I" + OMEGA + "2)"){
             mPhysTitle1.setText("Inertia");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
             mPhysUnits1.setAdapter(adapter);
@@ -1032,7 +1030,7 @@ public class OperationsActivity extends AppCompatActivity {
             linearLayout3.setVisibility(View.GONE);
         }
 
-        if(opTitle == "Change of Pressure (" + DELTA + "P = pgh)"){
+        if(opTitle == "Hydrostatic Pressure (" + DELTA + "P = pgh)"){
             mPhysTitle1.setText("Density");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, densityItems);
             mPhysUnits1.setAdapter(adapter);
@@ -1181,13 +1179,13 @@ public class OperationsActivity extends AppCompatActivity {
             linearLayout3.setVisibility(View.GONE);
         }
 
-        if(opTitle == "Position (x = A*cos(" + OMEGA + ")t)"){
+        if(opTitle == "Displacement (x = A*cos(2" + PI + "ft))"){
             mPhysTitle1.setText("Amplitude");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, amplitude);
             mPhysUnits1.setAdapter(adapter);
 
-            mPhysTitle2.setText("Omega");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, thetaItems);
+            mPhysTitle2.setText("Frequency");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularFrequency);
             mPhysUnits2.setAdapter(adapter);
 
             mPhysTitle3.setText("Time");
@@ -1196,34 +1194,32 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysUnits3.setSelection(1);
         }
 
-        if(opTitle == "Velocity (v = -A" + OMEGA + "*sin(" + OMEGA + ")t)"){
-            mPhysTitle1.setText("Amplitude");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, amplitude);
+        if(opTitle == "Velocity (v = 2" + PI + "f * " + SQRT + "(A2 - x2))"){
+            mPhysTitle1.setText("Frequency");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularFrequency);
             mPhysUnits1.setAdapter(adapter);
 
-            mPhysTitle2.setText("Omega");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, thetaItems);
+            mPhysTitle2.setText("Amplitude");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, amplitude);
             mPhysUnits2.setAdapter(adapter);
 
-            mPhysTitle3.setText("Time");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
+            mPhysTitle3.setText("Displacement");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
             mPhysUnits3.setAdapter(adapter);
-            mPhysUnits3.setSelection(1);
+            mPhysUnits3.setSelection(2);
         }
 
-        if(opTitle == "Acceleration (a = -A" + OMEGA + "2 * cos(" + OMEGA + ")t)"){
-            mPhysTitle1.setText("Amplitude");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, amplitude);
+        if(opTitle == "Acceleration (a = (-2" + PI + "f)2 * x)"){
+            mPhysTitle1.setText("Frequency");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularFrequency);
             mPhysUnits1.setAdapter(adapter);
 
-            mPhysTitle2.setText("Omega");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, thetaItems);
+            mPhysTitle2.setText("Displacement");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
             mPhysUnits2.setAdapter(adapter);
+            mPhysUnits2.setSelection(2);
 
-            mPhysTitle3.setText("Time");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
-            mPhysUnits3.setAdapter(adapter);
-            mPhysUnits3.setSelection(1);
+            linearLayout3.setVisibility(View.INVISIBLE);
         }
 
         if(opTitle == "Force (F = -kx)"){
@@ -1239,10 +1235,11 @@ public class OperationsActivity extends AppCompatActivity {
             linearLayout3.setVisibility(View.INVISIBLE);
         }
 
-        if(opTitle == "Period (2" + PI + "/" + OMEGA + ")"){
-            mPhysTitle1.setText("Angular Frequency");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularFrequency);
+        if(opTitle == "Frequency (f = 1/T)"){
+            mPhysTitle1.setText("Period");
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
             mPhysUnits1.setAdapter(adapter);
+            mPhysUnits1.setSelection(1);
 
             linearLayout2.setVisibility(View.INVISIBLE);
 
@@ -1304,7 +1301,7 @@ public class OperationsActivity extends AppCompatActivity {
                     }
 
                 }
-                if(opTitle == "Acceleration (" + DELTA + "v/" + DELTA + "t)"){
+                if(opTitle == "Acceleration (a = " + DELTA + "v/" + DELTA + "t)"){
                     int counter = 2;
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
@@ -1398,7 +1395,7 @@ public class OperationsActivity extends AppCompatActivity {
 
                 }
 
-                if(opTitle == "Kinetic Energy (1/2 * mv2)"){
+                if(opTitle == "Kinetic Energy (KE = 1/2 * mv2)"){
                     int counter = 2;
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
@@ -1430,7 +1427,7 @@ public class OperationsActivity extends AppCompatActivity {
 
                 }
 
-                if(opTitle == "Kinetic Energy (p2/2m)"){
+                if(opTitle == "Kinetic Energy (KE = p2/2m)"){
                     int counter = 2;
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
@@ -1490,7 +1487,7 @@ public class OperationsActivity extends AppCompatActivity {
 
                 }
 
-                if(opTitle == "Power (" + DELTA + "W/" + DELTA + "t)"){
+                if(opTitle == "Power (P = " + DELTA + "W/" + DELTA + "t)"){
                     int counter = 2;
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
@@ -1546,7 +1543,7 @@ public class OperationsActivity extends AppCompatActivity {
 
                 }
 
-                if(opTitle == "Angular Velocity (" + DELTA + THETA + "/" + DELTA + "t)"){
+                if(opTitle == "Angular Velocity (" + OMEGA + " = " + DELTA + THETA + "/" + DELTA + "t)"){
                     int counter = 2;
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
@@ -1581,7 +1578,7 @@ public class OperationsActivity extends AppCompatActivity {
 
                 }
 
-                if(opTitle == "Angular Acceleration (" + DELTA + OMEGA + "/" + DELTA + "t)"){
+                if(opTitle == "Angular Acceleration (" + ALPHA + " = " + DELTA + OMEGA + "/" + DELTA + "t)"){
                     int counter = 2;
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
@@ -1613,7 +1610,7 @@ public class OperationsActivity extends AppCompatActivity {
 
                 }
 
-                if(opTitle == "Angular Momentum (I" + OMEGA + ")"){
+                if(opTitle == "Angular Momentum (L = I" + OMEGA + ")"){
                     int counter = 2;
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
@@ -1634,7 +1631,7 @@ public class OperationsActivity extends AppCompatActivity {
                     }
 
                 }
-                if(opTitle == "Displacement (r" +  THETA + ")"){
+                if(opTitle == "Displacement (x = r" +  THETA + ")"){
                     int counter = 2;
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
@@ -1663,7 +1660,7 @@ public class OperationsActivity extends AppCompatActivity {
 
                 }
 
-                if(opTitle == "Velocity (r" + OMEGA + ")"){
+                if(opTitle == "Velocity (v = r" + OMEGA + ")"){
                     int counter = 2;
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
@@ -1689,7 +1686,7 @@ public class OperationsActivity extends AppCompatActivity {
 
                 }
 
-                if(opTitle == "Acceleration (r" + ALPHA + ")"){
+                if(opTitle == "Acceleration (a = r" + ALPHA + ")"){
                     int counter = 2;
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
@@ -1715,7 +1712,7 @@ public class OperationsActivity extends AppCompatActivity {
 
                 }
 
-                if(opTitle == "Centripetal Acceleration (v2/r)"){
+                if(opTitle == "Centripetal Acceleration (" + ALPHA + " = v2/r)"){
                     int counter = 2;
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
@@ -1756,7 +1753,7 @@ public class OperationsActivity extends AppCompatActivity {
 
                 }
 
-                if(opTitle == "Centripetal Acceleration (" + OMEGA + "2/r)"){
+                if(opTitle == "Centripetal Acceleration (" + ALPHA + " = " + OMEGA + "2/r)"){
                     int counter = 2;
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
@@ -1789,7 +1786,7 @@ public class OperationsActivity extends AppCompatActivity {
 
                 }
 
-                if(opTitle == "Centripetal Force (mv2/r)"){
+                if(opTitle == "Centripetal Force (F = mv2/r)"){
                     int counter = 3;
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
@@ -1837,7 +1834,7 @@ public class OperationsActivity extends AppCompatActivity {
 
                 }
 
-                if(opTitle == "Angular Velocity (" + OMEGA + "0 + " + ALPHA + "t)"){
+                if(opTitle == "Angular Velocity (" + OMEGA + " = " + OMEGA + "0 + " + ALPHA + "t)"){
                     int counter = 3;
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
@@ -1865,7 +1862,7 @@ public class OperationsActivity extends AppCompatActivity {
 
                 }
 
-                if(opTitle == "Average Angular Velocity (1/2(" + OMEGA + "+" + OMEGA + "0))"){
+                if(opTitle == "Average Angular Velocity (" + OMEGA + " = 1/2(" + OMEGA + "+" + OMEGA + "0))"){
                     int counter = 2;
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
@@ -1881,7 +1878,7 @@ public class OperationsActivity extends AppCompatActivity {
                     }
 
                 }
-                if(opTitle == "Rotational Work (" + TAU + DELTA + THETA + ")"){
+                if(opTitle == "Rotational Work (W = " + TAU + DELTA + THETA + ")"){
                     int counter = 2;
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
@@ -1901,7 +1898,7 @@ public class OperationsActivity extends AppCompatActivity {
 
                 }
 
-                if(opTitle == "Rotational Power (" + TAU + OMEGA + ")"){
+                if(opTitle == "Rotational Power (P = " + TAU + OMEGA + ")"){
                     int counter = 2;
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
@@ -1917,7 +1914,7 @@ public class OperationsActivity extends AppCompatActivity {
 
                 }
 
-                if(opTitle == "Rotational Power (" + TAU + OMEGA + "cos(" + THETA + "))"){
+                if(opTitle == "Rotational Power (P = " + TAU + OMEGA + "cos(" + THETA + "))"){
                     int counter = 3;
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
@@ -1938,7 +1935,7 @@ public class OperationsActivity extends AppCompatActivity {
 
                 }
 
-                if(opTitle == "Rotational K.E (K = 1/2 * I" + OMEGA + "2)"){
+                if(opTitle == "Rotational K.E (KE = 1/2 * I" + OMEGA + "2)"){
                     int counter = 2;
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
@@ -2019,7 +2016,7 @@ public class OperationsActivity extends AppCompatActivity {
                     }
                 }
 
-                if(opTitle == "Change of Pressure (" + DELTA + "P = pgh)"){
+                if(opTitle == "Hydrostatic Pressure (" + DELTA + "P = pgh)"){
                     int counter = 3;
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
@@ -2366,16 +2363,13 @@ public class OperationsActivity extends AppCompatActivity {
                     }
                 }
 
-                if(opTitle == "Position (x = A*cos(" + OMEGA + ")t)"){
+                if(opTitle == "Displacement (x = A*cos(2" + PI + "ft))"){
                     int counter = 3;
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
                         float result3 = Float.parseFloat(mPhysSub3.getText().toString());
 
-                        if(mPhysUnits2.getSelectedItem().toString() == "Degrees"){
-                            result2 *= (Math.PI / 180);
-                        }
 
                         if(mPhysUnits3.getSelectedItem().toString() == "ms"){
                             result3 /= 1000;
@@ -2398,28 +2392,12 @@ public class OperationsActivity extends AppCompatActivity {
                     }
                 }
 
-                if(opTitle == "Velocity (v = -A" + OMEGA + "*sin(" + OMEGA + ")t)"){
+                if(opTitle == "Velocity (v = 2" + PI + "f * " + SQRT + "(A2 - x2))"){
                     int counter = 3;
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
                         float result3 = Float.parseFloat(mPhysSub3.getText().toString());
-
-                        if(mPhysUnits2.getSelectedItem().toString() == "Degrees"){
-                            result2 *= (Math.PI / 180);
-                        }
-
-                        if(mPhysUnits3.getSelectedItem().toString() == "ms"){
-                            result3 /= 1000;
-                        }
-                        if(mPhysUnits3.getSelectedItem().toString() == "mins"){
-                            result3 *= 60;
-                        }
-
-                        if(mPhysUnits3.getSelectedItem().toString() == "hrs"){
-                            result3 *= 3600;
-                        }
-
 
                         String suffix = superscript(" m/s");
                         mResult.setText(calc.HarmonicVelocity(result, result2, result3) + suffix);
@@ -2430,27 +2408,26 @@ public class OperationsActivity extends AppCompatActivity {
                     }
                 }
 
-                if(opTitle == "Acceleration (a = -A" + OMEGA + "2 * cos(" + OMEGA + ")t)"){
-                    int counter = 3;
+                if(opTitle == "Acceleration (a = (-2" + PI + "f)2 * x)"){
+                    int counter = 2;
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
-                        float result3 = Float.parseFloat(mPhysSub3.getText().toString());
 
-                        if(mPhysUnits3.getSelectedItem().toString() == "ms"){
-                            result3 /= 1000;
+                        if(mPhysUnits2.getSelectedItem().toString() == "mm"){
+                            result2 /= 1000000;
                         }
-                        if(mPhysUnits3.getSelectedItem().toString() == "mins"){
-                            result3 *= 60;
+                        if(mPhysUnits2.getSelectedItem().toString() == "cm"){
+                            result2 /= 1000;
                         }
 
-                        if(mPhysUnits3.getSelectedItem().toString() == "hrs"){
-                            result3 *= 3600;
+                        if(mPhysUnits2.getSelectedItem().toString() == "km"){
+                            result2 *= 1000;
                         }
 
 
                         String suffix = superscript(" m/s2");
-                        mResult.setText(calc.HarmonicAcceleration(result, result2, result3) + suffix);
+                        mResult.setText(calc.HarmonicAcceleration(result, result2) + suffix);
                         mError.setVisibility(View.INVISIBLE);
                     }
                     else{
@@ -2483,14 +2460,30 @@ public class OperationsActivity extends AppCompatActivity {
                     }
                 }
 
-                if(opTitle == "Period (2" + PI + "/" + OMEGA + ")"){
+                if(opTitle == "Frequency (f = 1/T)"){
                     int counter = 1;
                     if(checkInput(counter)){
                         float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        if(result == 0){
+                            mError.setText("** Cannot Divide by 0 **");
+                            mError.setVisibility(View.VISIBLE);
+                            mResult.setText("");
+                        } else{
+                            if(mPhysUnits1.getSelectedItem().toString() == "ms"){
+                                result /= 1000;
+                            }
+                            if(mPhysUnits1.getSelectedItem().toString() == "mins"){
+                                result *= 60;
+                            }
+                            if(mPhysUnits1.getSelectedItem().toString() == "hrs"){
+                                result *= 3600;
+                            }
 
-                        String suffix = superscript(" s");
-                        mResult.setText(calc.Period(result) + suffix);
-                        mError.setVisibility(View.INVISIBLE);
+                            String suffix = superscript(" Hertz");
+                            mResult.setText(calc.Period(result) + suffix);
+                            mError.setVisibility(View.INVISIBLE);
+                        }
+
                     }
                     else{
                         return;

@@ -15,6 +15,8 @@ import android.view.View;
 
 import java.util.ArrayList;
 
+import static com.example.calculator.OperationsActivity.SQRT;
+
 public class PhysicsActivity extends AppCompatActivity {
     public static ArrayList<Operations> ops;
     public static ArrayList<Operations> ops2;
@@ -115,42 +117,42 @@ public class PhysicsActivity extends AppCompatActivity {
     private void populateOperations(){
         ops.add(new Operations("Force (F = ma)"));
         ops.add(new Operations("Weight (W = mg)"));
-        ops.add(new Operations("Acceleration (" + DELTA + "v/" + DELTA + "t)"));
+        ops.add(new Operations("Acceleration (a = " + DELTA + "v/" + DELTA + "t)"));
         ops.add(new Operations("Momentum (p = mv)"));
         ops.add(new Operations("Impulse (" + DELTA + "p = F" + DELTA + "t)"));
-        ops.add(new Operations("Kinetic Energy (1/2 * mv2)"));
-        ops.add(new Operations("Kinetic Energy (p2/2m)"));
+        ops.add(new Operations("Kinetic Energy (KE = 1/2 * mv2)"));
+        ops.add(new Operations("Kinetic Energy (KE = p2/2m)"));
         ops.add(new Operations("Gravitational P.E (" + DELTA + "Ug = mg" + DELTA +"h)"));
-        ops.add(new Operations("Power (" + DELTA + "W/" + DELTA + "t)"));
+        ops.add(new Operations("Power (P = " + DELTA + "W/" + DELTA + "t)"));
         ops.add(new Operations("Hooke's Law (F = -k" + DELTA + "x)"));
 
     }
 
     private void populateOperations2(){
-        ops2.add(new Operations("Angular Velocity (" + DELTA + THETA + "/" + DELTA + "t)"));
-        ops2.add(new Operations("Angular Acceleration (" + DELTA + OMEGA + "/" + DELTA + "t)"));
-        ops2.add(new Operations("Angular Momentum (I" + OMEGA + ")"));
-        ops2.add(new Operations("Displacement (r" +  THETA + ")"));
-        ops2.add(new Operations("Velocity (r" + OMEGA + ")"));
-        ops2.add(new Operations("Acceleration (r" + ALPHA + ")"));
-        ops2.add(new Operations("Centripetal Acceleration (v2/r)"));
-        ops2.add(new Operations("Centripetal Acceleration (" + OMEGA + "2/r)"));
-        ops2.add(new Operations("Centripetal Force (mv2/r)"));
+        ops2.add(new Operations("Angular Velocity (" + OMEGA + " = " + DELTA + THETA + "/" + DELTA + "t)"));
+        ops2.add(new Operations("Angular Acceleration (" + ALPHA + " = " + DELTA + OMEGA + "/" + DELTA + "t)"));
+        ops2.add(new Operations("Angular Momentum (L = I" + OMEGA + ")"));
+        ops2.add(new Operations("Displacement (x = r" +  THETA + ")"));
+        ops2.add(new Operations("Velocity (v = r" + OMEGA + ")"));
+        ops2.add(new Operations("Acceleration (a = r" + ALPHA + ")"));
+        ops2.add(new Operations("Centripetal Acceleration (" + ALPHA + " = v2/r)"));
+        ops2.add(new Operations("Centripetal Acceleration (" + ALPHA + " = " + OMEGA + "2/r)"));
+        ops2.add(new Operations("Centripetal Force (F = mv2/r)"));
     }
 
     private void populateOperations3(){
-        ops3.add(new Operations("Angular Velocity (" + OMEGA + "0 + " + ALPHA + "t)"));
-        ops3.add(new Operations("Average Angular Velocity (1/2(" + OMEGA + "+" + OMEGA + "0))"));
-        ops3.add(new Operations("Rotational Work (" + TAU + DELTA + THETA + ")"));
-        ops3.add(new Operations("Rotational Power (" + TAU + OMEGA + ")"));
-        ops3.add(new Operations("Rotational Power (" + TAU + OMEGA + "cos(" + THETA + "))"));
-        ops3.add(new Operations("Rotational K.E (K = 1/2 * I" + OMEGA + "2)"));
+        ops3.add(new Operations("Angular Velocity (" + OMEGA + " = " + OMEGA + "0 + " + ALPHA + "t)"));
+        ops3.add(new Operations("Average Angular Velocity (" + OMEGA + " = 1/2(" + OMEGA + "+" + OMEGA + "0))"));
+        ops3.add(new Operations("Rotational Work (W = " + TAU + DELTA + THETA + ")"));
+        ops3.add(new Operations("Rotational Power (P = " + TAU + OMEGA + ")"));
+        ops3.add(new Operations("Rotational Power (P = " + TAU + OMEGA + "cos(" + THETA + "))"));
+        ops3.add(new Operations("Rotational K.E (KE = 1/2 * I" + OMEGA + "2)"));
     }
 
     private void populateOperations4(){
         ops4.add(new Operations("Density (p = m/v)"));
         ops4.add(new Operations("Pressure (P = F/A)"));
-        ops4.add(new Operations("Change of Pressure (" + DELTA + "P = pgh)"));
+        ops4.add(new Operations("Hydrostatic Pressure (" + DELTA + "P = pgh)"));
         ops4.add(new Operations("Dynamic Pressure (q = 1/2" + RHO + "v2)"));
 
     }
@@ -167,11 +169,11 @@ public class PhysicsActivity extends AppCompatActivity {
     }
 
     private void populateOperations6(){
-        ops6.add(new Operations("Position (x = A*cos(" + OMEGA + ")t)"));
-        ops6.add(new Operations("Velocity (v = -A" + OMEGA + "*sin(" + OMEGA + ")t)"));
-        ops6.add(new Operations("Acceleration (a = -A" + OMEGA + "2 * cos(" + OMEGA + ")t)"));
+        ops6.add(new Operations("Displacement (x = A*cos(2" + PI + "ft))"));
+        ops6.add(new Operations("Velocity (v = 2" + PI + "f * " + SQRT + "(A2 - x2))"));
+        ops6.add(new Operations("Acceleration (a = (-2" + PI + "f)2 * x)"));
         ops6.add(new Operations("Force (F = -kx)"));
-        ops6.add(new Operations("Period (2" + PI + "/" + OMEGA + ")"));
+        ops6.add(new Operations("Frequency (f = 1/T)"));
     }
 
 

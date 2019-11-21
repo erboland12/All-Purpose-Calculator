@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.calculator.OperationsActivity.OMEGA;
+import static com.example.calculator.OperationsActivity.SQRT;
 import static com.example.calculator.OperationsActivity.superscript;
 import static com.example.calculator.PhysicsActivity.RHO;
 
@@ -66,11 +67,11 @@ public class OperationsAdapter extends
         if(ops.getTitle() == "Centripetal Acceleration (v2/r)" ||  ops.getTitle() == "Centripetal Acceleration (" + OMEGA + "2/r)"){
             textView.setText(superscript(ops.getTitle()));
         }
-        else if(ops.getTitle() == "Kinetic Energy (1/2 * mv2)"){
-            textView.setText("Kinetic Energy (1/2 * " + superscript("mv2)"));
+        else if(ops.getTitle() == "Kinetic Energy (KE = 1/2 * mv2)"){
+            textView.setText("Kinetic Energy (KE = 1/2 * " + superscript("mv2)"));
         }
-        else if (ops.getTitle() == "Kinetic Energy (p2/2m)"){
-            textView.setText("Kinetic Energy (" + superscript("p2") + "/2m)");
+        else if (ops.getTitle() == "Kinetic Energy (KE = p2/2m)"){
+            textView.setText("Kinetic Energy (KE = " + superscript("p2") + "/2m)");
         }
         else if (ops.getTitle() == "Square (a2)"){
             textView.setText(superscript("Square (a2)"));
@@ -105,11 +106,11 @@ public class OperationsAdapter extends
         else if (ops.getTitle() == "Sphere ((4/3)" + PI + "r3)"){
             textView.setText("Sphere ((4/3)" + PI + superscript("r3)"));
         }
-        else if (ops.getTitle() == "Centripetal Force (mv2/r)"){
-            textView.setText(superscript("Centripetal Force (mv2/r)"));
+        else if (ops.getTitle() == "Centripetal Force (F = mv2/r)"){
+            textView.setText(superscript("Centripetal Force (F = mv2/r)"));
         }
-        else if (ops.getTitle() == "Rotational K.E (K = 1/2 * I" + OMEGA + "2)"){
-            textView.setText("Rotational K.E (K = 1/2 * I" + OMEGA + superscript("2)"));
+        else if (ops.getTitle() == "Rotational K.E (KE = 1/2 * I" + OMEGA + "2)"){
+            textView.setText("Rotational K.E (KE = 1/2 * I" + OMEGA + superscript("2)"));
         }
         else if (ops.getTitle() == "Dynamic Pressure (q = 1/2" + RHO + "v2"){
             textView.setText("Dynamic Pressure (q = 1/2" + RHO + superscript("v2"));
@@ -144,8 +145,11 @@ public class OperationsAdapter extends
         else if (ops.getTitle() == "Slender Rod, Edge Axis (I = 1/3 * ML2)"){
             textView.setText("Slender Rod, Edge Axis (I = 1/3 * " + superscript("ML2)"));
         }
-        else if (ops.getTitle() == "Acceleration (a = -A" + OMEGA + "2 * cos(" + OMEGA + ")t)"){
-            textView.setText("Acceleration (a = -A" + OMEGA + superscript("2") + " * cos(" + OMEGA + ")t)");
+        else if (ops.getTitle() == "Velocity (v = 2" + PI + "f * " + SQRT + "(A2 - x2))"){
+            textView.setText("Velocity (v = 2" + PI + "f * " + SQRT + superscript("(A2 - x2))"));
+        }
+        else if (ops.getTitle() == "Acceleration (a = (-2" + PI + "f)2 * x)"){
+            textView.setText("Acceleration (a = (-2" + PI + superscript("f)2 * x)"));
         }
         else if (ops.getTitle() == "Pressure of Ideal Gas (p = 1/3 * " + RHO + "v2"){
             textView.setText("Pressure of Ideal Gas (p = 1/3 * " + RHO + superscript("v2"));

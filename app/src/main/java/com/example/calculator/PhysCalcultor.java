@@ -116,16 +116,16 @@ public class PhysCalcultor {
         float result = (float) (0.333333 * (m * (l * l)));
         return df.format(result);
     }
-    public String HarmonicPosition(float a, float omega, float t){
-        float result = (float) (a * (Math.cos(omega) * t));
+    public String HarmonicPosition(float a, float f, float t){
+        float result = (float) (a * Math.cos(2 * Math.PI * f * t));
         return df.format(result);
     }
-    public String HarmonicVelocity(float a, float omega, float t){
-        float result = (float) ((-a * omega) * (Math.sin(omega) * t));
+    public String HarmonicVelocity(float a, float f, float t){
+        float result = (float) ((2 * Math.PI * f) * (Math.sqrt((a * a) - (t * t))));
         return df.format(result);
     }
-    public String HarmonicAcceleration(float a, float omega, float t){
-        float result = (float) ((-a * (omega * omega)) * (Math.cos(omega) * t));
+    public String HarmonicAcceleration(float f, float x){
+        float result = (float) ((2 * Math.PI * f) * (2 * Math.PI * f) * x);
         return df.format(result);
     }
     public String HarmonicForce(float k, float x){
