@@ -29,6 +29,7 @@ public class OperationsActivity extends AppCompatActivity {
     public TextView mTitle;
     private String title;
     private TextView mError;
+    private TextView mText;
     public static EditText mResult;
     private EditText mSubmit;
     private EditText mSubmit2;
@@ -190,6 +191,7 @@ public class OperationsActivity extends AppCompatActivity {
         }
         mTitle = findViewById(R.id.ops_page_title);
         mError = findViewById(R.id.ops_page_error);
+        mText = findViewById(R.id.ops_page_text);
         mResult = findViewById(R.id.ops_page_result);
         mSubmit = findViewById(R.id.ops_page_submit);
         mSubmit2 = findViewById(R.id.ops_page_submit2);
@@ -222,8 +224,6 @@ public class OperationsActivity extends AppCompatActivity {
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         rads.setAdapter(adapter);
-
-        //Shows degree or radians spinner if trig operation
 
 
         //Determines operation based on title
@@ -3298,35 +3298,84 @@ public class OperationsActivity extends AppCompatActivity {
     }
 
     private void setOperation(){
-        rads.setVisibility(View.VISIBLE);
         enterBtn = findViewById(R.id.ops_page_enter_btn);
         enterBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if(mSubmit.getText().toString().matches("[0-9]+")){
-                    float finalSubmit = Float.parseFloat(mSubmit.getText().toString());
-                    if(opTitle == "Fibonacci" && finalSubmit >= 0){
-                        Calculator calc = new Calculator();
-                        float result = calc.fibonacci(finalSubmit);
-                        mResult.setText(calc.returnFloat(result));
-                    }
-                    if(opTitle == "Factorial" && finalSubmit >= 0){
-                        Calculator calc = new Calculator();
-                        float result = calc.factorial(finalSubmit);
-                        mResult.setText(calc.returnFloat(result));
-                    }
-                    if(opTitle == "Modulo"){
+                PhysCalcultor physCalc = new PhysCalcultor();
+                if(opTitle == "Modulo") {
+                    if (mSubmit.getText().toString().matches("[-0-9]+") &&
+                        mSubmit2.getText().toString().matches("[-1-9]+")){
                         Calculator calc = new Calculator();
                         int result = Integer.parseInt(mSubmit.getText().toString());
                         int result2 = Integer.parseInt(mSubmit2.getText().toString());
                         mResult.setText(calc.mod(result, result2));
                     }
 
-                    mError.setVisibility(View.INVISIBLE);
-                } else if (!(mTitle.getText().toString() == "Cosine" || mTitle.getText().toString() == "Sine" || mTitle.getText().toString() == "Tangent"
-                        || mTitle.getText().toString() == "Arccos" || mTitle.getText().toString() == "Arcsin" || mTitle.getText().toString() == "Arctan")){
-                    mError.setVisibility(View.VISIBLE);
+                    else {
+                        mError.setVisibility(View.VISIBLE);
+                    }
                 }
+
+                if (opTitle == "Fahrenheit to Celsius") {
+                    int counter = 1;
+                    if (checkInputSubmit(counter)) {
+                        float result = Float.parseFloat(mSubmit.getText().toString());
+                        mResult.setText(physCalc.Celsius(result) + " C");
+                        mError.setVisibility(View.INVISIBLE);
+                    } else {
+                        return;
+                    }
+                }
+
+                if (opTitle == "Celsius to Fahrenheit") {
+                    int counter = 1;
+                    if (checkInputSubmit(counter)) {
+                        float result = Float.parseFloat(mSubmit.getText().toString());
+                        mResult.setText(physCalc.Fahrenheit(result) + " F");
+                        mError.setVisibility(View.INVISIBLE);
+                    } else {
+                        return;
+                    }
+                }
+
+                if (opTitle == "Celsius to Kelvin") {
+                    int counter = 1;
+                    if (checkInputSubmit(counter)) {
+                        float result = Float.parseFloat(mSubmit.getText().toString());
+                        mResult.setText(physCalc.Kelvin(result) + " K");
+                        mError.setVisibility(View.INVISIBLE);
+                    } else {
+                        return;
+                    }
+                }
+
+                if (opTitle == "Factorial"){
+                    int counter = 1;
+                    if (checkInputFactFib(counter)){
+                        float result = Float.parseFloat(mSubmit.getText().toString());
+                        Calculator calc = new Calculator();
+                        float finalResult = calc.factorial(result);
+                        mResult.setText(calc.returnFloat(finalResult));
+                        mError.setVisibility(View.INVISIBLE);
+                    } else{
+                        return;
+                    }
+                }
+
+                if (opTitle == "Fibonacci"){
+                    int counter = 1;
+                    if (checkInputFactFib(counter)){
+                        float result = Float.parseFloat(mSubmit.getText().toString());
+                        Calculator calc = new Calculator();
+                        float finalResult = calc.fibonacci(result);
+                        mResult.setText(calc.returnFloat(finalResult));
+                        mError.setVisibility(View.INVISIBLE);
+                    } else{
+                        return;
+                    }
+                }
+
 
                 if (opTitle == "Cosine") {
                     int counter = 1;
@@ -3488,9 +3537,23 @@ public class OperationsActivity extends AppCompatActivity {
     }
 
     private void checkForTrigOps(){
-        if(mTitle.getText().toString() == "Cosine" || mTitle.getText().toString() == "Sine" || mTitle.getText().toString() == "Tangent"
-        || mTitle.getText().toString() == "Arccos" || mTitle.getText().toString() == "Arcsin" || mTitle.getText().toString() == "Arctan"){
+        if(opTitle == "Cosine" || opTitle == "Sine" || opTitle == "Tangent"
+        || opTitle == "Arccos" || opTitle == "Arcsin" || opTitle == "Arctan"){
             rads.setVisibility(View.VISIBLE);
+            mText.setText(THETA);
+            mText.setTextSize(32);
+        }
+        if(opTitle == "Fibonacci" || opTitle == "Factorial"){
+            mText.setText("Index");
+            mText.setTextSize(28);
+        }
+        if(opTitle == "Fahrenheit to Celsius"){
+            mText.setText("Degrees (F)");
+            mText.setTextSize(22);
+        }
+        if(opTitle == "Celsius to Fahrenheit" || opTitle == "Celsius to Kelvin"){
+             mText.setText("Degrees (C)");
+             mText.setTextSize(22);
         }
     }
 
@@ -3590,7 +3653,7 @@ public class OperationsActivity extends AppCompatActivity {
                 return false;
             }
             else if(mSubmit.getText().toString().matches("[a-zA-z]+") ||
-                    !mSubmit.getText().toString().matches("^([0-9]+\\.?[0-9]*|[0-9]*\\.[0-9]+)$")){
+                    !mSubmit.getText().toString().matches("^([-0-9]+\\.?[-0-9]*|[-0-9]*\\.[-0-9]+)$")){
                 mError.setText("** Invalid Input **");
                 mError.setVisibility(View.VISIBLE);
                 mResult.setText("");
@@ -3616,6 +3679,27 @@ public class OperationsActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    private boolean checkInputFactFib(int counter){
+        if(counter == 1){
+            if(mSubmit.getText().toString().isEmpty()){
+                mError.setText("** Please Fill in all Fields **");
+                mError.setVisibility(View.VISIBLE);
+                mResult.setText("");
+                return false;
+            }
+            else if(mSubmit.getText().toString().matches("[a-zA-Z]+") ||
+                    Float.parseFloat(mSubmit.getText().toString()) < 0 ||
+                    mSubmit.getText().toString().contains(".")){
+                mError.setText("** Invalid Input **");
+                mError.setVisibility(View.VISIBLE);
+                mResult.setText("");
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     public static String superscript(String str) {
         str = str.replaceAll("0", "⁰");

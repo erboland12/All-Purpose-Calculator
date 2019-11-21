@@ -139,7 +139,7 @@ public class PhysCalcultor {
         return df.format(result);
     }
     public String Fahrenheit(float celsius){
-        float result = ((9/5) * celsius) + 32;
+        float result = (float) ((1.8 * celsius) + 32);
         return df.format(result);
     }
     public String Kelvin(float celsius){
