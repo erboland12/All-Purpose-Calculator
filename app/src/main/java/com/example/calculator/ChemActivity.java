@@ -59,7 +59,7 @@ public class ChemActivity extends AppCompatActivity {
         ops = new ArrayList<>();
         populateOperations();
         ops2 = new ArrayList<>();
-        populateOperations2();
+        //populateOperations2();
         ops3 = new ArrayList<>();
         populateOperations3();
         ops4 = new ArrayList<>();
@@ -110,13 +110,7 @@ public class ChemActivity extends AppCompatActivity {
         ops.add(new Operations("Percent Error (PE = ((M - A) / A) * 100%)"));
         ops.add(new Operations("Percent Composition (PC = (Mp / Mw) * 100%)"));
         ops.add(new Operations("Rate of Reaction (Rate = Dq / Dt)"));
-        ops.add(new Operations("de Broglie's Law (" + LAMBDA + " = h/(mv))"));
 
-    }
-
-    private void populateOperations2(){
-        ops2.add(new Operations("Energy of Wave (E = hv)"));
-        ops2.add(new Operations("Coulomb's Law (Fe = Ke * (Q1Q2 / r2))"));
     }
 
     private void populateOperations3(){

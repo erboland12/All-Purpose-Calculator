@@ -117,9 +117,9 @@ public class OperationsActivity extends AppCompatActivity {
 
     private static double radToDegrees = 57.295779513;
     private static double meterToMile = 0.0000003861021585424;
-    private static double planckConstant = 6.62607004 * Math.pow(10, -34);
+    private static double planckConstant = 6.62 * (0.0000000000000000000000000000000001);
     private static float coulombConstant = (float) (8.99 * Math.pow(10, 9));
-    private static float gasConstant = (float) 8.31446261815324;
+    private static float gasConstant = (float) 8.3144;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,7 +154,7 @@ public class OperationsActivity extends AppCompatActivity {
             setContentView(R.layout.geo_layout);
             isGeo = true;
         }
-        else if (opTitle == "Density (p = m/v)" || opTitle == "Number of Moles (n = Gm/Mm)" || opTitle == "Molarity (M = n/L)" ||
+        else if (opTitle == "Number of Moles (n = Gm/Mm)" || opTitle == "Molarity (M = n/L)" ||
                  opTitle == "Molality (M = n/m)" || opTitle == "Percent Error (PE = ((M - A) / A) * 100%)" ||
                  opTitle == "Percent Composition (PC = (Mp / Mw) * 100%)" || opTitle == "Rate of Reaction (Rate = Dq / Dt)" ||
                  opTitle == "de Broglie's Law (" + LAMBDA + " = h/(mv))" || opTitle == "Energy of Wave (E = hv)" || opTitle == "Wave Relation (c = " + LAMBDA + "v)" ||
@@ -1008,7 +1008,7 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle1.setText("Mass");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
             mPhysUnits1.setAdapter(adapter);
-            mPhysUnits1.setSelection(1);
+            mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Volume");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, volumeItems);
@@ -1959,30 +1959,35 @@ public class OperationsActivity extends AppCompatActivity {
                 if(opTitle == "Density (p = m/v)"){
                     int counter = 2;
                     if(checkInput(counter)){
-                        float result = Float.parseFloat(mPhsySub1.getText().toString());
+                        float result1 = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
+                        //Conversion based on units
+                        if(result2 == 0){
+                            zeroErrorMessage();
+                        }else{
+                            if(mPhysUnits1.getSelectedItem().toString() == "mg") {
+                                result1 *= 1000000;
+                            }
 
-                        if(mPhysUnits1.getSelectedItem().toString() == "mg"){
-                            result /= 1000;
-                        }
-                        if(mPhysUnits1.getSelectedItem().toString() == "kg"){
-                            result *= 1000;
+                            if(mPhysUnits1.getSelectedItem().toString() == "g"){
+                                result1 *= 1000;
+                            }
+
+                            if(mPhysUnits2.getSelectedItem().toString() == "m^3"){
+                                result2 *= 1000000;
+                            }
+                            if(mPhysUnits2.getSelectedItem().toString() == "L"){
+                                result2 *= 1000;
+                            }
+                            mError.setVisibility(View.INVISIBLE);
+                            mResult.setText(calc.FluidDensity(result1, result2) + superscript(" kg/m3"));
                         }
 
-                        if(mPhysUnits2.getSelectedItem().toString() == superscript("m3")){
-                            result2 *= 1000000;
-                        }
-                        if(mPhysUnits2.getSelectedItem().toString() == "L"){
-                            result2 *= 1000;
-                        }
-
-                        String suffix = superscript(" g/cm3");
-                        mResult.setText(calc.FluidDensity(result, result2) + suffix);
-                        mError.setVisibility(View.INVISIBLE);
                     }
                     else{
                         return;
                     }
+
                 }
 
                 if(opTitle == "Pressure (P = F/A)"){
@@ -2505,6 +2510,7 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle2.setText("Volume");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, volumeItems);
             mPhysUnits2.setAdapter(adapter);
+            mPhysUnits2.setSelection(1);
 
             linearLayout3.setVisibility(View.GONE);
         }
@@ -2517,6 +2523,7 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle2.setText("Measured Mass");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
             mPhysUnits2.setAdapter(adapter);
+            mPhysUnits2.setSelection(2);
 
             linearLayout3.setVisibility(View.GONE);
         }
@@ -2527,6 +2534,7 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle2.setText("Liters");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, liquidVolumeItems);
             mPhysUnits2.setAdapter(adapter);
+            mPhysUnits2.setSelection(1);
 
             linearLayout3.setVisibility(View.GONE);
         }
@@ -2586,6 +2594,7 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle1.setText("Planck Constant");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, plancks);
             mPhysUnits1.setAdapter(adapter);
+            mPhsySub1.setText(Double.toString(planckConstant));
 
             mPhysTitle2.setText("Mass");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
@@ -2602,6 +2611,7 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle1.setText("Planck Constant");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, plancks);
             mPhysUnits1.setAdapter(adapter);
+            mPhsySub1.setText(Double.toString(planckConstant));
 
             mPhysTitle2.setText("Frequency");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularFrequency);
@@ -2699,6 +2709,7 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle2.setText("Gas Constant");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, gasConst);
             mPhysUnits2.setAdapter(adapter);
+            mPhysSub2.setText(Double.toString(gasConstant));
 
             mPhysTitle3.setText("Temperature");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, tempItems);
@@ -2717,6 +2728,7 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle2.setText("Gas Constant");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, gasConst);
             mPhysUnits2.setAdapter(adapter);
+            mPhysSub2.setText(Double.toString(gasConstant));
 
             mPhysTitle3.setText("Temperature");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, tempItems);
@@ -2736,6 +2748,7 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle2.setText("Mass of Water");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
             mPhysUnits2.setAdapter(adapter);
+            mPhysUnits2.setSelection(2);
 
             mPhysTitle3.setText("Temperature");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, tempItems);
@@ -2754,6 +2767,7 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle3.setText("Temperature");
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, tempItems);
             mPhysUnits3.setAdapter(adapter);
+            mPhysUnits3.setSelection(2);
         }
 
         if(opTitle == "Enthalpy (" + DELTA + "H = Hp - Hr)"){
@@ -2803,57 +2817,34 @@ public class OperationsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ChemCalculator calc = new ChemCalculator();
-                if(opTitle == "Density (p = m/v)"){
-                    int counter = 2;
-                    if(checkInput(counter)){
-                        float result1 = Float.parseFloat(mPhsySub1.getText().toString());
-                        float result2 = Float.parseFloat(mPhysSub2.getText().toString());
-                        //Conversion based on units
-                        if(mPhysUnits1.getSelectedItem().toString() == "mg") {
-                            result1 *= 1000000;
-                        }
-
-                        if(mPhysUnits1.getSelectedItem().toString() == "g"){
-                            result1 *= 1000;
-                        }
-
-                        if(mPhysUnits2.getSelectedItem().toString() == superscript("cm3")){
-                            result2 *= 1000000;
-                        }
-                        if(mPhysUnits2.getSelectedItem().toString() == "L"){
-                            result2 *= 1000;
-                        }
-                        mError.setVisibility(View.INVISIBLE);
-                        mResult.setText(calc.Density(result1, result2) + superscript("kg/m3"));
-                    }
-                    else{
-                        return;
-                    }
-
-                }
 
                 if(opTitle == "Number of Moles (n = Gm/Mm)"){
                     int counter = 2;
                     if(checkInput(counter)){
                         float result1 = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
-                        //Conversion based on units
-                        if(mPhysUnits1.getSelectedItem().toString() == "mg") {
-                            result1 *= 1000000;
+                        if(result2 == 0){
+                            zeroErrorMessage();
+                        }else{
+                            //Conversion based on units
+                            if(mPhysUnits1.getSelectedItem().toString() == "mg") {
+                                result1 *= 1000000;
+                            }
+
+                            if(mPhysUnits1.getSelectedItem().toString() == "g"){
+                                result1 *= 1000;
+                            }
+
+                            if(mPhysUnits2.getSelectedItem().toString() == "mg"){
+                                result2 *= 1000000;
+                            }
+                            if(mPhysUnits2.getSelectedItem().toString() == "g"){
+                                result2 *= 1000;
+                            }
+                            mError.setVisibility(View.INVISIBLE);
+                            mResult.setText(calc.NumMoles(result1, result2));
                         }
 
-                        if(mPhysUnits1.getSelectedItem().toString() == "g"){
-                            result1 *= 1000;
-                        }
-
-                        if(mPhysUnits2.getSelectedItem().toString() == "mg"){
-                            result2 *= 1000000;
-                        }
-                        if(mPhysUnits2.getSelectedItem().toString() == "g"){
-                            result2 *= 1000;
-                        }
-                        mError.setVisibility(View.INVISIBLE);
-                        mResult.setText(calc.NumMoles(result1, result2));
                     }
                     else{
                         return;
@@ -2865,12 +2856,17 @@ public class OperationsActivity extends AppCompatActivity {
                     if(checkInput(counter)){
                         float result1 = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
-                        //Conversion based on units
-                        if(mPhysUnits2.getSelectedItem().toString() == "mL"){
-                            result2 *= 1000;
+                        if(result2 == 0){
+                            zeroErrorMessage();
+                        }else{
+                            //Conversion based on units
+                            if(mPhysUnits2.getSelectedItem().toString() == "mL"){
+                                result2 /= 1000;
+                            }
+                            mError.setVisibility(View.INVISIBLE);
+                            mResult.setText(calc.Molarity(result1, result2) + " moles/Liter");
                         }
-                        mError.setVisibility(View.INVISIBLE);
-                        mResult.setText(calc.Molarity(result1, result2) + "moles/Liter");
+
                     }
                     else{
                         return;
@@ -2882,15 +2878,21 @@ public class OperationsActivity extends AppCompatActivity {
                     if(checkInput(counter)){
                         float result1 = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
-                        //Conversion based on units
-                        if(mPhysUnits2.getSelectedItem().toString() == "mg"){
-                            result2 *= 1000000;
+
+                        if(result2 == 0){
+                            zeroErrorMessage();
+                        }else{
+                            //Conversion based on units
+                            if(mPhysUnits2.getSelectedItem().toString() == "mg"){
+                                result2 /= 1000000;
+                            }
+                            if(mPhysUnits2.getSelectedItem().toString() == "g"){
+                                result2 /= 1000;
+                            }
+                            mError.setVisibility(View.INVISIBLE);
+                            mResult.setText(calc.Molarity(result1, result2) + " mol/kg");
                         }
-                        if(mPhysUnits2.getSelectedItem().toString() == "g"){
-                            result2 *= 1000;
-                        }
-                        mError.setVisibility(View.INVISIBLE);
-                        mResult.setText(calc.Molarity(result1, result2) + "mol/kg");
+
                     }
                     else{
                         return;
@@ -2904,7 +2906,7 @@ public class OperationsActivity extends AppCompatActivity {
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
                         //Conversion based on units
                         if((result1 < 0 || result1 > 100) || (result2 < 0 || result2 > 100)){
-                            mError.setText("Percentage must be between 0 and 100.");
+                            mError.setText("** Percentage must be between 0 and 100 **");
                             mError.setVisibility(View.VISIBLE);
                         }else{
                             mError.setVisibility(View.INVISIBLE);
@@ -2926,6 +2928,18 @@ public class OperationsActivity extends AppCompatActivity {
                             mError.setText("Mass of Part cannot be bigger than Mass of Whole");
                             mError.setVisibility(View.VISIBLE);
                         }else{
+                            if(mPhysUnits1.getSelectedItem().toString() == "mg"){
+                                result1 /= 1000000;
+                            }
+                            if(mPhysUnits1.getSelectedItem().toString() == "g"){
+                                result1 /= 1000;
+                            }
+                            if(mPhysUnits2.getSelectedItem().toString() == "mg"){
+                                result2 /= 1000000;
+                            }
+                            if(mPhysUnits2.getSelectedItem().toString() == "g"){
+                                result2 /= 1000;
+                            }
                             mError.setVisibility(View.INVISIBLE);
                             mResult.setText(calc.PercComp(result1, result2) + "%");
                         }
@@ -2941,12 +2955,27 @@ public class OperationsActivity extends AppCompatActivity {
                         float result1 = Float.parseFloat(mPhsySub1.getText().toString());
                         float result2 = Float.parseFloat(mPhysSub2.getText().toString());
                         //Conversion based on units
-                        if((result1 < 0 || result1 > 100) || (result2 < 0 || result2 > 100)){
-                            mError.setText("Percentage must be between 0 and 100.");
-                            mError.setVisibility(View.VISIBLE);
+                        if(result2 == 0){
+                            zeroErrorMessage();
                         }else{
                             mError.setVisibility(View.INVISIBLE);
-                            mResult.setText(calc.PercComp(result1, result2));
+                            if(mPhysUnits1.getSelectedItem().toString() == "mg"){
+                                result1 /= 1000000;
+                            }
+                            if(mPhysUnits1.getSelectedItem().toString() == "g"){
+                                result1 /= 1000;
+                            }
+
+                            if(mPhysUnits2.getSelectedItem().toString() == "ms"){
+                                result2 /= 1000;
+                            }
+                            if(mPhysUnits2.getSelectedItem().toString() == "mins"){
+                                result2 *= 60;
+                            }
+                            if(mPhysUnits2.getSelectedItem().toString() == "hrs"){
+                                result2 *= 3600;
+                            }
+                            mResult.setText(calc.RateOfReaction(result1, result2) + " kg/s");
                         }
                     }
                     else{
@@ -3701,6 +3730,7 @@ public class OperationsActivity extends AppCompatActivity {
     }
 
 
+    // --------------HELPER METHODS -----------------//
     public static String superscript(String str) {
         str = str.replaceAll("0", "⁰");
         str = str.replaceAll("1", "¹");
@@ -3713,6 +3743,12 @@ public class OperationsActivity extends AppCompatActivity {
         str = str.replaceAll("8", "⁸");
         str = str.replaceAll("9", "⁹");
         return str;
+    }
+
+    private void zeroErrorMessage(){
+        mError.setText("** Cannot Divide by 0 **");
+        mError.setVisibility(View.VISIBLE);
+        mResult.setText("");
     }
 
 }

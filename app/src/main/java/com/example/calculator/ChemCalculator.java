@@ -47,10 +47,10 @@ public class ChemCalculator {
         return df.format(result);
     }
     public String pH(float h){
-        return df.format(-Math.log(h));
+        return df.format(-Math.log10(h));
     }
     public String pOH(float oh){
-        return df.format(-Math.log(oh));
+        return df.format(-Math.log10(oh));
     }
     public String PressureConcentration(float k, float r, float t, float n){
         float result = (float) (k * (Math.pow((r * t), n)));
