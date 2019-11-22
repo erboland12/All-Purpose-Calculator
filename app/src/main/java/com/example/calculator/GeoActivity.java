@@ -1,16 +1,21 @@
 package com.example.calculator;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toolbar;
 
 import java.util.ArrayList;
 
-public class GeoActivity extends AppCompatActivity {
+public class GeoActivity extends AppCompatActivity{
 
     private ArrayList<Operations> ops;
     private ArrayList<Operations> ops2;
@@ -30,10 +35,20 @@ public class GeoActivity extends AppCompatActivity {
     public static final String PI = "\u03c0";
     public static final String SQRT = "\u221a";
 
+    protected DrawerLayout mDrawer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_geo);
+        setTitle(R.string.Geometry);
+        setTitleColor(R.color.colorBlack);
+//        super.replaceContentLayout(R.layout.activity_geo, super.C);
+//        setContentView(R.layout.activity_geo);
+//        mDrawer = findViewById(R.id.drawer_layout);
+//        LayoutInflater inflater = (LayoutInflater) this
+//                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        View contentView = inflater.inflate(R.layout.activity_geo, null, false);
+//        mDrawer.addView(contentView, 0);
         //Initialize lists used for RVs
         ops = new ArrayList<>();
         populateOperations();
@@ -89,4 +104,5 @@ public class GeoActivity extends AppCompatActivity {
         ops3.add(new Operations("Sphere ((4/3)" + PI + "r3)"));
         ops3.add(new Operations("Ellipsoid ((4/3)" + PI + "r1r2r3)"));
     }
+
 }

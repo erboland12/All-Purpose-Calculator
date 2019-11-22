@@ -8,10 +8,12 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import android.view.Window;
 import android.view.View;
+import android.view.WindowManager;
 
 import java.util.ArrayList;
 
@@ -48,11 +50,11 @@ public class ChemActivity extends AppCompatActivity {
     public static final String LAMBDA = "\u039b";
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(R.string.Chemistry);
+        setTitleColor(R.color.colorBlack);
         setContentView(R.layout.activity_chem);
 
         //Initialize lists used for RVs
@@ -102,7 +104,7 @@ public class ChemActivity extends AppCompatActivity {
     }
 
 
-    private void populateOperations(){
+    private void populateOperations() {
         ops.add(new Operations("Density (p = m/v)"));
         ops.add(new Operations("Number of Moles (n = Gm/Mm)"));
         ops.add(new Operations("Molarity (M = n/L)"));
@@ -113,12 +115,12 @@ public class ChemActivity extends AppCompatActivity {
 
     }
 
-    private void populateOperations3(){
+    private void populateOperations3() {
         ops3.add(new Operations("pH (-log(H+))"));
         ops3.add(new Operations("pOH (-log(OH-))"));
     }
 
-    private void populateOperations4(){
+    private void populateOperations4() {
         ops4.add(new Operations("Boiling Point Elevation (" + DELTA + "Ts = Kb * Ms)"));
         ops4.add(new Operations("Freezing Point Depression (" + DELTA + "Ts = Kf * Ms)"));
         ops4.add(new Operations("Ideal Gas Law (P = nRT/V)"));
@@ -126,11 +128,10 @@ public class ChemActivity extends AppCompatActivity {
         ops4.add(new Operations("Heat Released from Burning (Eh = cMw" + DELTA + "T)"));
     }
 
-    private void populateOperations5(){
+    private void populateOperations5() {
         ops5.add(new Operations("Heat Transfer (q = mc" + DELTA + "T)"));
         ops5.add(new Operations("Enthalpy (" + DELTA + "H = Hp - Hr)"));
         ops5.add(new Operations("Entropy (" + DELTA + "S = Sp - Sr)"));
         ops5.add(new Operations("Free Energy (" + DELTA + "G = " + DELTA + "H - T" + DELTA + "S)"));
     }
-
 }

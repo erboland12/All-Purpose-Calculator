@@ -20,6 +20,7 @@ public class TrigActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(R.string.Trig);
         setContentView(R.layout.activity_trig);
 
         trigList = new ArrayList<>();

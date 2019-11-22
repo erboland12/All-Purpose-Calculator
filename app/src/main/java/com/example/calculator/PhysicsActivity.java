@@ -58,6 +58,7 @@ public class PhysicsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle(R.string.Physics);
         setContentView(R.layout.activity_physics);
 
         //Initialize lists used for RVs

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -175,4 +176,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+//    protected void replaceContentLayout(int sourceId, int destinationId) {
+//        View contentLayout = findViewById(destinationId);
+//
+//        ViewGroup parent = (ViewGroup) contentLayout.getParent();
+//        int index = parent.indexOfChild(contentLayout);
+//
+//        parent.removeView(contentLayout);
+//        contentLayout = getLayoutInflater().inflate(sourceId, parent, false);
+//        parent.addView(contentLayout, index);
+//    }
 }
