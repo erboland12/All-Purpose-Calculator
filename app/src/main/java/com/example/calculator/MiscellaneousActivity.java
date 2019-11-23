@@ -6,11 +6,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Path;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.RatingBar;
 
 import java.util.ArrayList;
 
 public class MiscellaneousActivity extends AppCompatActivity {
-
+    private RatingBar r;
     private ArrayList<Operations> ops;
     private OperationsAdapter adapter;
     private RecyclerView rv;
@@ -21,8 +23,10 @@ public class MiscellaneousActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setTitle(R.string.Misc);
         setContentView(R.layout.activity_miscellaneous);
+
         ops = new ArrayList<>();
         populateOperations();
+
 
         rv = findViewById(R.id.rvOperations);
         adapter = new OperationsAdapter(ops);

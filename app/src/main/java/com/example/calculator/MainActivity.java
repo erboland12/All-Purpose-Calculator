@@ -128,6 +128,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         switch (item.getItemId()) {
+            case R.id.menu_fav: {
+                MovePage m = new MovePage();
+                m.moveActivity(MainActivity.this, FavoritesActivity.class);
+                break;
+            }
             case R.id.menu_Geometry: {
                 MovePage m = new MovePage();
                 m.moveActivity(MainActivity.this, GeoActivity.class);
