@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FavoritesActivity"></activity>
+        <activity android:name=".PopupRatingActivity"
+            android:theme="@style/AppTheme.CustomWindowTheme"></activity>
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".FavoritesActivity" />
         <activity
             android:name=".ChemActivity"
             android:theme="@style/ChemTheme" />

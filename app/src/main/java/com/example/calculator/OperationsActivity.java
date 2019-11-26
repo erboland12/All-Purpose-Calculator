@@ -118,7 +118,7 @@ public class OperationsActivity extends AppCompatActivity {
     private boolean isOp = false;
     private boolean isPhys = false;
     private boolean isCalc = false;
-    private boolean isGeo = false;
+    public static boolean isGeo = false;
     private boolean isChem = false;
     private boolean isChem4 = false;
 
@@ -133,7 +133,6 @@ public class OperationsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String centA2 = "Centripetal Acceleration (" + ALPHA + " = " + OMEGA + "2/r)";
-//        FavoritesActivity.favs = new ArrayList<>();
 
         if(opTitle == "Force (F = ma)" || opTitle == "Weight (W = mg)" || opTitle == "Acceleration (a = " + DELTA + "v/" + DELTA + "t)" ||
             opTitle == "Momentum (p = mv)" || opTitle == "Centripetal Acceleration (" + ALPHA + " = v2/r)" || opTitle == centA2 || opTitle == "Impulse (" + DELTA + "p = F" + DELTA + "t)" ||
@@ -161,7 +160,7 @@ public class OperationsActivity extends AppCompatActivity {
                 opTitle == "Pyramid (s2 + 2sl)" || opTitle == "Cube (a3)" || opTitle == "Rectangular Prism (lwh)" || opTitle == "Cylinder (" + PI + "r2h)" ||
                 opTitle == "Pyramid ((1/3)bh)" || opTitle == "Cone ((1/3)" + PI + "r2h)" || opTitle == "Sphere ((4/3)" + PI + "r3)" ||
                 opTitle == "Ellipsoid ((4/3)" + PI + "r1r2r3)"){
-            FavoritesActivity.favs.add(opTitle);
+            FavoritesActivity.favs = opTitle;
             setContentView(R.layout.geo_layout);
             isGeo = true;
         }
@@ -244,7 +243,6 @@ public class OperationsActivity extends AppCompatActivity {
             setPhysicsOps();
         }
         if(isOp){
-            saveState();
             checkForTrigOps();
             setOperation();
         }
@@ -3763,55 +3761,5 @@ public class OperationsActivity extends AppCompatActivity {
         mError.setVisibility(View.VISIBLE);
         mResult.setText("");
     }
-
-    private void determineRating(){
-        r = findViewById(R.id.ratingBar);
-        float saveRating = 0;
-
-        pref = getSharedPreferences("Favorite", MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putFloat(opTitle, r.getRating());
-
-        if(r.getRating() == 0){
-            SharedPreferences shared = getSharedPreferences("Favorite", MODE_PRIVATE);
-            saveRating = shared.getFloat(opTitle, 0);
-        }
-        else{
-            SharedPreferences shared = getSharedPreferences("Favorite", MODE_PRIVATE);
-            saveRating = shared.getFloat(opTitle, 1);
-        }
-        r.setRating(saveRating);
-
-
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        // Save UI state changes to the savedInstanceState.
-        // This bundle will be passed to onCreate if the process is
-        // killed and restarted.
-        r = findViewById(R.id.ratingBar);
-        savedInstanceState.putString("myString", "Hello");
-        savedInstanceState.putFloat("rating", r.getRating());
-        // etc.
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        // Restore UI state from the savedInstanceState.
-        // This bundle has also been passed to onCreate.
-        float rating = savedInstanceState.getFloat("rating");
-        mSubmit.setText(savedInstanceState.getString("myString"));
-    }
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    public void saveState(){
-        super.onPause();
-        r = findViewById(R.id.ratingBar);
-        r.setRating(r.getRating());
-    }
-
 
 }

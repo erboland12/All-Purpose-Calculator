@@ -4,10 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -98,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-
     }
 
     @Override
@@ -128,11 +131,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         switch (item.getItemId()) {
-            case R.id.menu_fav: {
-                MovePage m = new MovePage();
-                m.moveActivity(MainActivity.this, FavoritesActivity.class);
-                break;
-            }
             case R.id.menu_Geometry: {
                 MovePage m = new MovePage();
                 m.moveActivity(MainActivity.this, GeoActivity.class);
@@ -165,7 +163,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             case R.id.settings:{
                 MovePage m = new MovePage();
-                m.moveActivity(MainActivity.this, CalculatorActivity.class);
+                m.moveActivity(MainActivity.this, SettingsActivity.class);
+                break;
             }
             case R.id.quit_app:{
                 finish();
@@ -182,14 +181,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-//    protected void replaceContentLayout(int sourceId, int destinationId) {
-//        View contentLayout = findViewById(destinationId);
-//
-//        ViewGroup parent = (ViewGroup) contentLayout.getParent();
-//        int index = parent.indexOfChild(contentLayout);
-//
-//        parent.removeView(contentLayout);
-//        contentLayout = getLayoutInflater().inflate(sourceId, parent, false);
-//        parent.addView(contentLayout, index);
-//    }
 }
