@@ -1,10 +1,13 @@
 package com.example.calculator.RecyclerViewActivities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.RatingBar;
 
 import com.example.calculator.Operations;
@@ -19,8 +22,13 @@ public class MiscellaneousActivity extends AppCompatActivity {
     private RecyclerView rv;
     private RecyclerView.LayoutManager layoutManager;
 
+    private SharedPreferences shared;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(returnDark()){
+            MiscellaneousActivity.this.setTheme(R.style.darkTheme);
+        }
         super.onCreate(savedInstanceState);
         setTitle(R.string.Misc);
         setContentView(R.layout.activity_miscellaneous);
@@ -43,5 +51,11 @@ public class MiscellaneousActivity extends AppCompatActivity {
         ops.add(new Operations("Fahrenheit to Celsius"));
         ops.add(new Operations("Celsius to Fahrenheit"));
         ops.add(new Operations("Celsius to Kelvin"));
+    }
+
+    private boolean returnDark(){
+        shared = getSharedPreferences("DarkMode", MODE_PRIVATE);
+        Log.d("Is Dark?", Boolean.toString(shared.getBoolean("darkMode", false)));
+        return shared.getBoolean("darkMode", false);
     }
 }

@@ -3,12 +3,15 @@ package com.example.calculator;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +29,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class CalculatorActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class CalculatorActivity extends AppCompatActivity{
 
     //Results
     EditText resultShow;
@@ -62,22 +65,15 @@ public class CalculatorActivity extends AppCompatActivity implements NavigationV
     public static final String SQRT = "\u221a";
     public static final String MINUS = "\u2212";
 
-    //Drawer layout initialization
-    private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mToggle;
+    private SharedPreferences shared;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(returnDark()){
+            CalculatorActivity.this.setTheme(R.style.darkTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculator);
-        //setNavigationViewListener();
-
-        //Sets up DrawerLayout and ActionBar
-//        mDrawerLayout = findViewById(R.id.drawer_layout2);
-//        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.Open, R.string.Close);
-//
-//        mDrawerLayout.addDrawerListener(mToggle);
-//        mToggle.syncState();
 
 
         parensBtn = findViewById(R.id.calcParens);
@@ -126,77 +122,6 @@ public class CalculatorActivity extends AppCompatActivity implements NavigationV
         });
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_icon, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_favorite) {
-            mDrawerLayout.openDrawer(GravityCompat.START);
-            //Toast.makeText(MainActivity.this, "Action clicked", Toast.LENGTH_LONG).show();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
-        switch (item.getItemId()) {
-            case R.id.menu_Geometry: {
-                MovePage m = new MovePage();
-                m.moveActivity(CalculatorActivity.this, GeoActivity.class);
-                break;
-            }
-            case R.id.menu_Chem: {
-                MovePage m = new MovePage();
-                m.moveActivity(CalculatorActivity.this, ChemActivity.class);
-                break;
-            }
-            case R.id.menu_Trig: {
-                MovePage m = new MovePage();
-                m.moveActivity(CalculatorActivity.this, TrigActivity.class);
-                break;
-            }
-            case R.id.menu_Phys: {
-                MovePage m = new MovePage();
-                m.moveActivity(CalculatorActivity.this, PhysicsActivity.class);
-                break;
-            }
-            case R.id.menu_Misc: {
-                MovePage m = new MovePage();
-                m.moveActivity(CalculatorActivity.this, MiscellaneousActivity.class);
-                break;
-            }
-            case R.id.settings:{
-                MovePage m = new MovePage();
-                m.moveActivity(CalculatorActivity.this, CalculatorActivity.class);
-            }
-            case R.id.quit_app:{
-                finish();
-                System.exit(0);
-            }
-        }
-        //close navigation drawer
-        mDrawerLayout.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    private void setNavigationViewListener() {
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view2);
-        navigationView.setNavigationItemSelectedListener(this);
-    }
 
 
     private void linkButtonsForAppend(){
@@ -504,5 +429,11 @@ public class CalculatorActivity extends AppCompatActivity implements NavigationV
         divBtn.setEnabled(true);
         timesBtn.setEnabled(true);
         expBtn.setEnabled(true);
+    }
+
+    private boolean returnDark(){
+        shared = getSharedPreferences("DarkMode", MODE_PRIVATE);
+        Log.d("Is Dark?", Boolean.toString(shared.getBoolean("darkMode", false)));
+        return shared.getBoolean("darkMode", false);
     }
 }

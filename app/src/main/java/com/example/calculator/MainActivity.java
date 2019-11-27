@@ -3,11 +3,14 @@ package com.example.calculator;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +21,7 @@ import com.example.calculator.RecyclerViewActivities.GeoActivity;
 import com.example.calculator.RecyclerViewActivities.MiscellaneousActivity;
 import com.example.calculator.RecyclerViewActivities.PhysicsActivity;
 import com.example.calculator.RecyclerViewActivities.TrigActivity;
+import com.example.calculator.Settings.MyPreferenceFragment;
 import com.example.calculator.Settings.SettingsActivity;
 import com.google.android.material.navigation.NavigationView;
 
@@ -35,10 +39,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
 
+    private SharedPreferences shared;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(returnDark()){
+            MainActivity.this.setTheme(R.style.darkTheme);
+        }else{
+            MainActivity.this.setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle("");
         setNavigationViewListener();
 
         final MovePage m = new MovePage();
@@ -49,9 +61,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         calculatorBtn = findViewById(R.id.calcBtn);
         calculatorBtn.setOnClickListener(new View.OnClickListener(){
@@ -178,6 +187,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void setNavigationViewListener() {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private boolean returnDark(){
+        shared = getSharedPreferences("DarkMode", MODE_PRIVATE);
+        Log.d("Is Dark?", Boolean.toString(shared.getBoolean("darkMode", false)));
+        return shared.getBoolean("darkMode", false);
     }
 
 }

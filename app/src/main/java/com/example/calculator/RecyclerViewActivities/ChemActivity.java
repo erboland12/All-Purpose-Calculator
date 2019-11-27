@@ -1,11 +1,14 @@
 package com.example.calculator.RecyclerViewActivities;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.calculator.Operations;
 import com.example.calculator.R;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,9 +46,14 @@ public class ChemActivity extends AppCompatActivity {
     public static final String PI = "\u03c0";
     public static final String LAMBDA = "\u039b";
 
+    private SharedPreferences shared;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(returnDark()){
+            ChemActivity.this.setTheme(R.style.darkTheme);
+        }
         super.onCreate(savedInstanceState);
         setTitle(R.string.Chemistry);
         setTitleColor(R.color.colorBlack);
@@ -127,5 +135,11 @@ public class ChemActivity extends AppCompatActivity {
         ops5.add(new Operations("Enthalpy (" + DELTA + "H = Hp - Hr)"));
         ops5.add(new Operations("Entropy (" + DELTA + "S = Sp - Sr)"));
         ops5.add(new Operations("Free Energy (" + DELTA + "G = " + DELTA + "H - T" + DELTA + "S)"));
+    }
+
+    private boolean returnDark(){
+        shared = getSharedPreferences("DarkMode", MODE_PRIVATE);
+        Log.d("Is Dark?", Boolean.toString(shared.getBoolean("darkMode", false)));
+        return shared.getBoolean("darkMode", false);
     }
 }

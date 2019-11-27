@@ -1,6 +1,8 @@
 package com.example.calculator.RecyclerViewActivities;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -51,15 +53,15 @@ public class PhysicsActivity extends AppCompatActivity {
     public static final String RHO = "\u03c1";
     public static final String PI = "\u03c0";
 
-
+    private SharedPreferences shared;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+        if(returnDark()){
             PhysicsActivity.this.setTheme(R.style.darkTheme);
         }
-        else if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
+        else{
             PhysicsActivity.this.setTheme(R.style.PhysTheme);
         }
         super.onCreate(savedInstanceState);
@@ -182,6 +184,12 @@ public class PhysicsActivity extends AppCompatActivity {
         ops6.add(new Operations("Acceleration (a = (-2" + PI + "f)2 * x)"));
         ops6.add(new Operations("Force (F = -kx)"));
         ops6.add(new Operations("Frequency (f = 1/T)"));
+    }
+
+    private boolean returnDark(){
+        shared = getSharedPreferences("DarkMode", MODE_PRIVATE);
+        Log.d("Is Dark?", Boolean.toString(shared.getBoolean("darkMode", false)));
+        return shared.getBoolean("darkMode", false);
     }
 
 

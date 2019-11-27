@@ -1,10 +1,13 @@
 package com.example.calculator.RecyclerViewActivities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.calculator.Operations;
 import com.example.calculator.R;
@@ -19,9 +22,14 @@ public class TrigActivity extends AppCompatActivity {
     private ArrayList<Operations> trigList;
     private RecyclerView.LayoutManager layoutManager;
 
+    private SharedPreferences shared;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(returnDark()){
+            TrigActivity.this.setTheme(R.style.darkTheme);
+        }
         super.onCreate(savedInstanceState);
         setTitle(R.string.Trig);
         setContentView(R.layout.activity_trig);
@@ -44,5 +52,11 @@ public class TrigActivity extends AppCompatActivity {
         trigList.add(new Operations("Arccos"));
         trigList.add(new Operations("Arcsin"));
         trigList.add(new Operations("Arctan"));
+    }
+
+    private boolean returnDark(){
+        shared = getSharedPreferences("DarkMode", MODE_PRIVATE);
+        Log.d("Is Dark?", Boolean.toString(shared.getBoolean("darkMode", false)));
+        return shared.getBoolean("darkMode", false);
     }
 }

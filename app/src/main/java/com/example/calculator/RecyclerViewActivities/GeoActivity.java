@@ -1,10 +1,13 @@
 package com.example.calculator.RecyclerViewActivities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -30,13 +33,16 @@ public class GeoActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager2;
     private RecyclerView.LayoutManager layoutManager3;
 
-    private RelativeLayout toolbar;
+    private SharedPreferences shared;
 
     public static final String PI = "\u03c0";
     public static final String SQRT = "\u221a";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(returnDark()){
+            GeoActivity.this.setTheme(R.style.darkTheme);
+        }
         super.onCreate(savedInstanceState);
         setTitle(R.string.Geometry);
         setTitleColor(R.color.colorBlack);
@@ -110,4 +116,10 @@ public class GeoActivity extends AppCompatActivity {
         contentLayout = getLayoutInflater().inflate(sourceId, parent, false);
         parent.addView(contentLayout, index);
     }
+    private boolean returnDark(){
+        shared = getSharedPreferences("DarkMode", MODE_PRIVATE);
+        Log.d("Is Dark?", Boolean.toString(shared.getBoolean("darkMode", false)));
+        return shared.getBoolean("darkMode", false);
+    }
+
 }

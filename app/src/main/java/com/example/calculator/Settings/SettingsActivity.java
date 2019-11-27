@@ -1,6 +1,7 @@
 package com.example.calculator.Settings;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.view.Window;
 
 import com.example.calculator.R;
+import com.example.calculator.RecyclerViewActivities.PhysicsActivity;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -24,6 +26,9 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+            SettingsActivity.this.setTheme(R.style.darkTheme);
+        }
         super.onCreate(savedInstanceState);
         setTitle("Settings");
         setContentView(R.layout.activity_settings);

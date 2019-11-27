@@ -1,9 +1,11 @@
 package com.example.calculator.RecyclerViewActivities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -128,10 +130,14 @@ public class OperationsActivity extends AppCompatActivity {
     private static double planckConstant = 6.62 * (0.0000000000000000000000000000000001);
     private static float coulombConstant = (float) (8.99 * Math.pow(10, 9));
     private static float gasConstant = (float) 8.3144;
+    private SharedPreferences shared;
 
     public ArrayList<String> list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(returnDark()){
+            OperationsActivity.this.setTheme(R.style.darkTheme);
+        }
         super.onCreate(savedInstanceState);
         String centA2 = "Centripetal Acceleration (" + ALPHA + " = " + OMEGA + "2/r)";
 
@@ -3761,6 +3767,12 @@ public class OperationsActivity extends AppCompatActivity {
         mError.setText("** Cannot Divide by 0 **");
         mError.setVisibility(View.VISIBLE);
         mResult.setText("");
+    }
+
+    private boolean returnDark(){
+        shared = getSharedPreferences("DarkMode", MODE_PRIVATE);
+        Log.d("Is Dark?", Boolean.toString(shared.getBoolean("darkMode", false)));
+        return shared.getBoolean("darkMode", false);
     }
 
 }
