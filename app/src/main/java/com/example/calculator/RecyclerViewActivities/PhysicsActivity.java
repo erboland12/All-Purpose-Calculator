@@ -3,12 +3,14 @@ package com.example.calculator.RecyclerViewActivities;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.calculator.Operations;
 import com.example.calculator.R;
 import com.example.calculator.RecyclerViewActivities.OperationsAdapter;
+import com.example.calculator.Settings.SettingsActivity;
 
 import java.util.ArrayList;
 
@@ -54,9 +56,17 @@ public class PhysicsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+            PhysicsActivity.this.setTheme(R.style.darkTheme);
+        }
+        else if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
+            PhysicsActivity.this.setTheme(R.style.PhysTheme);
+        }
         super.onCreate(savedInstanceState);
         setTitle(R.string.Physics);
         setContentView(R.layout.activity_physics);
+
+
 
         //Initialize lists used for RVs
         ops = new ArrayList<>();
