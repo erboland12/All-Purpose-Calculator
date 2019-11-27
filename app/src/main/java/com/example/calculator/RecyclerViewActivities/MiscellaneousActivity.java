@@ -1,13 +1,14 @@
-package com.example.calculator;
+package com.example.calculator.RecyclerViewActivities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.graphics.Path;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.RatingBar;
+
+import com.example.calculator.Operations;
+import com.example.calculator.R;
 
 import java.util.ArrayList;
 

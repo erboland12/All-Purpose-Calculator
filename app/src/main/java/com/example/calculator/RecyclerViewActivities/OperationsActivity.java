@@ -1,12 +1,9 @@
-package com.example.calculator;
+package com.example.calculator.RecyclerViewActivities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.OnLifecycleEvent;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,17 +12,21 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.lang.reflect.Array;
+import com.example.calculator.CalculatorClasses.Calculator;
+import com.example.calculator.CalculatorClasses.ChemCalculator;
+import com.example.calculator.CalculatorClasses.Derivative;
+import com.example.calculator.CalculatorClasses.GeoCalculator;
+import com.example.calculator.CalculatorClasses.PhysCalcultor;
+import com.example.calculator.R;
+
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
-import static com.example.calculator.ChemActivity.LAMBDA;
-import static com.example.calculator.PhysicsActivity.ALPHA;
+import static com.example.calculator.RecyclerViewActivities.ChemActivity.LAMBDA;
 
 public class OperationsActivity extends AppCompatActivity {
 

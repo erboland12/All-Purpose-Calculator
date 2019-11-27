@@ -1,12 +1,11 @@
-package com.example.calculator;
+package com.example.calculator.CalculatorClasses;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 import java.util.Scanner;
 
-import static com.example.calculator.OperationsActivity.mResult;
-import static com.example.calculator.OperationsActivity.superscript;
+import static com.example.calculator.RecyclerViewActivities.OperationsActivity.superscript;
 
 public class Derivative {
 

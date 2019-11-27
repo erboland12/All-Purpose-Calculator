@@ -1,4 +1,4 @@
-package com.example.calculator;
+package com.example.calculator.RecyclerViewActivities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,7 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.Toolbar;
+
+import com.example.calculator.Operations;
+import com.example.calculator.R;
+import com.example.calculator.RecyclerViewActivities.OperationsAdapter;
 
 import java.util.ArrayList;
 

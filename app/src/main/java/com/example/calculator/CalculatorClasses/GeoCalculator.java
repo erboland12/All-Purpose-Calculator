@@ -1,4 +1,4 @@
-package com.example.calculator;
+package com.example.calculator.CalculatorClasses;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;

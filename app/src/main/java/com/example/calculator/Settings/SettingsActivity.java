@@ -1,4 +1,4 @@
-package com.example.calculator;
+package com.example.calculator.Settings;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -7,16 +7,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.ContentResolver;
 import android.content.Context;
-import android.media.audiofx.Equalizer;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.util.DisplayMetrics;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.Window;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
+
+import com.example.calculator.R;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -47,11 +41,5 @@ public class SettingsActivity extends AppCompatActivity {
     public static Context getContextOfApplication() {
         return contextOfApplication;
     }
-
-    public static void setAppBrightness(int x){
-        bright = x;
-        Settings.System.putInt(contentResolver, Settings.System.SCREEN_BRIGHTNESS, bright);
-    }
-
 
 }

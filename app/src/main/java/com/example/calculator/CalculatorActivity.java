@@ -3,7 +3,6 @@ package com.example.calculator;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -16,6 +15,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.calculator.CalculatorClasses.Calculator;
+import com.example.calculator.RecyclerViewActivities.ChemActivity;
+import com.example.calculator.RecyclerViewActivities.GeoActivity;
+import com.example.calculator.RecyclerViewActivities.MiscellaneousActivity;
+import com.example.calculator.RecyclerViewActivities.PhysicsActivity;
+import com.example.calculator.RecyclerViewActivities.TrigActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.NoSuchElementException;

@@ -1,19 +1,13 @@
-package com.example.calculator;
+package com.example.calculator.RecyclerViewActivities;
 
-import android.graphics.Path;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.example.calculator.Operations;
+import com.example.calculator.R;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.Window;
-import android.view.View;
-import android.view.WindowManager;
 
 import java.util.ArrayList;
 

@@ -1,11 +1,14 @@
-package com.example.calculator;
+package com.example.calculator.RecyclerViewActivities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.Spinner;
+
+import com.example.calculator.Operations;
+import com.example.calculator.R;
+import com.example.calculator.RecyclerViewActivities.OperationsAdapter;
 
 import java.util.ArrayList;
 

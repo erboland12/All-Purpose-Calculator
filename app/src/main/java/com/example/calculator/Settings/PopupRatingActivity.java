@@ -1,4 +1,4 @@
-package com.example.calculator;
+package com.example.calculator.Settings;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.calculator.R;
 
 import java.net.URI;
 

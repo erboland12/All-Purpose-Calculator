@@ -1,4 +1,4 @@
-package com.example.calculator;
+package com.example.calculator.RecyclerViewActivities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -6,17 +6,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.calculator.Operations;
+import com.example.calculator.R;
+
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 public class FavoritesActivity extends AppCompatActivity {
 

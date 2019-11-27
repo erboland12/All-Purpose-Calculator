@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.calculator">
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-sdk android:minSdkVersion="23"></uses-sdk>
 
     <application
         android:allowBackup="true"
@@ -9,27 +12,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PopupRatingActivity"
+        <activity android:name=".Settings.PopupFeedbackActivity"
             android:theme="@style/AppTheme.CustomWindowTheme"></activity>
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".FavoritesActivity" />
         <activity
-            android:name=".ChemActivity"
+            android:name=".Settings.PopupRatingActivity"
+            android:theme="@style/AppTheme.CustomWindowTheme" />
+        <activity android:name=".Settings.SettingsActivity" />
+        <activity android:name=".RecyclerViewActivities.FavoritesActivity" />
+        <activity
+            android:name=".RecyclerViewActivities.ChemActivity"
             android:theme="@style/ChemTheme" />
         <activity
-            android:name=".GeoActivity"
+            android:name=".RecyclerViewActivities.GeoActivity"
             android:theme="@style/GeoTheme" />
         <activity
-            android:name=".PhysicsActivity"
+            android:name=".RecyclerViewActivities.PhysicsActivity"
             android:theme="@style/PhysTheme" />
         <activity
-            android:name=".TrigActivity"
+            android:name=".RecyclerViewActivities.TrigActivity"
             android:theme="@style/TrigTheme" />
         <activity
-            android:name=".OperationsActivity"
+            android:name=".RecyclerViewActivities.OperationsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".MiscellaneousActivity"
+            android:name=".RecyclerViewActivities.MiscellaneousActivity"
             android:theme="@style/MiscTheme" />
         <activity android:name=".CalculatorActivity" />
         <activity

@@ -1,25 +1,23 @@
-package com.example.calculator;
+package com.example.calculator.RecyclerViewActivities;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Path;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.example.calculator.MovePage;
+import com.example.calculator.Operations;
+import com.example.calculator.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.calculator.OperationsActivity.OMEGA;
-import static com.example.calculator.OperationsActivity.SQRT;
-import static com.example.calculator.OperationsActivity.superscript;
-import static com.example.calculator.PhysicsActivity.RHO;
+import static com.example.calculator.RecyclerViewActivities.OperationsActivity.OMEGA;
+import static com.example.calculator.RecyclerViewActivities.OperationsActivity.superscript;
+import static com.example.calculator.RecyclerViewActivities.PhysicsActivity.RHO;
 
 public class OperationsAdapter extends
     RecyclerView.Adapter<OperationsAdapter.ViewHolder>{
