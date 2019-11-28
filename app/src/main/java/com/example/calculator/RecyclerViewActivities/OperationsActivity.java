@@ -240,7 +240,11 @@ public class OperationsActivity extends AppCompatActivity {
 
         String[] items = new String[]{"Degrees", "Radians"};
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        if(!returnDark()){
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        }else{
+            adapter = new ArrayAdapter<>(this, R.layout.spinner_item, items);
+        }
         rads.setAdapter(adapter);
 
 
@@ -2521,25 +2525,41 @@ public class OperationsActivity extends AppCompatActivity {
     private void setChemOps(){
         if(opTitle == "Density (p = m/v)"){
             mPhysTitle1.setText("Mass");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Volume");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, volumeItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, volumeItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, volumeItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(1);
 
             linearLayout3.setVisibility(View.GONE);
         }
         if(opTitle == "Number of Moles (n = Gm/Mm)"){
-            mPhysTitle1.setText("Given Mass");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            mPhysTitle1.setText("Given");
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(2);
 
-            mPhysTitle2.setText("Measured Mass");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            mPhysTitle2.setText("Measured");
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(2);
 
@@ -2550,7 +2570,11 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle1.setText("Number of Moles");
 
             mPhysTitle2.setText("Liters");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, liquidVolumeItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, liquidVolumeItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, liquidVolumeItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(1);
 
@@ -2561,7 +2585,11 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle1.setText("Number of Moles");
 
             mPhysTitle2.setText("Mass");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(2);
 
@@ -2570,11 +2598,19 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Percent Error (PE = ((M - A) / A) * 100%)"){
             mPhysTitle1.setText("Measured Percent");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, percent);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, percent);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, percent);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Accepted Percent");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, percent);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, percent);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, percent);
+            }
             mPhysUnits2.setAdapter(adapter);
 
             linearLayout3.setVisibility(View.GONE);
@@ -2582,12 +2618,20 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Percent Composition (PC = (Mp / Mw) * 100%)"){
             mPhysTitle1.setText("Mass of Part");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Mass of Whole");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(2);
 
@@ -2596,12 +2640,20 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Rate of Reaction (Rate = Dq / Dt)"){
             mPhysTitle1.setText("Difference in Quantity");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Difference in Time");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, timeItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(1);
 
@@ -2681,7 +2733,11 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "pH (-log(H+))"){
             mPhysTitle1.setText("H+ Concentration");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massConcentration);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massConcentration);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massConcentration);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             linearLayout2.setVisibility(View.INVISIBLE);
@@ -2690,7 +2746,11 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "pOH (-log(OH-))"){
             mPhysTitle1.setText("OH- Concentration");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massConcentration);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massConcentration);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massConcentration);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             linearLayout2.setVisibility(View.INVISIBLE);
@@ -2699,11 +2759,19 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Boiling Point Elevation (" + DELTA + "Ts = Kb * Ms)"){
             mPhysTitle1.setText("Boiling Point Constant");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, bpConstant);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, bpConstant);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, bpConstant);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Molality of Solute");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, moleItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, moleItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, moleItems);
+            }
             mPhysUnits2.setAdapter(adapter);
 
             linearLayout3.setVisibility(View.INVISIBLE);
@@ -2711,11 +2779,19 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Freezing Point Depression (" + DELTA + "Ts = Kf * Ms)"){
             mPhysTitle1.setText("Freezing Point Constant");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, bpConstant);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, bpConstant);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, bpConstant);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Molality of Solute");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, moleItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, moleItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, moleItems);
+            }
             mPhysUnits2.setAdapter(adapter);
 
             linearLayout3.setVisibility(View.INVISIBLE);
@@ -2725,17 +2801,29 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle1.setText("Number of Moles");
 
             mPhysTitle2.setText("Gas Constant");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, gasConst);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, gasConst);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, gasConst);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysSub2.setText(Double.toString(gasConstant));
 
             mPhysTitle3.setText("Temperature");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, tempItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, tempItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, tempItems);
+            }
             mPhysUnits3.setAdapter(adapter);
             mPhysUnits3.setSelection(2);
 
             mPhysTitle4.setText("Volume");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, volumeItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, volumeItems);
+            }else {
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, volumeItems);
+            }
             mPhysUnits4.setAdapter(adapter);
 
         }
@@ -2744,57 +2832,100 @@ public class OperationsActivity extends AppCompatActivity {
             mPhysTitle1.setText("Number of Moles");
 
             mPhysTitle2.setText("Gas Constant");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, gasConst);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, gasConst);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, gasConst);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysSub2.setText(Double.toString(gasConstant));
 
             mPhysTitle3.setText("Temperature");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, tempItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, tempItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, tempItems);
+            }
             mPhysUnits3.setAdapter(adapter);
             mPhysUnits3.setSelection(2);
 
             mPhysTitle4.setText("Pressure");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, pressure);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, pressure);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, pressure);
+            }
             mPhysUnits4.setAdapter(adapter);
         }
 
         if(opTitle == "Heat Released from Burning (Eh = cMw" + DELTA + "T)"){
             mPhysTitle1.setText("Specific Heat Capacity");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, shc);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, shc);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, shc);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Mass of Water");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
-            mPhysUnits2.setAdapter(adapter);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massItems);
+            }            mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(2);
 
             mPhysTitle3.setText("Temperature");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, tempItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, tempItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, tempItems);
+            }
             mPhysUnits3.setAdapter(adapter);
         }
 
         if(opTitle == "Heat Transfer (q = mc" + DELTA + "T)"){
             mPhysTitle1.setText("Heat Energy");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, work);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, work);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, work);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Specific Heat");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, specificHeat);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, specificHeat);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, specificHeat);
+            }
             mPhysUnits2.setAdapter(adapter);
 
             mPhysTitle3.setText("Temperature");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, tempItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, tempItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, tempItems);
+            }
             mPhysUnits3.setAdapter(adapter);
             mPhysUnits3.setSelection(2);
         }
 
         if(opTitle == "Enthalpy (" + DELTA + "H = Hp - Hr)"){
             mPhysTitle1.setText("Enthalpy of Products");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, work);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, work);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, work);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Enthalpy of Reactants");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, work);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, work);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, work);
+            }
             mPhysUnits2.setAdapter(adapter);
 
             linearLayout3.setVisibility(View.INVISIBLE);
@@ -2802,11 +2933,19 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Entropy (" + DELTA + "S = Sp - Sr)"){
             mPhysTitle1.setText("Entropy of Products");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, entropy);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, entropy);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, entropy);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Entropy of Reactants");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, entropy);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, entropy);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, entropy);
+            }
             mPhysUnits2.setAdapter(adapter);
 
             linearLayout3.setVisibility(View.INVISIBLE);
@@ -2814,15 +2953,27 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Free Energy (" + DELTA + "G = " + DELTA + "H - T" + DELTA + "S)"){
             mPhysTitle1.setText("Enthalpy");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, work);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, work);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, work);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Temperature");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, tempItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, tempItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, tempItems);
+            }
             mPhysUnits2.setAdapter(adapter);
 
             mPhysTitle3.setText("Entropy");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, entropy);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, entropy);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, entropy);
+            }
             mPhysUnits3.setAdapter(adapter);
         }
 
@@ -3748,7 +3899,7 @@ public class OperationsActivity extends AppCompatActivity {
     }
 
 
-    // --------------HELPER METHODS -----------------//
+    // -------------- HELPER METHODS -----------------//
     public static String superscript(String str) {
         str = str.replaceAll("0", "⁰");
         str = str.replaceAll("1", "¹");

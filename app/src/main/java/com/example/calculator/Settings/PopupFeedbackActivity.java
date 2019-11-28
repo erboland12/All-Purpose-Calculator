@@ -24,6 +24,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.calculator.MainActivity;
@@ -43,10 +44,26 @@ public class PopupFeedbackActivity extends AppCompatActivity {
     private SmsManager smgr;
 
     private String PHONE = "8604223810";
+    private EditText message;
+    private LinearLayout layout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(returnDark()){
+            PopupFeedbackActivity.this.setTheme(R.style.darkTheme_NoActionBar);
+        }else{
+            PopupFeedbackActivity.this.setTheme(R.style.AppTheme_CustomWindowTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_popup_feedback);
+
+        message = findViewById(R.id.feedback_message);
+        layout = findViewById(R.id.feedback_layout);
+        if(returnDark()){
+            message.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        } else{
+            layout.setBackground(getResources().getDrawable(R.drawable.border));
+        }
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -98,6 +115,12 @@ public class PopupFeedbackActivity extends AppCompatActivity {
         editor.apply();
         editor.commit();
         finish();
+    }
+
+    private boolean returnDark(){
+        shared = getSharedPreferences("DarkMode", MODE_PRIVATE);
+        Log.d("Is Dark?", Boolean.toString(shared.getBoolean("darkMode", false)));
+        return shared.getBoolean("darkMode", false);
     }
 
 

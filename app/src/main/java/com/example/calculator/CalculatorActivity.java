@@ -100,13 +100,27 @@ public class CalculatorActivity extends AppCompatActivity{
                         resultShow.getText().toString().contains("-") ||
                         resultShow.getText().toString().contains("*") ||
                         resultShow.getText().toString().contains("/") ||
-                        resultShow.getText().toString().contains("^")){
+                        resultShow.getText().toString().contains("^") ||
+                        resultShow.getText().toString().contains(MINUS)){
                     plusBtn.setEnabled(false);
                     minusBtn.setEnabled(false);
                     divBtn.setEnabled(false);
                     timesBtn.setEnabled(false);
                     expBtn.setEnabled(false);
+                }else{
+                    enableBtns();
                 }
+
+//                char squareRoot = SQRT.charAt(0);
+//                if(resultShow.getText().toString().charAt(0) == squareRoot &&
+//                   resultShow.getText().toString().length() > 0){
+//                    plusBtn.setEnabled(false);
+//                    minusBtn.setEnabled(false);
+//                    divBtn.setEnabled(false);
+//                    timesBtn.setEnabled(false);
+//                    expBtn.setEnabled(false);
+//                }
+
 
                 if(resultShow.getText().toString().length() > 1){
                     if (resultShow.getText().toString().charAt(0) == '0'){
