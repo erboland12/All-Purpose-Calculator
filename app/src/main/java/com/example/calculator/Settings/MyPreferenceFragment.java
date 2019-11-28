@@ -13,7 +13,11 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreference;
 
+import android.text.Layout;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
@@ -26,7 +30,7 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat
     private Preference rating;
     private Preference feedback;
     private Preference darkMode;
-    private SharedPreferences shared = SettingsActivity.getContextOfApplication().getSharedPreferences("DarkMode", Context.MODE_PRIVATE);
+    private SharedPreferences shared;
     private SharedPreferences.Editor editor;
     private boolean isDark = false;
 
@@ -76,7 +80,8 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat
                     editor.apply();
                     editor.commit();
                 }
-                startActivity(new Intent(SettingsActivity.contextOfApplication, MainActivity.class));
+                getActivity().finish();
+                startActivity(new Intent(SettingsActivity.getContextOfApplication(), MainActivity.class));
                 return true;
             }
         });
@@ -92,6 +97,7 @@ public class MyPreferenceFragment extends PreferenceFragmentCompat
     }
 
     private boolean returnDark(){
+        shared = SettingsActivity.getContextOfApplication().getSharedPreferences("DarkMode", Context.MODE_PRIVATE);
         return shared.getBoolean("darkMode", false);
     }
 

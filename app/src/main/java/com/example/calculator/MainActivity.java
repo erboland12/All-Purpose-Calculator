@@ -1,6 +1,7 @@
 package com.example.calculator;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -9,6 +10,9 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -25,6 +29,15 @@ import com.example.calculator.Settings.MyPreferenceFragment;
 import com.example.calculator.Settings.SettingsActivity;
 import com.google.android.material.navigation.NavigationView;
 
+import static com.example.calculator.R.color.colorBlack;
+import static com.example.calculator.R.color.colorBlue;
+import static com.example.calculator.R.color.colorGold;
+import static com.example.calculator.R.color.colorGreen;
+import static com.example.calculator.R.color.colorLightBrown;
+import static com.example.calculator.R.color.colorPurple;
+import static com.example.calculator.R.color.colorWhite;
+import static com.example.calculator.R.color.whiteHexSmoke;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
 
     //Button initialization
@@ -40,10 +53,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ActionBarDrawerToggle mToggle;
 
     private SharedPreferences shared;
+    public static boolean darkIsOn = false;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(returnDark()){
+        if(returnDark() || AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
             MainActivity.this.setTheme(R.style.darkTheme);
         }else{
             MainActivity.this.setTheme(R.style.AppTheme);
@@ -110,12 +125,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        if(!returnDark()){
+            calculatorBtn.setBackgroundColor(getResources().getColor(whiteHexSmoke));
+            geoBtn.setBackgroundColor(getResources().getColor(colorGold));
+            chemBtn.setBackgroundColor(getResources().getColor(colorGreen));
+            trigBtn.setBackgroundColor(getResources().getColor(colorBlue));
+            physBtn.setBackgroundColor(getResources().getColor(colorLightBrown));
+            miscBtn.setBackgroundColor(getResources().getColor(colorPurple));
+        }
+
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_icon, menu);
+        if(returnDark()){
+//            Drawable draw = getResources().getDrawable(R.drawable.menu);
+//            draw.mutate().setColorFilter(getResources().getColor(colorWhite), PorterDuff.Mode.MULTIPLY);
+            getMenuInflater().inflate(R.menu.menu_icon, menu);
+            for(int i = 0; i < menu.size(); i++){
+                Drawable drawable = menu.getItem(i).getIcon();
+                if(drawable != null) {
+                    drawable.mutate();
+                    drawable.setColorFilter(getResources().getColor(colorWhite), PorterDuff.Mode.SRC_ATOP);
+                }
+            }
+        }else{
+            getMenuInflater().inflate(R.menu.menu_icon, menu);
+        }
         return true;
     }
 

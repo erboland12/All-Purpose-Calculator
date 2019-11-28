@@ -289,12 +289,11 @@ public class CalculatorActivity extends AppCompatActivity{
                 else if(resultShow.getText().toString().length() <= 1){
                     enableBtns();
                 }
-                else{
+                if(resultShow.getText().toString().length() > 0){
                     String edit = resultShow.getText().toString();
                     String finalEdit = edit.substring(0, edit.length() - 1);
                     resultShow.setText(finalEdit);
                 }
-
             }
         });
         equalsBtn = findViewById(R.id.calcEquals);
@@ -325,6 +324,10 @@ public class CalculatorActivity extends AppCompatActivity{
 
                 }
                 if(resultShow.getText().toString().contains(MINUS)){
+                    char testMinus = MINUS.charAt(0);
+                    if(resultShow.getText().toString().charAt(0) == testMinus){
+                        resultShow.setText("NaN");
+                    }
                     try{
                         Scanner scanner = new Scanner(resultShow.getText().toString());
                         scanner.useDelimiter("\\u2212");
@@ -412,8 +415,13 @@ public class CalculatorActivity extends AppCompatActivity{
                         resultShow.setText("");
                     }
                     else{
-                        x = Float.parseFloat(test);
-                        resultShow.setText(calc.squareRoot(x));
+                        char testSqrt = resultShow.getText().toString().charAt(0);
+                        if(resultShow.getText().toString().charAt(0) == testSqrt){
+                            x = Float.parseFloat(test);
+                            resultShow.setText(calc.squareRoot(x));
+                        }else{
+                            resultShow.setText("");
+                        }
                     }
                 }
                 enableBtns();

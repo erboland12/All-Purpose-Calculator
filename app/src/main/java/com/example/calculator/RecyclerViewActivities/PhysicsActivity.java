@@ -61,9 +61,6 @@ public class PhysicsActivity extends AppCompatActivity {
         if(returnDark()){
             PhysicsActivity.this.setTheme(R.style.darkTheme);
         }
-        else{
-            PhysicsActivity.this.setTheme(R.style.PhysTheme);
-        }
         super.onCreate(savedInstanceState);
         setTitle(R.string.Physics);
         setContentView(R.layout.activity_physics);

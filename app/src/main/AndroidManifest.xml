@@ -3,7 +3,6 @@
     package="com.example.calculator">
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.SEND_SMS"/>
-    <uses-sdk android:minSdkVersion="23"></uses-sdk>
 
     <application
         android:allowBackup="true"

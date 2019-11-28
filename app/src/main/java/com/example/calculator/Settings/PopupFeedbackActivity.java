@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.media.MediaCas;
 import android.net.ConnectivityManager;
@@ -38,6 +39,7 @@ public class PopupFeedbackActivity extends AppCompatActivity {
     private EditText getMessage;
     private Button submitBtn;
 
+    private SharedPreferences shared;
     private SmsManager smgr;
 
     private String PHONE = "8604223810";
@@ -49,10 +51,17 @@ public class PopupFeedbackActivity extends AppCompatActivity {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
+        getMessage = findViewById(R.id.feedback_message);
+
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
         getWindow().setLayout((int) (width * 0.8), (int)(height * 0.6));
+
+        shared = getSharedPreferences("Feedback", MODE_PRIVATE);
+        if(shared != null){
+            getMessage.setText(shared.getString("Response", ""));
+        }
 
         smgr = SmsManager.getDefault();
         submitBtn = findViewById(R.id.rating_btn);
@@ -60,7 +69,6 @@ public class PopupFeedbackActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View view) {
-                getMessage = findViewById(R.id.feedback_message);
                 String finalMessage = getMessage.getText().toString();
                 String[] array = {Manifest.permission.SEND_SMS};
                 if (ContextCompat.checkSelfPermission(SettingsActivity.getContextOfApplication(), Manifest.permission.SEND_SMS)
@@ -69,11 +77,28 @@ public class PopupFeedbackActivity extends AppCompatActivity {
                     Toast.makeText(PopupFeedbackActivity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
                 } else{
                     smgr.sendTextMessage(PHONE, null, finalMessage, null, null);
+                    getMessage.setText("");
+                    finish();
                     Toast.makeText(PopupFeedbackActivity.this, "Feedback Sent", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
+
     }
+
+    @Override
+    public void onBackPressed(){
+        SharedPreferences.Editor editor = shared.edit();
+        if(!getMessage.getText().toString().isEmpty()){
+            editor.putString("Response", getMessage.getText().toString());
+        }else{
+            editor.putString("Response", "");
+        }
+        editor.apply();
+        editor.commit();
+        finish();
+    }
+
 
 }
