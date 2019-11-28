@@ -139,14 +139,15 @@ public class OperationsActivity extends AppCompatActivity {
             OperationsActivity.this.setTheme(R.style.darkTheme);
         }
         super.onCreate(savedInstanceState);
+        String cent = "Centripetal Acceleration (" + ALPHA + " = v2/r)";
         String centA2 = "Centripetal Acceleration (" + ALPHA + " = " + OMEGA + "2/r)";
 
         if(opTitle == "Force (F = ma)" || opTitle == "Weight (W = mg)" || opTitle == "Acceleration (a = " + DELTA + "v/" + DELTA + "t)" ||
-            opTitle == "Momentum (p = mv)" || opTitle == "Centripetal Acceleration (" + ALPHA + " = v2/r)" || opTitle == centA2 || opTitle == "Impulse (" + DELTA + "p = F" + DELTA + "t)" ||
+            opTitle == "Momentum (p = mv)" || opTitle == cent || opTitle == centA2 || opTitle == "Impulse (" + DELTA + "p = F" + DELTA + "t)" ||
             opTitle == "Kinetic Energy (KE = 1/2 * mv2)" || opTitle == "Kinetic Energy (KE = p2/2m)" || opTitle == "Gravitational P.E (" + DELTA + "Ug = mg" + DELTA +"h)" ||
             opTitle == "Power (P = " + DELTA + "W/" + DELTA + "t)" || opTitle == "Hooke's Law (F = -k" + DELTA + "x)" || opTitle == "Angular Velocity (" + OMEGA + " = " + DELTA + THETA + "/" + DELTA + "t)" ||
             opTitle == "Angular Acceleration (" + ALPHA + " = " + DELTA + OMEGA + "/" + DELTA + "t)" || opTitle == "Angular Momentum (L = I" + OMEGA + ")" || opTitle == "Displacement (x = r" +  THETA + ")" ||
-            opTitle == "Velocity (v = r" + OMEGA + ")" || opTitle == "Acceleration (a = r" + ALPHA + ")" || opTitle == "Centripetal Acceleration (" + ALPHA + " = v2/r)" ||
+            opTitle == "Velocity (v = r" + OMEGA + ")" || opTitle == "Acceleration (a = r" + ALPHA + ")"  ||
             opTitle == "Centripetal Acceleration (" + ALPHA + " = " + OMEGA + "2/r)" || opTitle == "Centripetal Force (F = mv2/r)" || opTitle == "Angular Velocity (" + OMEGA + " = " + OMEGA + "0 + " + ALPHA + "t)" ||
             opTitle == "Average Angular Velocity (" + OMEGA + " = 1/2(" + OMEGA + "+" + OMEGA + "0))" || opTitle == "Rotational Work (W = " + TAU + DELTA + THETA + ")" ||
             opTitle == "Rotational Power (P = " + TAU + OMEGA + ")" || opTitle == "Rotational Power (P = " + TAU + OMEGA + "cos(" + THETA + "))" ||
@@ -693,37 +694,61 @@ public class OperationsActivity extends AppCompatActivity {
     private void setPhysicsOps(){
         if(opTitle == "Force (F = ma)"){
             mPhysTitle1.setText("Mass");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Acceleration");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, accelerationItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, accelerationItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, accelerationItems);
+            }
             mPhysUnits2.setAdapter(adapter);
 
             linearLayout3.setVisibility(View.GONE);
         }
         if(opTitle == "Weight (W = mg)"){
             mPhysTitle1.setText("Mass");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(2);
 
             mPhysSub2.setText("9.81");
             mPhysTitle2.setText("Gravity");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, gravity);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, gravity);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, gravity);
+            }
             mPhysUnits2.setAdapter(adapter);
 
             linearLayout3.setVisibility(View.GONE);
         }
         if(opTitle == "Acceleration (a = " + DELTA + "v/" + DELTA + "t)"){
             mPhysTitle1.setText("Velocity");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, velocityItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, velocityItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, velocityItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(1);
 
             mPhysTitle2.setText("Time");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, timeItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(1);
 
@@ -732,12 +757,20 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Momentum (p = mv)"){
             mPhysTitle1.setText("Mass");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Velocity");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, velocityItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, velocityItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, velocityItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(1);
 
@@ -746,11 +779,19 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Impulse (" + DELTA + "p = F" + DELTA + "t)"){
             mPhysTitle1.setText("Force");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, forceItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, forceItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, forceItems);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Time");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, timeItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(1);
 
@@ -759,12 +800,20 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Kinetic Energy (KE = 1/2 * mv2)"){
             mPhysTitle1.setText("Mass");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Velocity");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, velocityItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, velocityItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, velocityItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(1);
 
@@ -773,11 +822,19 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Kinetic Energy (KE = p2/2m)"){
             mPhysTitle1.setText("Momentum");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, momentum);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, momentum);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, momentum);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Mass");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(2);
 
@@ -786,28 +843,48 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Gravitational P.E (" + DELTA + "Ug = mg" + DELTA +"h)"){
             mPhysTitle1.setText("Mass");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(2);
 
             mPhysSub2.setText("9.81");
             mPhysTitle2.setText("Gravity");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, gravity);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, gravity);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, gravity);
+            }
             mPhysUnits2.setAdapter(adapter);
 
             mPhysTitle3.setText("Height");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, lengthItems);
+            }
             mPhysUnits3.setAdapter(adapter);
             mPhysUnits3.setSelection(2);
         }
 
         if(opTitle == "Power (P = " + DELTA + "W/" + DELTA + "t)"){
             mPhysTitle1.setText("Work");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, work);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, work);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, work);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Time");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, timeItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(1);
 
@@ -815,11 +892,19 @@ public class OperationsActivity extends AppCompatActivity {
         }
         if(opTitle == "Hooke's Law (F = -k" + DELTA + "x)"){
             mPhysTitle1.setText("Constant (k)");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, springConstant);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, springConstant);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, springConstant);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Displacement");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, lengthItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(2);
 
@@ -827,11 +912,19 @@ public class OperationsActivity extends AppCompatActivity {
         }
         if(opTitle == "Angular Velocity (" + OMEGA + " = " + DELTA + THETA + "/" + DELTA + "t)"){
             mPhysTitle1.setText("Theta");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, thetaItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, thetaItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, thetaItems);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Time");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, timeItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(1);
 
@@ -840,11 +933,19 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Angular Acceleration (" + ALPHA + " = " + DELTA + OMEGA + "/" + DELTA + "t)"){
             mPhysTitle1.setText("Velocity");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, angularVelocityItems);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Time");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, timeItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(1);
 
@@ -853,12 +954,20 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Angular Momentum (L = I" + OMEGA + ")"){
             mPhysTitle1.setText("Inertia");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Velocity");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, angularVelocityItems);
+            }
             mPhysUnits2.setAdapter(adapter);
 
             linearLayout3.setVisibility(View.GONE);
@@ -866,12 +975,20 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Displacement (x = r" +  THETA + ")"){
             mPhysTitle1.setText("Radius");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, lengthItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Theta");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, thetaItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, thetaItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, thetaItems);
+            }
             mPhysUnits2.setAdapter(adapter);
 
             linearLayout3.setVisibility(View.GONE);
@@ -879,12 +996,20 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Velocity (v = r" + OMEGA + ")"){
             mPhysTitle1.setText("Radius");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, lengthItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Velocity");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, angularVelocityItems);
+            }
             mPhysUnits2.setAdapter(adapter);
 
             linearLayout3.setVisibility(View.GONE);
@@ -892,25 +1017,41 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Acceleration (a = r" + ALPHA + ")"){
             mPhysTitle1.setText("Radius");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, lengthItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Acceleration");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularAccelerationItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularAccelerationItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, angularAccelerationItems);
+            }
             mPhysUnits2.setAdapter(adapter);
 
             linearLayout3.setVisibility(View.GONE);
         }
 
-        if(opTitle == "Centripetal Acceleration (" + ALPHA + "  = v2/r)"){
+        if(opTitle == "Centripetal Acceleration (" + ALPHA + " = v2/r)"){
             mPhysTitle1.setText("Velocity");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, velocityItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, velocityItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, velocityItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(1);
 
             mPhysTitle2.setText("Radius");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, lengthItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(2);
 
@@ -919,11 +1060,19 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Centripetal Acceleration (" + ALPHA + " = " + OMEGA + "2/r)"){
             mPhysTitle1.setText("Velocity");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, angularVelocityItems);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Radius");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, lengthItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(2);
 
@@ -932,32 +1081,56 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Centripetal Force (F = mv2/r)"){
             mPhysTitle1.setText("Mass");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Velocity");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, velocityItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, velocityItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, velocityItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(1);
 
             mPhysTitle3.setText("Radius");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, lengthItems);
+            }
             mPhysUnits3.setAdapter(adapter);
             mPhysUnits3.setSelection(2);
         }
 
         if(opTitle == "Angular Velocity (" + OMEGA + " = " + OMEGA + "0 + " + ALPHA + "t)"){
             mPhysTitle1.setText("Initial Velocity");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, angularVelocityItems);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Acceleration");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularAccelerationItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularAccelerationItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, angularAccelerationItems);
+            }
             mPhysUnits2.setAdapter(adapter);
 
             mPhysTitle3.setText("Time");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, timeItems);
+            }
             mPhysUnits3.setAdapter(adapter);
             mPhysUnits3.setSelection(1);
 
@@ -965,11 +1138,19 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Average Angular Velocity (" + OMEGA + " = 1/2(" + OMEGA + "+" + OMEGA + "0))"){
             mPhysTitle1.setText("Velocity");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, angularVelocityItems);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Initial Velocity");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, angularVelocityItems);
+            }
             mPhysUnits2.setAdapter(adapter);
 
             linearLayout3.setVisibility(View.GONE);
@@ -977,11 +1158,19 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Rotational Work (W = " + TAU + DELTA + THETA + ")"){
             mPhysTitle1.setText("Torque");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, torque);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, torque);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, torque);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Theta");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, thetaItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, thetaItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, thetaItems);
+            }
             mPhysUnits2.setAdapter(adapter);
 
             linearLayout3.setVisibility(View.GONE);
@@ -989,11 +1178,19 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Rotational Power (P = " + TAU + OMEGA + ")"){
             mPhysTitle1.setText("Torque");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, torque);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, torque);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, torque);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Velocity");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, angularVelocityItems);
+            }
             mPhysUnits2.setAdapter(adapter);
 
             linearLayout3.setVisibility(View.GONE);
@@ -1001,51 +1198,67 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Rotational Power (P = " + TAU + OMEGA + "cos(" + THETA + "))"){
             mPhysTitle1.setText("Torque");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, torque);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, torque);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, torque);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Velocity");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, angularVelocityItems);
+            }
             mPhysUnits2.setAdapter(adapter);
 
             mPhysTitle3.setText("Theta");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, thetaItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, thetaItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, thetaItems);
+            }
             mPhysUnits3.setAdapter(adapter);
         }
 
         if(opTitle == "Rotational K.E (KE = 1/2 * I" + OMEGA + "2)"){
             mPhysTitle1.setText("Inertia");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Velocity");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularVelocityItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, velocityItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, velocityItems);
+            }
             mPhysUnits2.setAdapter(adapter);
 
             linearLayout3.setVisibility(View.GONE);
         }
 
-        if(opTitle == "Density (p = m/v)"){
-            mPhysTitle1.setText("Mass");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
-            mPhysUnits1.setAdapter(adapter);
-            mPhysUnits1.setSelection(2);
-
-            mPhysTitle2.setText("Volume");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, volumeItems);
-            mPhysUnits2.setAdapter(adapter);
-
-            linearLayout3.setVisibility(View.GONE);
-        }
 
         if(opTitle == "Pressure (P = F/A)"){
             mPhysTitle1.setText("Force");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, forceItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, forceItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, forceItems);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Area");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, areaItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, areaItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, areaItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(1);
 
@@ -1054,29 +1267,49 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Hydrostatic Pressure (" + DELTA + "P = pgh)"){
             mPhysTitle1.setText("Density");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, densityItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, densityItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, densityItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(1);
 
             mPhysSub2.setText("9.81");
             mPhysTitle2.setText("Gravity");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, gravity);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, gravity);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, gravity);
+            }
             mPhysUnits2.setAdapter(adapter);
 
             mPhysTitle3.setText("Height");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, lengthItems);
+            }
             mPhysUnits3.setAdapter(adapter);
             mPhysUnits3.setSelection(2);
         }
 
         if(opTitle == "Dynamic Pressure (q = 1/2" + RHO + "v2)"){
             mPhysTitle1.setText("Density");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, densityItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, densityItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, densityItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(1);
 
-            mPhysTitle2.setText("Velocity");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, velocityItems);
+            mPhysTitle2.setText("Volume");
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, volumeItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, volumeItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(1);
 
@@ -1085,12 +1318,20 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Solid Sphere (I = 2/5 * MR2)"){
             mPhysTitle1.setText("Mass");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Radius");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, lengthItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(2);
 
@@ -1099,12 +1340,20 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Hollow Sphere (I = 2/3 * MR2)"){
             mPhysTitle1.setText("Mass");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Radius");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, lengthItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(2);
 
@@ -1113,12 +1362,20 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Solid Cylinder (I = 1/2 * MR2)"){
             mPhysTitle1.setText("Mass");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Radius");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, lengthItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(2);
 
@@ -1127,46 +1384,80 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Hollow Cylinder (I = 1/2 *  M(Ra2 + Rb2))"){
             mPhysTitle1.setText("Mass");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Radius 1");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, lengthItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(2);
 
+
             mPhysTitle3.setText("Radius 2");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, lengthItems);
+            }
             mPhysUnits3.setAdapter(adapter);
             mPhysUnits3.setSelection(3);
         }
 
         if(opTitle == "Rect. Plate, Center Axis (I = 1/12 * M(a2 + b2))"){
             mPhysTitle1.setText("Mass");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Side 1 (A)");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, lengthItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(2);
 
             mPhysTitle3.setText("Side 2 (B)");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, lengthItems);
+            }
             mPhysUnits3.setAdapter(adapter);
             mPhysUnits3.setSelection(2);
         }
 
         if(opTitle == "Rect. Plate, Edge Axis (I = 1/3 * Ma2)"){
             mPhysTitle1.setText("Mass");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Side (A)");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, lengthItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(2);
 
@@ -1175,12 +1466,20 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Slender Rod, Center Axis (I = 1/12 * ML2)"){
             mPhysTitle1.setText("Mass");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Length");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, lengthItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(2);
 
@@ -1189,12 +1488,20 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Slender Rod, Edge Axis (I = 1/3 * ML2)"){
             mPhysTitle1.setText("Mass");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, massItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, massItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(2);
 
             mPhysTitle2.setText("Length");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, lengthItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(2);
 
@@ -1203,41 +1510,73 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Displacement (x = A*cos(2" + PI + "ft))"){
             mPhysTitle1.setText("Amplitude");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, amplitude);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, amplitude);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, amplitude);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Frequency");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularFrequency);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularFrequency);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, angularFrequency);
+            }
             mPhysUnits2.setAdapter(adapter);
 
             mPhysTitle3.setText("Time");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, timeItems);
+            }
             mPhysUnits3.setAdapter(adapter);
             mPhysUnits3.setSelection(1);
         }
 
         if(opTitle == "Velocity (v = 2" + PI + "f * " + SQRT + "(A2 - x2))"){
             mPhysTitle1.setText("Frequency");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularFrequency);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularFrequency);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, angularFrequency);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Amplitude");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, amplitude);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, amplitude);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, amplitude);
+            }
             mPhysUnits2.setAdapter(adapter);
 
             mPhysTitle3.setText("Displacement");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, lengthItems);
+            }
             mPhysUnits3.setAdapter(adapter);
             mPhysUnits3.setSelection(2);
         }
 
         if(opTitle == "Acceleration (a = (-2" + PI + "f)2 * x)"){
             mPhysTitle1.setText("Frequency");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularFrequency);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, angularFrequency);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, angularFrequency);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Displacement");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, lengthItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(2);
 
@@ -1246,11 +1585,19 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Force (F = -kx)"){
             mPhysTitle1.setText("Constant (k)");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, springConstant);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, springConstant);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, springConstant);
+            }
             mPhysUnits1.setAdapter(adapter);
 
             mPhysTitle2.setText("Displacement");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lengthItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, lengthItems);
+            }
             mPhysUnits2.setAdapter(adapter);
             mPhysUnits2.setSelection(2);
 
@@ -1259,7 +1606,11 @@ public class OperationsActivity extends AppCompatActivity {
 
         if(opTitle == "Frequency (f = 1/T)"){
             mPhysTitle1.setText("Period");
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
+            if(!returnDark()){
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, timeItems);
+            }else{
+                adapter = new ArrayAdapter<>(this, R.layout.spinner_item, timeItems);
+            }
             mPhysUnits1.setAdapter(adapter);
             mPhysUnits1.setSelection(1);
 

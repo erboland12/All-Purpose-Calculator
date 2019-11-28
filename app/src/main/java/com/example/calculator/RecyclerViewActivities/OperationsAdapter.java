@@ -17,6 +17,7 @@ import java.util.List;
 
 import static com.example.calculator.RecyclerViewActivities.OperationsActivity.OMEGA;
 import static com.example.calculator.RecyclerViewActivities.OperationsActivity.superscript;
+import static com.example.calculator.RecyclerViewActivities.PhysicsActivity.ALPHA;
 import static com.example.calculator.RecyclerViewActivities.PhysicsActivity.RHO;
 
 public class OperationsAdapter extends
@@ -109,6 +110,13 @@ public class OperationsAdapter extends
         }
         else if (ops.getTitle() == "Rotational K.E (KE = 1/2 * I" + OMEGA + "2)"){
             textView.setText("Rotational K.E (KE = 1/2 * I" + OMEGA + superscript("2)"));
+        }
+
+        else if (ops.getTitle() == "Centripetal Acceleration (" + ALPHA + " = v2/r)"){
+            textView.setText("Centripetal Acceleration (" + ALPHA + superscript(" = v2/r)"));
+        }
+        else if (ops.getTitle() == "Centripetal Acceleration (" + ALPHA + " = " + OMEGA + "2/r)"){
+            textView.setText("Centripetal Acceleration (" + ALPHA + " = " + OMEGA + superscript("2/r)"));
         }
         else if (ops.getTitle() == "Dynamic Pressure (q = 1/2" + RHO + "v2"){
             textView.setText("Dynamic Pressure (q = 1/2" + RHO + superscript("v2"));
